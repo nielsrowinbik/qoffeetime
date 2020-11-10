@@ -22,7 +22,7 @@ const RecipeTimer = () => {
     return (
         <main>
             <nav>
-                <Link href="/">
+                <Link href={`/recipe/${id}`}>
                     <button>back</button>
                 </Link>
             </nav>

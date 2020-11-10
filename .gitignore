@@ -1,7 +1,7 @@
 # next.js build output
 .next
 
-# dotenv environment variables file (build for Zeit Now)
+# dotenv environment variables file (build for Vercel)
 .env
 .env.build
 
@@ -12,3 +12,7 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Service Worker files (will be regenerated during build)
+public/sw.js*
+public/workbox*
