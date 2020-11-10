@@ -1,6 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { LinkButton } from "../../../components/LinkButton";
+import { Main } from "../../../components/Main";
+
 import recipe from "../../../recipies/v60.json";
 
 const RecipeSettings = () => {
@@ -8,7 +11,7 @@ const RecipeSettings = () => {
     const { id } = router.query;
 
     return (
-        <main>
+        <Main>
             <nav>
                 <Link href="/">
                     <button>back</button>
@@ -16,15 +19,36 @@ const RecipeSettings = () => {
             </nav>
             <article>
                 <h1>{recipe.name}</h1>
-                <div>
+                <div className="slider">
                     <input min={0} type="range" />
                 </div>
                 <p>{recipe.description}</p>
-                <Link href={`/recipe/${id}/timer`}>
-                    <button>Let's do it!</button>
-                </Link>
+                <LinkButton href={`/recipe/${id}/timer`}>
+                    Let's do it!
+                </LinkButton>
+                <style jsx>{`
+                    article {
+                        display: flex;
+                        flex-direction: column;
+                        height: 100%;
+                        padding: 0 12px 12px 12px;
+                    }
+
+                    h1 {
+                        font-size: 3rem;
+                    }
+
+                    p {
+                        font-size: 1.1rem;
+                        font-weight: 500;
+                    }
+
+                    .slider {
+                        flex: 100%;
+                    }
+                `}</style>
             </article>
-        </main>
+        </Main>
     );
 };
 

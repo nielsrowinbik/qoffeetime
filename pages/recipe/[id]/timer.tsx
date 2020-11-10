@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { Main } from "../../../components/Main";
+import { StepsList } from "../../../components/StepsList";
+import { TotalTime } from "../../../components/TotalTime";
+
 import { useTimer } from "../../../hooks/use-timer";
 import { parseMillisecondsIntoTimeStamp } from "../../../utils/parser";
 
@@ -20,48 +24,26 @@ const RecipeTimer = () => {
     };
 
     return (
-        <main>
+        <Main>
             <nav>
                 <Link href={`/recipe/${id}`}>
                     <button>back</button>
                 </Link>
             </nav>
             <article>
-                <div>
-                    <time>
-                        {parseMillisecondsIntoTimeStamp(timer.remaining)}
-                    </time>
-                    <span>&nbsp;</span>
-                    <span>total left</span>
-                </div>
+                <TotalTime>{timer.remaining}</TotalTime>
                 <h1>
-                    {parseMillisecondsIntoTimeStamp(timer.currentStepRemaining)}
+                    <time>
+                        {parseMillisecondsIntoTimeStamp(
+                            timer.currentStepRemaining
+                        )}
+                    </time>
                 </h1>
                 <h2>{recipe.steps[timer.currentStepIndex].description}</h2>
-                <ul>
-                    {recipe.steps.map((step, i) => {
-                        const content = (
-                            <>
-                                <time>
-                                    {parseMillisecondsIntoTimeStamp(
-                                        step.duration * 1000
-                                    )}
-                                </time>
-                                <span>&nbsp;</span>
-                                <span>{step.description}</span>
-                            </>
-                        );
-
-                        if (timer.currentStepIndex === i)
-                            return (
-                                <li key={i}>
-                                    <strong>{content}</strong>
-                                </li>
-                            );
-
-                        return <li key={i}>{content}</li>;
-                    })}
-                </ul>
+                <StepsList
+                    steps={recipe.steps}
+                    currentStepIndex={timer.currentStepIndex}
+                />
                 {timer.elapsed === 0 && (
                     <button onClick={timer.start}>Start</button>
                 )}
@@ -74,7 +56,32 @@ const RecipeTimer = () => {
                     <button onClick={onStopClick}>Stop</button>
                 )}
             </article>
-        </main>
+            <style jsx>{`
+                article {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    padding: 0 12px 12px 12px;
+                }
+
+                .total {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                }
+
+                .total time {
+                    font-family: Roboto;
+                    font-size: 1.8rem;
+                    font-weight: 600;
+                }
+
+                h1 {
+                    font-size: 5rem;
+                    margin: 0;
+                }
+            `}</style>
+        </Main>
     );
 };
 

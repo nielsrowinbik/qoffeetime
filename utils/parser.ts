@@ -1,17 +1,8 @@
-export const parseMillisecondsIntoTimeStamp = (
-    milliseconds: number,
-    includeHours = false
-) => {
-    //Get hours from milliseconds
-    const hours = milliseconds / (1000 * 60 * 60);
-    const absoluteHours = Math.floor(hours);
-    const hourString = absoluteHours > 9 ? absoluteHours : `0${absoluteHours}`;
-
-    //Get remainder from hours and convert to minutes
-    const minutes = (hours - absoluteHours) * 60;
+export const parseMillisecondsIntoTimeStamp = (milliseconds: number) => {
+    //Get minutes from milliseconds
+    const minutes = milliseconds / (1000 * 60);
     const absoluteMinutes = Math.floor(minutes);
-    const minuteString =
-        absoluteMinutes > 9 ? absoluteMinutes : `0${absoluteMinutes}`;
+    const minuteString = absoluteMinutes;
 
     //Get remainder from minutes and convert to seconds
     const seconds = (minutes - absoluteMinutes) * 60;
@@ -19,7 +10,5 @@ export const parseMillisecondsIntoTimeStamp = (
     const secondString =
         absoluteSeconds > 9 ? absoluteSeconds : `0${absoluteSeconds}`;
 
-    return [hourString, minuteString, secondString]
-        .slice(includeHours ? 0 : 1, 3)
-        .join(":");
+    return [minuteString, secondString].join(":");
 };
