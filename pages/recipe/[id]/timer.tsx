@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import { Button } from "../../../components/Button";
 import { Main } from "../../../components/Main";
+import { Nav } from "../../../components/Nav";
 import { StepsList } from "../../../components/StepsList";
 import { TotalTime } from "../../../components/TotalTime";
 
@@ -9,6 +11,7 @@ import { useTimer } from "../../../hooks/use-timer";
 import { parseMillisecondsIntoTimeStamp } from "../../../utils/parser";
 
 import recipe from "../../../recipies/v60.json";
+import { ButtonGroup } from "../../../components/ButtonGroup";
 
 const RecipeTimer = () => {
     const router = useRouter();
@@ -25,11 +28,11 @@ const RecipeTimer = () => {
 
     return (
         <Main>
-            <nav>
+            <Nav>
                 <Link href={`/recipe/${id}`}>
                     <button>back</button>
                 </Link>
-            </nav>
+            </Nav>
             <article>
                 <TotalTime>{timer.remaining}</TotalTime>
                 <h1>
@@ -45,15 +48,17 @@ const RecipeTimer = () => {
                     currentStepIndex={timer.currentStepIndex}
                 />
                 {timer.elapsed === 0 && (
-                    <button onClick={timer.start}>Start</button>
+                    <Button onClick={timer.start}>Start</Button>
                 )}
                 {timer.elapsed > 0 && (
-                    <button onClick={timer.toggle}>
-                        {timer.isRunning ? "Pause" : "Continue"}
-                    </button>
-                )}
-                {timer.elapsed > 0 && (
-                    <button onClick={onStopClick}>Stop</button>
+                    <ButtonGroup>
+                        <Button onClick={timer.toggle}>
+                            {timer.isRunning ? "Pause" : "Continue"}
+                        </Button>
+                        <Button dark onClick={onStopClick}>
+                            Stop
+                        </Button>
+                    </ButtonGroup>
                 )}
             </article>
             <style jsx>{`
@@ -61,19 +66,6 @@ const RecipeTimer = () => {
                     display: flex;
                     flex-direction: column;
                     height: 100%;
-                    padding: 0 12px 12px 12px;
-                }
-
-                .total {
-                    display: flex;
-                    flex-direction: column;
-                    text-align: center;
-                }
-
-                .total time {
-                    font-family: Roboto;
-                    font-size: 1.8rem;
-                    font-weight: 600;
                 }
 
                 h1 {

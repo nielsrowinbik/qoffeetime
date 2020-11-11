@@ -26,6 +26,7 @@ export const StepsList: FC<StepsListProps> = ({
         <style jsx>{`
             ol {
                 margin: 0;
+                overflow: auto;
                 padding-inline-start: 24px;
             }
 

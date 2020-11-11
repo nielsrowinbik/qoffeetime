@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { LinkButton } from "../../../components/LinkButton";
 import { Main } from "../../../components/Main";
+import { Nav } from "../../../components/Nav";
 
 import recipe from "../../../recipies/v60.json";
 
@@ -12,11 +13,11 @@ const RecipeSettings = () => {
 
     return (
         <Main>
-            <nav>
+            <Nav>
                 <Link href="/">
                     <button>back</button>
                 </Link>
-            </nav>
+            </Nav>
             <article>
                 <h1>{recipe.name}</h1>
                 <div className="slider">
@@ -31,7 +32,6 @@ const RecipeSettings = () => {
                         display: flex;
                         flex-direction: column;
                         height: 100%;
-                        padding: 0 12px 12px 12px;
                     }
 
                     h1 {
