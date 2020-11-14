@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const Nav = styled.nav`
     align-items: center;
     display: flex;
-    flex: 0 0 64px;
     flex-direction: row;
     flex-wrap: nowrap;
+    grid-area: nav;
     height: 64px;
 `;

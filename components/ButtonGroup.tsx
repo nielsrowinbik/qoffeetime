@@ -10,14 +10,16 @@ export const ButtonGroup = styled.div`
         flex: 100%;
     }
 
-    ${Button}:first-child {
-        border-top-right-radius: 0;
+    ${Button}:first-child:not(:only-child) {
         border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+        margin-right: 0;
     }
 
-    ${Button}:last-child {
-        border-top-left-radius: 0;
+    ${Button}:last-child:not(:only-child) {
         border-bottom-left-radius: 0;
+        border-top-left-radius: 0;
+        margin-left: 0;
     }
 
     ${Button}:not(:first-child):not(:last-child) {

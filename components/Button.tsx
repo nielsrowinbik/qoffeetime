@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+type ButtonProps = {
+    dark?: boolean;
+};
+
+export const Button = styled.button<ButtonProps>`
     font-family: Roboto;
     font-size: 1rem;
     font-weight: 700;

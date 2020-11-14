@@ -1,13 +1,12 @@
 import SwipeableViews from "react-swipeable-views";
 import Head from "next/head";
 
-import { Main } from "../components/Main";
 import { RecipeSlide } from "../components/RecipeSlide";
 
 import V60Recipe from "../recipies/v60.json";
 
 const IndexView = () => (
-    <Main>
+    <>
         <Head>
             <link
                 rel="apple-touch-icon"
@@ -47,14 +46,14 @@ const IndexView = () => (
         </Head>
         <SwipeableViews
             enableMouseEvents
-            style={{ height: "100%" }}
+            style={{ height: "100%", gridArea: "main" }}
             containerStyle={{ height: "100%" }}
         >
             <RecipeSlide recipe={V60Recipe} slug="v60" />
             <RecipeSlide recipe={V60Recipe} slug="v60" />
             <RecipeSlide recipe={V60Recipe} slug="v60" />
         </SwipeableViews>
-    </Main>
+    </>
 );
 
 export default IndexView;

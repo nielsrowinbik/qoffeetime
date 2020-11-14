@@ -3,8 +3,32 @@ import { FC } from "react";
 
 import { Button } from "./Button";
 
-export const LinkButton: FC<LinkProps> = ({ href, ...props }) => (
-    <Link href={href}>
-        <Button {...props} />
-    </Link>
-);
+export const LinkButton: FC<LinkProps> = (props) => {
+    const {
+        href,
+        as,
+        replace,
+        scroll,
+        shallow,
+        passHref,
+        prefetch,
+        locale,
+        ...buttonProps
+    } = props;
+    const linkProps = {
+        href,
+        as,
+        replace,
+        scroll,
+        shallow,
+        passHref,
+        prefetch,
+        locale,
+    };
+
+    return (
+        <Link {...linkProps}>
+            <Button {...buttonProps} />
+        </Link>
+    );
+};

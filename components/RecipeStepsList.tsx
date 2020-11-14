@@ -1,41 +1,42 @@
 import { FC } from "react";
+import styled from "styled-components";
 
-import { parseMillisecondsIntoTimeStamp } from "../utils/parser";
 import { RecipeStep } from "../utils/types";
+import { Timestamp } from "./Timestamp";
+
+const StepsOrderedList = styled.ol`
+    margin: 0;
+    overflow: auto;
+    padding-inline-start: 24px;
+`;
+
+const StepsListItem = styled.li<{ active?: boolean }>`
+    &::marker {
+        color: rgba(0, 0, 0, 0.2);
+        font-family: Roboto;
+        font-weight: 700;
+    }
+`;
 
 type StepsListProps = {
     currentStepIndex?: number;
     steps: RecipeStep[];
 };
 
-export const StepsList: FC<StepsListProps> = ({
+export const RecipeStepsList: FC<StepsListProps> = ({
     currentStepIndex = -1,
     steps,
 }) => (
-    <ol>
+    <StepsOrderedList>
         {steps.map((step, i) => (
-            <li className={currentStepIndex === i ? "active" : ""} key={i}>
-                <div className="flex">
-                    <time>
-                        {parseMillisecondsIntoTimeStamp(step.duration * 1000)}
-                    </time>
+            <StepsListItem active={currentStepIndex === i} key={i}>
+                <div>
+                    <Timestamp>{step.duration * 1000}</Timestamp>
                     <p>{step.description}</p>
                 </div>
-            </li>
+            </StepsListItem>
         ))}
         <style jsx>{`
-            ol {
-                margin: 0;
-                overflow: auto;
-                padding-inline-start: 24px;
-            }
-
-            li::marker {
-                font-family: Roboto;
-                font-weight: 700;
-                color: rgba(0, 0, 0, 0.2);
-            }
-
             li time {
                 display: flex;
                 align-items: center;
@@ -67,5 +68,5 @@ export const StepsList: FC<StepsListProps> = ({
                 height: 48px;
             }
         `}</style>
-    </ol>
+    </StepsOrderedList>
 );

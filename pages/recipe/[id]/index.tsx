@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useCallback, useState } from "react";
 
 import { LinkButton } from "../../../components/LinkButton";
-import { Main } from "../../../components/Main";
 import { Nav } from "../../../components/Nav";
+import { RatioSlider } from "../../../components/RatioSlider";
 
 import recipe from "../../../recipies/v60.json";
 
@@ -11,44 +12,36 @@ const RecipeSettings = () => {
     const router = useRouter();
     const { id } = router.query;
 
+    const [desiredVolume, setDesiredVolume] = useState(250);
+    const onChange = useCallback((newValue) => setDesiredVolume(newValue), []);
+
     return (
-        <Main>
+        <>
             <Nav>
                 <Link href="/">
                     <button>back</button>
                 </Link>
             </Nav>
-            <article>
-                <h1>{recipe.name}</h1>
-                <div className="slider">
-                    <input min={0} type="range" />
-                </div>
+            <article style={{ gridArea: "main" }}>
+                <h2 style={{ marginTop: 0 }}>{recipe.name}</h2>
+                <RatioSlider
+                    recipe={recipe}
+                    value={desiredVolume}
+                    onChange={onChange}
+                />
+                <p>
+                    <strong>About this recipe:</strong>
+                </p>
                 <p>{recipe.description}</p>
-                <LinkButton href={`/recipe/${id}/timer`}>
-                    Let's do it!
-                </LinkButton>
-                <style jsx>{`
-                    article {
-                        display: flex;
-                        flex-direction: column;
-                        height: 100%;
-                    }
-
-                    h1 {
-                        font-size: 3rem;
-                    }
-
-                    p {
-                        font-size: 1.1rem;
-                        font-weight: 500;
-                    }
-
-                    .slider {
-                        flex: 100%;
-                    }
-                `}</style>
             </article>
-        </Main>
+            <LinkButton
+                href={`/recipe/${id}/timer`}
+                // @ts-ignore
+                style={{ gridArea: "footer" }}
+            >
+                Let's do it!
+            </LinkButton>
+        </>
     );
 };
 

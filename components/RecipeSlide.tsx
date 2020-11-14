@@ -25,6 +25,7 @@ const RecipeSlideHeader = styled.header`
     flex-direction: column;
     justify-content: flex-end;
     margin: 24px;
+    padding: 12px;
 
     h1,
     p {
@@ -34,8 +35,6 @@ const RecipeSlideHeader = styled.header`
     }
 
     h1 {
-        font-size: 5rem;
-        font-weight: 600;
         margin: 1rem 0;
     }
 

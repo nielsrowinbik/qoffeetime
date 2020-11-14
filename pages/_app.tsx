@@ -1,16 +1,21 @@
 import "typeface-montserrat";
 import "typeface-roboto";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle } from "styled-components";
+
+import { Layout } from "../components/Layout";
 
 const GlobalStyle = createGlobalStyle`
-    html,
-    body {
-        margin: 0;
+    html, time {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    html {
         background-color: #ff0841;
         color: #ffffff;
-        font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI",
-            Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
-            "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    body {
+        margin: 0;
     }
 
     *,
@@ -19,23 +24,36 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    time {
-        font-family: Roboto;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: Montserrat;
+        font-weight: 600;
+    }
+
+    h1 {
+        
+        font-size: 5rem;
+    }
+
+    h2 {
+        font-size: 3rem;
+
+    }
+
+    h3 {
+        font-size: 1.8rem;
     }
 `;
-
-const theme = {
-    colors: {
-        primary: "#0070f3",
-    },
-};
 
 const App = ({ Component, pageProps }) => (
     <>
         <GlobalStyle />
-        <ThemeProvider theme={theme}>
+        <Layout>
             <Component {...pageProps} />
-        </ThemeProvider>
+        </Layout>
     </>
 );
 
