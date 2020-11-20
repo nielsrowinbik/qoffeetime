@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useState } from "react";
 
+import { BackButton } from "../../../components/BackButton";
 import { LinkButton } from "../../../components/LinkButton";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
@@ -18,9 +18,7 @@ const RecipeSettings = () => {
     return (
         <>
             <Nav>
-                <Link href="/">
-                    <button>back</button>
-                </Link>
+                <BackButton />
             </Nav>
             <article style={{ gridArea: "main" }}>
                 <h2 style={{ marginTop: 0 }}>{recipe.name}</h2>

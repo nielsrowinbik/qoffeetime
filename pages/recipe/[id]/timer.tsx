@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 
+import { BackButton } from "../../../components/BackButton";
 import { Button } from "../../../components/Button";
 import { ButtonGroup } from "../../../components/ButtonGroup";
 import { Nav } from "../../../components/Nav";
@@ -33,9 +33,7 @@ const RecipeTimer = () => {
     return (
         <>
             <Nav>
-                <Link href={`/recipe/${id}`}>
-                    <button>back</button>
-                </Link>
+                <BackButton />
             </Nav>
             <RecipeTimerMain>
                 <p>
