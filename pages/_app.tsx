@@ -24,27 +24,22 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
     }
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5 {
-        font-family: Montserrat;
-        font-weight: 600;
-    }
-
     h1 {
-        
+        font-family: Montserrat;
         font-size: 5rem;
+        font-weight: 700;
     }
 
     h2 {
+        font-family: Montserrat;
         font-size: 3rem;
+        font-weight: 600;
 
     }
 
     h3 {
         font-size: 1.8rem;
+        font-weight: 600;
     }
 `;
 
