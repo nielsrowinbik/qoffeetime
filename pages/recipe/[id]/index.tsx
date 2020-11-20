@@ -12,7 +12,7 @@ const RecipeSettings = () => {
     const router = useRouter();
     const { id } = router.query;
 
-    const [desiredVolume, setDesiredVolume] = useState(250);
+    const [desiredVolume, setDesiredVolume] = useState(360);
     const onChange = useCallback((newValue) => setDesiredVolume(newValue), []);
 
     return (
@@ -35,7 +35,7 @@ const RecipeSettings = () => {
                 <p>{recipe.description}</p>
             </article>
             <LinkButton
-                href={`/recipe/${id}/timer`}
+                href={`/recipe/${id}/timer?volume=${desiredVolume}`}
                 // @ts-ignore
                 style={{ gridArea: "footer" }}
             >
