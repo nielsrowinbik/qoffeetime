@@ -1,125 +1,37 @@
-import { HTMLProps, FC, useCallback, useRef, useState } from "react";
-// import ReactSlider from "react-slider";
-import styled from "styled-components";
+import { FC, useCallback, useRef, useState } from "react";
 
-import { useBoundingClientRect } from "../hooks/use-boundingclientrect";
+import { RatioSliderContainer } from "./RatioSliderContainer";
 
-import { Recipe } from "../utils/types";
+import { useBoundingClientRect } from "../../hooks/use-boundingclientrect";
 
-// const SliderWrapper = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     position: relative;
-// `;
-
-// const StyledSlider = styled(ReactSlider)`
-//     height: 240px;
-//     position: relative;
-//     width: 180px;
-// `;
-
-// const StyledThumb = styled.div`
-//     height: 50px;
-//     width: 100%;
-//     background-color: transparent;
-//     cursor: grab;
-//     outline: none;
-// `;
-
-// const Thumb = (props) => <StyledThumb {...props} />;
-
-// // FIXME: explicit but unnecessary any
-// const StyledTrack = styled.div<any>`
-//     background: ${({ index }) =>
-//         index === 0
-//             ? "linear-gradient(0deg, brown 0%, brown 40%, white 40%, white 100%)"
-//             : "transparent"};
-//     border-radius: 56px;
-//     bottom: 0;
-//     left: 0;
-//     position: relative;
-//     top: 0;
-//     width: 100%;
-// `;
-
-// const Track = (props, { index }) => <StyledTrack {...props} index={index} />;
-
-// const ValueLabel = styled.div`
-//     align-items: flex-end;
-//     display: flex;
-//     flex-direction: column;
-//     left: 0;
-//     position: absolute;
-//     transform: translate3d(calc(50% - 12px), 0, 0);
-//     width: 76px;
-
-//     span:first-child {
-//         font-size: 0.7rem;
-//     }
-
-//     span:last-child {
-//         font-size: 1.3rem;
-//         font-weight: 700;
-//     }
-// `;
+import { Recipe } from "../../utils/types";
 
 type RatioSliderProps = {
+    borderRadius?: number;
+    height?: number;
+    minFill?: number;
     onChange: (newValue: number) => void;
     recipe: Recipe;
     value: number;
+    width?: number;
 };
 
-// export const RatioSlider: FC<
-//     RatioSliderProps & HTMLProps<HTMLInputElement>
-// > = ({ recipe, value, ...props }) => {
-//     const cappedValue = Math.max(value, recipe.minWater);
-//     const requiredCoffee = Math.round(
-//         (cappedValue / 1000) * recipe.defaultRatio
-//     );
-
-//     return (
-//         <SliderWrapper>
-//             {/* @ts-ignore */}
-//             <StyledSlider
-//                 renderThumb={Thumb}
-//                 renderTrack={Track}
-//                 orientation="vertical"
-//                 invert
-//                 min={0}
-//                 max={recipe.maxWater}
-//                 step={10}
-//                 value={cappedValue}
-//                 {...props}
-//             />
-//             <ValueLabel>
-//                 <span>Water</span>
-//                 <span>{cappedValue}ml</span>
-//             </ValueLabel>
-//             <ValueLabel style={{ bottom: 0 }}>
-//                 <span>Coffee</span>
-//                 <span>{requiredCoffee}g</span>
-//             </ValueLabel>
-//         </SliderWrapper>
-//     );
-// };
-
 export const RatioSlider: FC<RatioSliderProps> = ({
-    recipe: { maxWater, minWater },
+    borderRadius = 48,
+    height = 250,
+    minFill = 0.5,
     onChange,
+    recipe: { maxWater, minWater },
+    width = 175,
     ...props
 }) => {
-    const borderRadius = 48; // TODO: Allow to be set through a prop
-    const height = 225; // TODO: Allow to be set through a prop
-    const iconSize = 24;
-    const minFill = 0.5; // TODO: Allow to be set through a prop
-    const width = 175; // TODO: Allow to be set through a prop
-
     const svgRef = useRef();
     const svgRect = useBoundingClientRect(svgRef);
 
     const [isDragging, setDragging] = useState(false);
     const [value, setValue] = useState(props.value);
 
+    // Helper function to compute the vertical position to a percentage:
     const positionToPercentage = useCallback(
         (pos: number) =>
             Math.max(
@@ -129,9 +41,10 @@ export const RatioSlider: FC<RatioSliderProps> = ({
         [height, minFill, svgRect]
     );
 
-    // Helper function to normalize the
+    // Helper function to normalize the percentage:
     const normalize = useCallback((val: number) => (val - minFill) * 2, []);
 
+    // Helper function to convert a percentage to a value:
     const percentageTovalue = useCallback(
         (percentage: number) => {
             const normalized = normalize(percentage);
@@ -142,6 +55,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
         [maxWater, minWater]
     );
 
+    // Helper function to convert a value to a percentage:
     const valueToPercentage = useCallback((value: number) => value / maxWater, [
         maxWater,
     ]);
@@ -161,6 +75,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
         },
         [svgRect]
     );
+
     const onMouseMove = useCallback(
         (e) => {
             // Don't do anything if we're not dragging:
@@ -175,6 +90,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
         },
         [isDragging, svgRect]
     );
+
     const onMouseUp = useCallback(
         (e) => {
             // Update the state to reflect the fact that we're no longer dragging:
@@ -187,11 +103,11 @@ export const RatioSlider: FC<RatioSliderProps> = ({
     );
 
     const filledHeight = valueToPercentage(value) * height;
-    const coffeeHeight = (1 / 3) * filledHeight;
+    const coffeeHeight = (2 / 5) * filledHeight;
     const waterHeight = filledHeight - coffeeHeight - borderRadius;
 
     return (
-        <div style={{ display: "flex", justifyContent: "center" }}>
+        <RatioSliderContainer>
             <svg
                 height={height}
                 width={width}
@@ -205,9 +121,10 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                 onMouseUp={onMouseUp}
                 onTouchEnd={onMouseUp}
             >
-                <clipPath id="clipPath">
-                    <path
-                        d={`
+                <defs>
+                    <clipPath id="clipPath">
+                        <path
+                            d={`
                             M ${borderRadius},0
                             h ${width - 2 * borderRadius}
                             q ${borderRadius},0 ${borderRadius},${borderRadius}
@@ -219,8 +136,9 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                             q 0,-${borderRadius} ${borderRadius},-${borderRadius}
                             z
                         `}
-                    />
-                </clipPath>
+                        />
+                    </clipPath>
+                </defs>
                 <g clipPath="url(#clipPath)">
                     <path
                         d={`
@@ -248,6 +166,6 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                     />
                 </g>
             </svg>
-        </div>
+        </RatioSliderContainer>
     );
 };
