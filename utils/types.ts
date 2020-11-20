@@ -7,8 +7,10 @@ export type Recipe = {
     name: string;
     tagline: string;
     description: string;
+    image: string;
     minWater: number;
     maxWater: number;
     defaultRatio: number;
+    defaultVolume: number;
     steps: RecipeStep[];
 };
