@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useCallback } from "react";
 import styled from "styled-components";
 
 import { BackButton } from "../../../components/BackButton";
@@ -15,6 +16,7 @@ import recipe from "../../../recipies/v60.json";
 const RecipeTimerMain = styled.main`
     display: grid;
     overflow: auto;
+    margin: 0 16px;
 `;
 
 const RecipeTimer = () => {
@@ -23,12 +25,12 @@ const RecipeTimer = () => {
 
     const timer = useTimer(recipe.steps);
 
-    const onStopClick = () => {
+    const onStopClick = useCallback(() => {
         if (confirm("Do you want to cancel the timer?")) {
             timer.stop();
-            router.push(`/recipe/${id}`);
+            router.back();
         }
-    };
+    }, []);
 
     return (
         <>
@@ -36,13 +38,14 @@ const RecipeTimer = () => {
                 <BackButton />
             </Nav>
             <RecipeTimerMain>
-                <p>
-                    <Timestamp>{timer.remaining}</Timestamp> total left
-                </p>
-                <p>
+                <h3 style={{ margin: 0 }}>
+                    <Timestamp>{timer.remaining}</Timestamp>
+                </h3>
+                <p style={{ margin: 0 }}>total left</p>
+                <h1 style={{ margin: 0 }}>
                     <Timestamp>{timer.currentStepRemaining}</Timestamp>
-                </p>
-                <p>{recipe.steps[timer.currentStepIndex].description}</p>
+                </h1>
+                <h4>{recipe.steps[timer.currentStepIndex].description}</h4>
                 <RecipeStepsList
                     steps={recipe.steps}
                     currentStepIndex={timer.currentStepIndex}
