@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const RatioSliderContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 `;

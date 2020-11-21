@@ -1,10 +1,12 @@
 import { FC, useCallback, useRef, useState } from "react";
 
-import { RatioSliderContainer } from "./RatioSliderContainer";
-
 import { useBoundingClientRect } from "../../hooks/use-boundingclientrect";
 
 import { Recipe } from "../../utils/types";
+
+import { RatioSliderContainer as Container } from "./RatioSliderContainer";
+import { RatioSliderValueLabelContainer as LabelContainer } from "./RatioSliderValueLabelContainer";
+import { RatioSliderValueLabel as Label } from "./RatioSliderValueLabel";
 
 type RatioSliderProps = {
     borderRadius?: number;
@@ -17,11 +19,11 @@ type RatioSliderProps = {
 };
 
 export const RatioSlider: FC<RatioSliderProps> = ({
-    borderRadius = 48,
+    borderRadius = 64,
     height = 250,
     minFill = 0.5,
     onChange,
-    recipe: { maxWater, minWater },
+    recipe: { defaultRatio, maxWater, minWater },
     width = 175,
     ...props
 }) => {
@@ -107,7 +109,16 @@ export const RatioSlider: FC<RatioSliderProps> = ({
     const waterHeight = filledHeight - coffeeHeight - borderRadius;
 
     return (
-        <RatioSliderContainer>
+        <Container>
+            <LabelContainer>
+                <Label type="Water" value={value} unit="ml" />
+                <Label
+                    bottomOffset={0}
+                    type="Coffee"
+                    value={(defaultRatio / 1000) * value}
+                    unit="g"
+                />
+            </LabelContainer>
             <svg
                 height={height}
                 width={width}
@@ -166,6 +177,6 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                     />
                 </g>
             </svg>
-        </RatioSliderContainer>
+        </Container>
     );
 };
