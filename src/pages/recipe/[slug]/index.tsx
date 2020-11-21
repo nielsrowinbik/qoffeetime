@@ -10,8 +10,8 @@ import recipies from "../../../recipies";
 
 const RecipeSettings = () => {
     const router = useRouter();
-    const { id } = router.query;
-    const recipe = recipies[id as string];
+    const { slug } = router.query;
+    const recipe = recipies[slug as string];
 
     const [desiredVolume, setDesiredVolume] = useState(360);
     const onChange = useCallback((newValue) => setDesiredVolume(newValue), []);
@@ -36,7 +36,7 @@ const RecipeSettings = () => {
                 <p>{recipe.description}</p>
             </article>
             <LinkButton
-                href={`/recipe/${id}/timer?volume=${desiredVolume}`}
+                href={`/recipe/${slug}/timer?volume=${desiredVolume}`}
                 // @ts-ignore
                 style={{ gridArea: "footer" }}
             >

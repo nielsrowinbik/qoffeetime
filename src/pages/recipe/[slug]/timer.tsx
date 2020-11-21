@@ -21,8 +21,8 @@ const RecipeTimerMain = styled.main`
 
 const RecipeTimer = () => {
     const router = useRouter();
-    const { id } = router.query;
-    const recipe = recipies[id as string];
+    const { slug } = router.query;
+    const recipe = recipies[slug as string];
 
     const timer = useTimer(recipe.steps);
 
