@@ -14,3 +14,7 @@ export type Recipe = {
     defaultVolume: number;
     steps: RecipeStep[];
 };
+
+export type Recipies = {
+    [slug: string]: Recipe;
+};

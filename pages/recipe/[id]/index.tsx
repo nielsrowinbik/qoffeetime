@@ -1,19 +1,22 @@
 import { useRouter } from "next/router";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { BackButton } from "../../../components/BackButton";
 import { LinkButton } from "../../../components/LinkButton";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
 
-import recipe from "../../../recipies/v60.json";
+import recipies from "../../../recipies";
 
 const RecipeSettings = () => {
     const router = useRouter();
     const { id } = router.query;
+    const recipe = recipies[id as string];
 
     const [desiredVolume, setDesiredVolume] = useState(360);
     const onChange = useCallback((newValue) => setDesiredVolume(newValue), []);
+
+    if (recipe === undefined) return null;
 
     return (
         <>

@@ -11,7 +11,7 @@ import { Timestamp } from "../../../components/Timestamp";
 
 import { useTimer } from "../../../hooks/use-timer";
 
-import recipe from "../../../recipies/v60.json";
+import recipies from "../../../recipies";
 
 const RecipeTimerMain = styled.main`
     display: grid;
@@ -22,6 +22,7 @@ const RecipeTimerMain = styled.main`
 const RecipeTimer = () => {
     const router = useRouter();
     const { id } = router.query;
+    const recipe = recipies[id as string];
 
     const timer = useTimer(recipe.steps);
 

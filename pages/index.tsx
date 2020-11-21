@@ -1,12 +1,11 @@
 import Head from "next/head";
+import slugify from "slugify";
 import SwipeableViews from "react-swipeable-views";
 
 import { RecipeSlide } from "../components/RecipeSlide";
 
-import V60Recipe from "../recipies/v60.json";
+import recipies from "../recipies";
 
-// TODO: Figure out a way to dynamically load all recipies that we have a file for (maybe use API routes after all?)
-// TODO: Display a slide for each of the recipies we have
 const IndexView = () => (
     <>
         <Head>
@@ -51,7 +50,10 @@ const IndexView = () => (
             style={{ height: "100%", gridArea: "main" }}
             containerStyle={{ height: "100%" }}
         >
-            <RecipeSlide recipe={V60Recipe} slug="v60" />
+            {Object.keys(recipies).map((slug) => {
+                const recipe = recipies[slug];
+                return <RecipeSlide recipe={recipe} key={slug} slug={slug} />;
+            })}
         </SwipeableViews>
     </>
 );
