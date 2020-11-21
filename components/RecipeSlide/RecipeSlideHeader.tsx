@@ -34,7 +34,6 @@ export const RecipeSlideHeader = styled(UnstyledRecipeSlideHeader)`
 
     h1,
     p {
-        max-width: 75%;
         overflow: hidden;
         line-height: 1.25em;
     }
@@ -48,5 +47,6 @@ export const RecipeSlideHeader = styled(UnstyledRecipeSlideHeader)`
         font-weight: 400;
         height: calc(8 * 1.25em);
         margin: 0;
+        max-width: 75%;
     }
 `;
