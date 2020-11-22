@@ -1,4 +1,4 @@
-import { FC, useCallback, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 
 import { useBoundingClientRect } from "../../hooks/use-boundingclientrect";
 
@@ -30,8 +30,14 @@ export const RatioSlider: FC<RatioSliderProps> = ({
     const svgRef = useRef();
     const svgRect = useBoundingClientRect(svgRef);
 
+    // Keep whether we're dragging in state:
     const [isDragging, setDragging] = useState(false);
+
+    // Keep an iternal value representation:
     const [value, setValue] = useState(props.value);
+
+    // Sync the internal value representation with what we receive through props:
+    useEffect(() => setValue(props.value), [props.value]);
 
     // Helper function to compute the vertical position to a percentage:
     const positionToPercentage = useCallback(

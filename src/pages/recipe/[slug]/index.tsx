@@ -13,10 +13,16 @@ const RecipeSettings = () => {
     const { slug } = router.query;
     const recipe = recipies[slug as string];
 
-    const [desiredVolume, setDesiredVolume] = useState(360);
+    // Keep track of the desired coffee volume, default to 400ml:
+    const [desiredVolume, setDesiredVolume] = useState(400);
+
+    // Set up a callback to change the desired coffee volume:
     const onChange = useCallback((newValue) => setDesiredVolume(newValue), []);
 
-    if (recipe === undefined) return null;
+    // Update the desired coffee volume to the recipe's default when the recipe changes:
+    useEffect(() => recipe && setDesiredVolume(recipe.defaultVolume), [recipe]);
+
+    if (!recipe) return null;
 
     return (
         <>
