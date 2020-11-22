@@ -3,18 +3,14 @@ import { useCallback, useState, useMemo, useEffect } from "react";
 import { useInterval } from "../hooks/use-interval";
 import { usePrevious } from "../hooks/use-previous";
 import { sum, valuesForKey } from "../utils/helpers";
+import type { Recipe } from "../utils/types";
 
-type Step = {
-    description: string;
-    duration: number;
-};
-
-export const useTimer = (userSteps: Step[]) => {
-    // // Add a "start" field to every step that was passed in so we
-    // // can determine which step is the current:
+export const useTimer = (recipe: Recipe) => {
+    // Add a "start" field to every step that was passed in so we
+    // can determine which step is the current:
     const steps = useMemo(
         () =>
-            userSteps.map((step, i) => ({
+            (recipe?.steps || []).map((step, i) => ({
                 // We copy the original step as not to lose any nformation.
                 ...step,
 
@@ -28,14 +24,14 @@ export const useTimer = (userSteps: Step[]) => {
                 // the current step is active. Finally, subtract 1000 milliseconds
                 // to always start a round "early".
                 start:
-                    userSteps
+                    recipe?.steps
                         .slice(0, i)
                         .reduce(
                             (total, { duration }) => total + duration * 1000,
                             0
                         ) - 1000,
             })),
-        [userSteps.length]
+        [recipe?.steps.length]
     );
 
     // Store whether the timer is running in state:
@@ -50,32 +46,35 @@ export const useTimer = (userSteps: Step[]) => {
     const [elapsed, setElapsed] = useState(0);
 
     // Compute the total time needed to complete this timer:
-    const totalTime = useMemo(
-        () => sum(valuesForKey(userSteps, "duration")) * 1000,
-        [userSteps.length]
-    );
+    const totalTime = useMemo(() => sum(valuesForKey(steps, "duration")), [
+        steps,
+    ]);
 
     // Compute the remaining time:
     const remaining = useMemo(() => Math.max(totalTime - elapsed, 0), [
         elapsed,
+        totalTime,
     ]);
 
-    // // Determine whether the timer is complete:
+    // Determine whether the timer is complete:
     const isComplete = useMemo(() => remaining === 0, [remaining]);
 
-    // // Compute the current step's index:
+    // Compute the current step's index:
     const currentStepIndex = useMemo(() => {
-        // find the index of the first step that we find of which we have not yet
+        // Find the index of the first step that we find of which we have not yet
         // passed the start moment:
         const index = steps.findIndex(({ start }) => elapsed < start);
 
         // If found, the current step is the step before the one we found.
         // If not found, we're on the last step.
         return (index === -1 ? steps.length : index) - 1;
-    }, [elapsed]);
+    }, [elapsed, steps]);
 
-    // // Compute how much time is remaining in the current step
+    // Compute how much time is remaining in the current step
     const currentStepRemaining = useMemo(() => {
+        // Catch it being impossible to determine the current step:
+        if (currentStepIndex === -1) return 0;
+
         // Get the sum of durations of all previous steps (excluding current):
         const totalPreviousSteps = sum(
             valuesForKey(steps.slice(0, currentStepIndex), "duration")

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import styled from "styled-components";
 
 import { BackButton } from "../../../components/BackButton";
@@ -22,9 +22,9 @@ const RecipeTimerMain = styled.main`
 const RecipeTimer = () => {
     const router = useRouter();
     const { slug } = router.query;
-    const recipe = recipies[slug as string];
 
-    const timer = useTimer(recipe.steps);
+    const recipe = useMemo(() => recipies[slug as string], [slug]);
+    const timer = useTimer(recipe);
 
     const onStopClick = useCallback(() => {
         if (confirm("Do you want to cancel the timer?")) {
@@ -32,6 +32,8 @@ const RecipeTimer = () => {
             router.back();
         }
     }, []);
+
+    if (!recipe) return null;
 
     return (
         <>
