@@ -41,6 +41,12 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1.8rem;
         font-weight: 600;
     }
+
+    h4 {
+        font-family: Montserrat;
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
 `;
 
 const App = ({ Component, pageProps }) => (

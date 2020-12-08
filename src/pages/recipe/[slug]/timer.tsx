@@ -10,6 +10,7 @@ import { RecipeStepsList } from "../../../components/RecipeStepsList";
 import { Timestamp } from "../../../components/Timestamp";
 
 import { useTimer } from "../../../hooks/use-timer";
+import { useWakeLock } from "../../../hooks/use-wakelock";
 
 import recipies from "../../../recipies";
 
@@ -33,6 +34,8 @@ const RecipeTimer = () => {
         }
     }, []);
 
+    useWakeLock(true);
+
     if (!recipe) return null;
 
     return (
@@ -41,14 +44,16 @@ const RecipeTimer = () => {
                 <BackButton />
             </Nav>
             <RecipeTimerMain>
-                <h3 style={{ margin: 0 }}>
+                <h3 style={{ margin: 0, textAlign: "center" }}>
                     <Timestamp>{timer.remaining}</Timestamp>
                 </h3>
-                <p style={{ margin: 0 }}>total left</p>
+                <p style={{ margin: 0, textAlign: "center" }}>total left</p>
                 <h1 style={{ margin: 0 }}>
                     <Timestamp>{timer.currentStepRemaining}</Timestamp>
                 </h1>
-                <h4>{recipe.steps[timer.currentStepIndex].description}</h4>
+                <h4 style={{ marginBottom: 24, marginTop: 0 }}>
+                    {recipe.steps[timer.currentStepIndex].description}
+                </h4>
                 <RecipeStepsList
                     steps={recipe.steps}
                     currentStepIndex={timer.currentStepIndex}
