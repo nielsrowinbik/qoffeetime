@@ -21,9 +21,6 @@ export const RecipeSlide: FC<RecipeSlideProps> = ({ recipe, slug }) => (
                 image={recipe.image}
                 title={recipe.name}
             />
-            <LinkButton href={`/recipe/${slug}`}>
-                Prepare {recipe.name}!
-            </LinkButton>
         </Container>
     </Link>
 );
