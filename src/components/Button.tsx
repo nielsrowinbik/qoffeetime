@@ -5,13 +5,13 @@ type ButtonProps = {
 };
 
 export const Button = styled.button<ButtonProps>`
+    background-color: ${({ dark }) => (dark ? "#000" : "#fff")};
+    border: none;
+    border-radius: 32px;
+    color: ${({ dark }) => (dark ? "#fff" : "#000")};
     font-family: Roboto;
     font-size: 1rem;
     font-weight: 700;
-    color: ${({ dark }) => (dark ? "#fff" : "#000")};
-    background-color: ${({ dark }) => (dark ? "#000" : "#fff")};
-    border: none;
-    padding: 16px;
-    margin: 12px;
-    border-radius: 32px;
+    line-height: 1rem;
+    padding: 14px;
 `;

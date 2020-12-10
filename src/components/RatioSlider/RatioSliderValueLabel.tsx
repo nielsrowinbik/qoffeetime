@@ -10,6 +10,7 @@ type UnstyledRatioSliderValueLabelProps = {
 };
 
 const UnstyledRatioSliderValueLabel: FC<UnstyledRatioSliderValueLabelProps> = ({
+    bottomOffset,
     type,
     unit,
     value,
@@ -26,7 +27,11 @@ const UnstyledRatioSliderValueLabel: FC<UnstyledRatioSliderValueLabelProps> = ({
 
 export const RatioSliderValueLabel = styled(UnstyledRatioSliderValueLabel)`
     align-items: flex-end;
-    bottom: ${({ bottomOffset }) => bottomOffset};
+    transform: translate3d(
+        0,
+        calc(${({ bottomOffset }) => bottomOffset}px - 50%),
+        0
+    );
     display: flex;
     flex-direction: column;
     margin-right: 12px;

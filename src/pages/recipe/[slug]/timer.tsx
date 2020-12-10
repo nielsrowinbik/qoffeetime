@@ -1,25 +1,21 @@
 import { useRouter } from "next/router";
 import { useCallback, useMemo } from "react";
-import styled from "styled-components";
 
 import { BackButton } from "../../../components/BackButton";
 import { Button } from "../../../components/Button";
 import { ButtonGroup } from "../../../components/ButtonGroup";
+import { CurrentTimeLeft } from "../../../components/CurrentTimeLeft";
 import { FixedFooter } from "../../../components/FixedFooter";
-import { Nav } from "../../../components/Nav";
+import { Main, Section } from "../../../components/Layout";
+import { Nav, NavHeading } from "../../../components/Nav";
 import { RecipeStepsList } from "../../../components/RecipeStepsList";
 import { Timestamp } from "../../../components/Timestamp";
+import { TotalTimeLeft } from "../../../components/TotalTimeLeft";
 
 import { useTimer } from "../../../hooks/use-timer";
 import { useWakeLock } from "../../../hooks/use-wakelock";
 
 import recipies from "../../../recipies";
-
-const RecipeTimerMain = styled.main`
-    display: grid;
-    overflow: auto;
-    margin: 0 16px;
-`;
 
 const RecipeTimer = () => {
     const router = useRouter();
@@ -35,7 +31,7 @@ const RecipeTimer = () => {
         }
     }, []);
 
-    useWakeLock(true);
+    // useWakeLock(true);
 
     if (!recipe) return null;
 
@@ -43,23 +39,27 @@ const RecipeTimer = () => {
         <>
             <Nav>
                 <BackButton />
+                <NavHeading>{recipe.name}</NavHeading>
             </Nav>
-            <RecipeTimerMain>
-                <h3 style={{ margin: 0, textAlign: "center" }}>
-                    <Timestamp>{timer.remaining}</Timestamp>
-                </h3>
-                <p style={{ margin: 0, textAlign: "center" }}>total left</p>
-                <h1 style={{ margin: 0 }}>
-                    <Timestamp>{timer.currentStepRemaining}</Timestamp>
-                </h1>
-                <h4 style={{ marginBottom: 24, marginTop: 0 }}>
-                    {recipe.steps[timer.currentStepIndex].description}
-                </h4>
-                <RecipeStepsList
-                    steps={recipe.steps}
-                    currentStepIndex={timer.currentStepIndex}
-                />
-            </RecipeTimerMain>
+            <Main>
+                <Section>
+                    <TotalTimeLeft>{timer.remaining}</TotalTimeLeft>
+                </Section>
+                <Section>
+                    <CurrentTimeLeft
+                        stepDescription={
+                            recipe.steps[timer.currentStepIndex].description
+                        }
+                        timeRemaining={timer.currentStepRemaining}
+                    />
+                </Section>
+                <Section>
+                    <RecipeStepsList
+                        steps={recipe.steps}
+                        currentStepIndex={timer.currentStepIndex}
+                    />
+                </Section>
+            </Main>
             <FixedFooter>
                 <ButtonGroup>
                     {timer.elapsed === 0 && (
