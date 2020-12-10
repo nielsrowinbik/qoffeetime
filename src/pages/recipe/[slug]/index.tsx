@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useCallback, useEffect, useState } from "react";
 
 import { BackButton } from "../../../components/BackButton";
+import { FixedFooter } from "../../../components/FixedFooter";
 import { LinkButton } from "../../../components/LinkButton";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
@@ -41,13 +42,13 @@ const RecipeSettings = () => {
                 </p>
                 <p>{recipe.description}</p>
             </article>
-            <LinkButton
-                href={`/recipe/${slug}/timer?volume=${desiredVolume}`}
-                // @ts-ignore
-                style={{ gridArea: "footer" }}
-            >
-                Let's do it!
-            </LinkButton>
+            <FixedFooter>
+                <LinkButton
+                    href={`/recipe/${slug}/timer?volume=${desiredVolume}`}
+                >
+                    Let's do it!
+                </LinkButton>
+            </FixedFooter>
         </>
     );
 };
