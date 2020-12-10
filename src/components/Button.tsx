@@ -11,7 +11,7 @@ export const Button = styled.button<ButtonProps>`
     color: ${({ dark }) => (dark ? "#fff" : "#000")};
     background-color: ${({ dark }) => (dark ? "#000" : "#fff")};
     border: none;
-    padding: 16px 0;
+    padding: 16px;
     margin: 12px;
     border-radius: 32px;
 `;
