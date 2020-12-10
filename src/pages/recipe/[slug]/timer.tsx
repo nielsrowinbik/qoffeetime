@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { BackButton } from "../../../components/BackButton";
 import { Button } from "../../../components/Button";
 import { ButtonGroup } from "../../../components/ButtonGroup";
+import { FixedFooter } from "../../../components/FixedFooter";
 import { Nav } from "../../../components/Nav";
 import { RecipeStepsList } from "../../../components/RecipeStepsList";
 import { Timestamp } from "../../../components/Timestamp";
@@ -59,21 +60,23 @@ const RecipeTimer = () => {
                     currentStepIndex={timer.currentStepIndex}
                 />
             </RecipeTimerMain>
-            <ButtonGroup style={{ gridArea: "footer" }}>
-                {timer.elapsed === 0 && (
-                    <Button onClick={timer.start}>Start</Button>
-                )}
-                {timer.elapsed > 0 && (
-                    <>
-                        <Button onClick={timer.toggle}>
-                            {timer.isRunning ? "Pause" : "Continue"}
-                        </Button>
-                        <Button dark onClick={onStopClick}>
-                            Stop
-                        </Button>
-                    </>
-                )}
-            </ButtonGroup>
+            <FixedFooter>
+                <ButtonGroup>
+                    {timer.elapsed === 0 && (
+                        <Button onClick={timer.start}>Start</Button>
+                    )}
+                    {timer.elapsed > 0 && (
+                        <>
+                            <Button onClick={timer.toggle}>
+                                {timer.isRunning ? "Pause" : "Continue"}
+                            </Button>
+                            <Button dark onClick={onStopClick}>
+                                Stop
+                            </Button>
+                        </>
+                    )}
+                </ButtonGroup>
+            </FixedFooter>
         </>
     );
 };
