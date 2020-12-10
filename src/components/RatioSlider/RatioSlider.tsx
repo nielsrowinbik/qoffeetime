@@ -112,7 +112,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
 
     const filledHeight = valueToPercentage(value) * height;
     const coffeeHeight = (2 / 5) * filledHeight;
-    const waterHeight = filledHeight - coffeeHeight - borderRadius;
+    const waterHeight = filledHeight - coffeeHeight;
 
     return (
         <Container>
@@ -159,13 +159,22 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                 <g clipPath="url(#clipPath)">
                     <path
                         d={`
-                            M ${borderRadius},${height - filledHeight}
-                            h ${width - 2 * borderRadius}
-                            q ${borderRadius},0 ${borderRadius},${borderRadius}
+                            M 0,0
+                            h ${width}
+                            v ${height}
+                            h -${width}
+                            v -${height}
+                            z
+                        `}
+                        fill="#ff0831"
+                    />
+                    <path
+                        d={`
+                            M 0,${height - filledHeight}
+                            h ${width}
                             v ${waterHeight}
                             h -${width}
                             v -${waterHeight}
-                            q 0,-${borderRadius} ${borderRadius},-${borderRadius}
                             z
                         `}
                         fill="white"
