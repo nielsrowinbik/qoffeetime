@@ -112,14 +112,21 @@ export const RatioSlider: FC<RatioSliderProps> = ({
 
     const filledHeight = valueToPercentage(value) * height;
     const coffeeHeight = (2 / 5) * filledHeight;
+    const coffeeLabelOffset = height - coffeeHeight / 2;
     const waterHeight = filledHeight - coffeeHeight;
+    const waterLabelOffset = height - coffeeHeight - waterHeight / 2;
 
     return (
         <Container>
             <LabelContainer>
-                <Label type="Water" value={value} unit="ml" />
                 <Label
-                    bottomOffset={0}
+                    bottomOffset={waterLabelOffset}
+                    type="Water"
+                    value={value}
+                    unit="ml"
+                />
+                <Label
+                    bottomOffset={coffeeLabelOffset}
                     type="Coffee"
                     value={(defaultRatio / 1000) * value}
                     unit="g"
@@ -130,7 +137,6 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                 width={width}
                 viewBox={`0 0 ${width} ${height}`}
                 ref={svgRef}
-                // style={{ borderRadius }}
                 onMouseDown={onMouseDown}
                 onTouchStart={onMouseDown}
                 onMouseMove={onMouseMove}
@@ -166,10 +172,11 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                             v -${height}
                             z
                         `}
-                        fill="#ff0831"
+                        fill="#d52d3e"
                     />
-                    <path
-                        d={`
+                    <g>
+                        <path
+                            d={`
                             M 0,${height - filledHeight}
                             h ${width}
                             v ${waterHeight}
@@ -177,10 +184,24 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                             v -${waterHeight}
                             z
                         `}
-                        fill="white"
-                    />
-                    <path
-                        d={`
+                            fill="white"
+                        />
+                        <svg
+                            x={width / 2 - 12}
+                            y={waterLabelOffset - 12}
+                            width={24}
+                            height={24}
+                            viewBox="0 0 405.047 405.047"
+                        >
+                            <path
+                                d="M283.897,92.846c-36.582-49.345-73.688-89.267-74.061-89.664C207.944,1.153,205.296,0,202.523,0   c-2.774,0-5.423,1.152-7.314,3.182c-0.371,0.397-37.478,40.319-74.06,89.664c-49.971,67.403-75.308,119.726-75.308,155.513   c0,86.396,70.287,156.688,156.682,156.688c86.396,0,156.683-70.29,156.683-156.688C359.206,212.572,333.868,160.25,283.897,92.846z    M218.171,354.342c-8.213,1.941-16.68,2.926-25.162,2.926c-60.294,0-109.347-49.055-109.347-109.35   c0-8.312,2.559-23.373,14.75-47.914c1.225-2.467,4.046-3.691,6.687-2.908c2.639,0.785,4.33,3.357,4.007,6.091   c-0.28,2.361-0.421,4.584-0.421,6.607c0,64.629,45.966,120.77,109.298,133.484c2.607,0.525,4.5,2.795,4.545,5.455   C222.575,351.396,220.761,353.729,218.171,354.342z"
+                                fill="#c5c5c5"
+                            />
+                        </svg>
+                    </g>
+                    <g>
+                        <path
+                            d={`
                             M 0,${height}
                             v -${coffeeHeight}
                             h ${width}
@@ -188,8 +209,25 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                             h -${width}
                             z
                         `}
-                        fill="brown"
-                    />
+                            fill="#8a0120"
+                        />
+                        <svg
+                            x={width / 2 - 12}
+                            y={coffeeLabelOffset - 12}
+                            height={24}
+                            width={24}
+                            viewBox="0 0 511.664 511.664"
+                        >
+                            <path
+                                d="M309.426,419.204c0-81.04-31.684-120.468-65.224-162.212c-32.436-40.368-65.968-82.092-65.968-164.304    c0-29.456,4.164-54.984,12.828-78.848c-78.608,34.504-135.28,129.908-135.28,241.992c0,141.072,89.744,255.832,200.048,255.832    c13.532,0,26.744-1.748,39.524-5.032c-0.5-2.22-0.388-4.608,0.484-6.896C304.982,475.656,309.426,449.316,309.426,419.204z"
+                                fill="#550014"
+                            />
+                            <path
+                                d="M255.83,0c-11.832,0-23.408,1.4-34.68,3.928c-0.124,0.328-0.208,0.664-0.364,0.988    c-12.656,26.08-18.552,53.968-18.552,87.768c0,73.764,28.112,108.752,60.664,149.256c33.064,41.148,70.528,87.772,70.528,177.256    c0,28.572-3.724,54.196-11.304,77.964c77.816-35.064,133.76-129.976,133.76-241.336C455.886,114.764,366.142,0,255.83,0z"
+                                fill="#550014"
+                            />
+                        </svg>
+                    </g>
                 </g>
             </svg>
         </Container>
