@@ -12,10 +12,13 @@ const GlobalStyle = createGlobalStyle`
     html {
         background-color: #ff0841;
         color: #ffffff;
+        height: -webkit-fill-available;
     }
 
     body {
         margin: 0;
+        min-height: 100vh;
+        min-height: -webkit-fill-available;
     }
 
     *,
