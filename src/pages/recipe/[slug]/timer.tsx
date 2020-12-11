@@ -53,7 +53,7 @@ const RecipeTimer = () => {
                         timeRemaining={timer.currentStepRemaining}
                     />
                 </Section>
-                <Section>
+                <Section scroll>
                     <RecipeStepsList
                         steps={recipe.steps}
                         currentStepIndex={timer.currentStepIndex}
