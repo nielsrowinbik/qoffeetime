@@ -1,8 +1,7 @@
 import "typeface-montserrat";
 import "typeface-roboto";
 import { createGlobalStyle } from "styled-components";
-
-import { Layout } from "../components/Layout";
+import { useEffect } from "react";
 
 const GlobalStyle = createGlobalStyle`
     html, time {
@@ -12,13 +11,10 @@ const GlobalStyle = createGlobalStyle`
     html {
         background-color: #ff0841;
         color: #ffffff;
-        height: -webkit-fill-available;
     }
 
     body {
         margin: 0;
-        height: 100vh;
-        height: -webkit-fill-available;
     }
 
     *,
@@ -52,17 +48,36 @@ const GlobalStyle = createGlobalStyle`
     }
 
     #__next {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 64px 1fr 64px;
+        grid-template-areas: "nav" "main" "footer";
         height: 100%;
     }
 `;
 
-const App = ({ Component, pageProps }) => (
-    <>
-        <GlobalStyle />
-        <Layout>
+const updateHeight = () => {
+    document.body.style.height = `${window.innerHeight}px`;
+};
+
+const App = ({ Component, pageProps }) => {
+    useEffect(() => {
+        // Update the height of the app:
+        updateHeight();
+
+        // Set a listerer for resize events to also update the height of the app:
+        window.addEventListener("resize", updateHeight);
+
+        // Create a cleanup function to prevent memory leaks and return it:
+        return () => window.removeEventListener("resize", updateHeight);
+    }, []);
+
+    return (
+        <>
+            <GlobalStyle />
             <Component {...pageProps} />
-        </Layout>
-    </>
-);
+        </>
+    );
+};
 
 export default App;

@@ -1,18 +1,18 @@
 import styled from "styled-components";
 
-export const Layout = styled.div`
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 64px 1fr 64px;
-    grid-template-areas: "nav" "main" "footer";
-    height: 100%;
-`;
-
 export const Main = styled.main`
+    display: flex;
+    flex-direction: column;
     grid-area: main;
     margin: 0 24px;
+    overflow: hidden;
 `;
 
-export const Section = styled.section`
+type SectionProps = {
+    scroll?: boolean;
+};
+
+export const Section = styled.section<SectionProps>`
     margin: 0 16px;
+    overflow: ${({ scroll }) => (scroll ? "auto" : "unset")};
 `;
