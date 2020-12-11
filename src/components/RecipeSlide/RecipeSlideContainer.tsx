@@ -5,5 +5,4 @@ export const RecipeSlideContainer = styled.article`
     flex-direction: column;
     height: 100%;
     position: relative;
-    padding-bottom: 52px;
 `;

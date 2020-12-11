@@ -20,7 +20,7 @@ const UnstyledRecipeSlideHeader: FC<RecipeSlideHeaderProps> = ({
 
 export const RecipeSlideHeader = styled(UnstyledRecipeSlideHeader)`
     background-blend-mode: darken;
-    background-color: #ff0841;
+    background-color: #ff1744;
     background-image: url(${({ image }) => image});
     background-position: center;
     background-repeat: no-repeat;
@@ -29,24 +29,25 @@ export const RecipeSlideHeader = styled(UnstyledRecipeSlideHeader)`
     flex: 100%;
     flex-direction: column;
     justify-content: flex-end;
-    margin: 24px;
-    padding: 12px;
+    margin: 24px 24px 36px 24px;
+    padding: 16px;
 
     h1,
     p {
         overflow: hidden;
-        line-height: 1.25em;
     }
 
     h1 {
         margin: 1rem 0;
+        line-height: 4.25rem;
     }
 
     p {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         font-weight: 400;
         height: calc(8 * 1.25em);
         margin: 0;
         max-width: 75%;
+        line-height: 1.25em;
     }
 `;
