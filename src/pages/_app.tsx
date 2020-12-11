@@ -17,8 +17,8 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         margin: 0;
-        min-height: 100vh;
-        min-height: -webkit-fill-available;
+        height: 100vh;
+        height: -webkit-fill-available;
     }
 
     *,
@@ -49,6 +49,10 @@ const GlobalStyle = createGlobalStyle`
         font-family: Montserrat;
         font-size: 1.3rem;
         font-weight: 600;
+    }
+
+    #__next {
+        height: 100%;
     }
 `;
 
