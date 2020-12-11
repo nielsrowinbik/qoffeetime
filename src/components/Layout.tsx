@@ -5,8 +5,7 @@ export const Layout = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: 64px 1fr 64px;
     grid-template-areas: "nav" "main" "footer";
-    height: 100vh;
-    position: relative;
+    height: 100%;
 `;
 
 export const Main = styled.main`
