@@ -46,18 +46,18 @@ const IndexView = () => {
                     href="/safari-pinned-tab.svg"
                     color="#5bbad5"
                 />
-                <meta name="msapplication-TileColor" content="#b91d47" />
+                <meta name="msapplication-TileColor" content="#ff1744" />
                 <meta
                     name="msapplication-TileImage"
                     content="/mstile-144x144.png"
                 />
-                <meta name="theme-color" content="#ffffff" />
+                <meta name="theme-color" content="#ff1744" />
             </Head>
             <SwipeableViews
                 containerStyle={{ height: "100%" }}
                 enableMouseEvents
                 onChangeIndex={(index: number) => setIndex(index)}
-                style={{ height: "100%", gridArea: "main" }}
+                style={{ height: "100%", gridArea: "nav / nav / main / main" }}
             >
                 {Object.keys(recipies).map((slug) => {
                     const recipe = recipies[slug];

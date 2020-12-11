@@ -172,7 +172,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                             v -${height}
                             z
                         `}
-                        fill="#d52d3e"
+                        fill="#E80036"
                     />
                     <g>
                         <path
@@ -209,7 +209,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                             h -${width}
                             z
                         `}
-                            fill="#8a0120"
+                            fill="#8a0020"
                         />
                         <svg
                             x={width / 2 - 12}

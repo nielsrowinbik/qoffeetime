@@ -14,7 +14,7 @@ const H1 = styled.h1`
 `;
 
 const H4 = styled.h4`
-    margin: 0.8rem 0;
+    margin: 0.8rem 20% 0.8rem 0;
 `;
 
 export const CurrentTimeLeft: FC<CurrentTimeLeftProps> = ({

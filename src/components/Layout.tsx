@@ -13,6 +13,6 @@ type SectionProps = {
 };
 
 export const Section = styled.section<SectionProps>`
-    margin: 0 16px;
+    margin: 0 12px;
     overflow: ${({ scroll }) => (scroll ? "auto" : "unset")};
 `;
