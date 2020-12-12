@@ -1,12 +1,13 @@
-import { FC, ReactElement } from "react";
+import { FC, HTMLProps, ReactElement } from "react";
 import styled from "styled-components";
 
 type ButtonProps = {
-    icon?: ReactElement;
     dark?: boolean;
+    icon?: ReactElement;
+    type?: "submit" | "button" | "reset";
 };
 
-const UnstyledButton: FC<ButtonProps> = ({
+const UnstyledButton: FC<ButtonProps & HTMLProps<HTMLButtonElement>> = ({
     children,
     dark,
     icon,

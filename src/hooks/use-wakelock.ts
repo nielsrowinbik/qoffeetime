@@ -29,8 +29,6 @@ export const useWakeLock = (shouldHaveWakeLock = false) => {
                 } catch (e) {
                     // If something went wrong, set the state accordingly:
                     setWakeLockActive(false);
-
-                    console.log(e);
                 }
             }
         };
@@ -40,6 +38,5 @@ export const useWakeLock = (shouldHaveWakeLock = false) => {
         return () => wakeLock.current?.release();
     }, [shouldHaveWakeLock]);
 
-    console.log(wakeLock.current);
     return { wakeLockActive };
 };

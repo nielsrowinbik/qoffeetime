@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 
 import { BackButton } from "../../../components/BackButton";
 import { Button } from "../../../components/Button";
@@ -9,7 +9,6 @@ import { FixedFooter } from "../../../components/FixedFooter";
 import { Main, Section } from "../../../components/Layout";
 import { Nav, NavHeading } from "../../../components/Nav";
 import { RecipeStepsList } from "../../../components/RecipeStepsList";
-import { Timestamp } from "../../../components/Timestamp";
 import { TotalTimeLeft } from "../../../components/TotalTimeLeft";
 
 import { useTimer } from "../../../hooks/use-timer";
@@ -31,7 +30,15 @@ const RecipeTimer = () => {
         }
     }, []);
 
-    // useWakeLock(true);
+    useEffect(() => {
+        const isComplete = recipe && timer.isComplete;
+        
+        if (isComplete) {
+            router.back();
+        }
+    }, [timer.isComplete]);
+
+    useWakeLock(true);
 
     if (!recipe) return null;
 
