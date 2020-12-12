@@ -5,8 +5,4 @@ export const RecipeStepsListItemContainer = styled.li`
     display: flex;
     flex-wrap: nowrap;
     position: relative;
-
-    & + li {
-        margin-top: 16px;
-    }
 `;
