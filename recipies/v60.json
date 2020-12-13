@@ -9,7 +9,7 @@
     "ratio": 60,
     "steps": [
         {
-            "description": "Pour ${coffee * 2}ml and swirl, wetting all the grounds evenly",
+            "description": "Pour in ${Math.ceil((coffee * 2) / 10) * 10}ml and swirl, wetting all the grounds",
             "duration": 15
         },
         {
@@ -17,11 +17,11 @@
             "duration": 15
         },
         {
-            "description": "Pour ${volume * 0.6}ml at a constant rate",
+            "description": "Pour ${Math.ceil((volume * 0.6) / 50) * 50}ml at a constant rate over the duration of this step",
             "duration": 30
         },
         {
-            "description": "Pour the rest of the water at a constant rate",
+            "description": "Pour the rest of the water at a constant rate over the duration of this step",
             "duration": 30
         },
         {

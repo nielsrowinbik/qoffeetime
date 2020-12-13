@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 
 import { BackButton } from "../../../components/BackButton";
 import { FixedFooter } from "../../../components/FixedFooter";
@@ -8,22 +8,54 @@ import { Main } from "../../../components/Layout";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
 
+import { minmax } from "../../../utils/helpers";
 import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/recipies";
 
 const RecipeSettings = ({ recipe }) => {
     const router = useRouter();
-    const { slug } = router.query;
+    const { slug, volume: volumeStr } = router.query;
 
-    // Keep track of the desired coffee volume, default to 400ml:
-    const [desiredVolume, setDesiredVolume] = useState(400);
+    // Parse volume from the URL and check correctness:
+    const volume = parseInt(volumeStr as string);
+    const isValidVolume =
+        !Number.isNaN(volume) &&
+        volume <= recipe.maxWater &&
+        volume >= recipe.minWater;
 
-    // Set up a callback to change the desired coffee volume:
-    const onChange = useCallback((newValue) => setDesiredVolume(newValue), []);
+    // Correct the volume in the URL if it's outside the volume range set by the recipe:
+    useEffect(() => {
+        if (isValidVolume) return;
 
-    // Update the desired coffee volume to the recipe's default when the recipe changes:
-    useEffect(() => recipe && setDesiredVolume(recipe.defaultVolume), [recipe]);
+        const actual = volume;
+        const corrected = Number.isNaN(actual)
+            ? recipe.defaultVolume
+            : minmax(actual, recipe.minWater, recipe.maxWater);
 
-    if (!recipe) return null;
+        router.replace({
+            pathname: router.pathname,
+            query: {
+                slug,
+                volume: corrected,
+            },
+        });
+    }, [isValidVolume]);
+
+    // Update the URL with a new desired coffee volume:
+    const onChange = useCallback(
+        (newValue) => {
+            router.replace({
+                pathname: router.pathname,
+                query: {
+                    slug,
+                    volume: newValue,
+                },
+            });
+        },
+        [slug]
+    );
+
+    // Don't render anything as long as the volume is not corrected:
+    if (!isValidVolume) return null;
 
     return (
         <>
@@ -35,7 +67,7 @@ const RecipeSettings = ({ recipe }) => {
                     <h2 style={{ marginTop: 0 }}>{recipe.name}</h2>
                     <RatioSlider
                         recipe={recipe}
-                        value={desiredVolume}
+                        value={volume}
                         onChange={onChange}
                     />
                 </section>
@@ -48,7 +80,12 @@ const RecipeSettings = ({ recipe }) => {
             </Main>
             <FixedFooter>
                 <LinkButton
-                    href={`/recipe/${slug}/timer?volume=${desiredVolume}`}
+                    href={{
+                        pathname: `/recipe/${slug}/timer`,
+                        query: {
+                            volume,
+                        },
+                    }}
                 >
                     Let's do it!
                 </LinkButton>

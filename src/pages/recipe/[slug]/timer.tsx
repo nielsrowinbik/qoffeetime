@@ -11,16 +11,47 @@ import { Nav, NavHeading } from "../../../components/Nav";
 import { RecipeStepsList } from "../../../components/RecipeStepsList";
 import { TotalTimeLeft } from "../../../components/TotalTimeLeft";
 
+import { useRenderedRecipe } from "../../../hooks/use-rendered-recipe";
 import { useTimer } from "../../../hooks/use-timer";
 import { useWakeLock } from "../../../hooks/use-wakelock";
 
+import { minmax } from "../../../utils/helpers";
 import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/recipies";
 
 const RecipeTimer = ({ recipe }) => {
     const router = useRouter();
+    const { slug, volume: volumeStr } = router.query;
 
-    const timer = useTimer(recipe);
+    // Parse volume from the URL and check correctness:
+    const volume = parseInt(volumeStr as string);
+    const isValidVolume =
+        !Number.isNaN(volume) &&
+        volume <= recipe.maxWater &&
+        volume >= recipe.minWater;
 
+    // Correct the volume in the URL if it's outside the volume range set by the recipe:
+    useEffect(() => {
+        if (isValidVolume) return;
+
+        const actual = volume;
+        const corrected = Number.isNaN(actual)
+            ? recipe.defaultVolume
+            : minmax(actual, recipe.minWater, recipe.maxWater);
+
+        router.replace({
+            pathname: router.pathname,
+            query: {
+                slug,
+                volume: corrected,
+            },
+        });
+    }, [isValidVolume]);
+
+    // Render the recipe steps and set up a timer:
+    const rendered = useRenderedRecipe(recipe, volume);
+    const timer = useTimer(rendered);
+
+    // Handle the user clicking "stop":
     const onStopClick = useCallback(() => {
         if (confirm("Do you want to cancel the timer?")) {
             timer.stop();
@@ -28,23 +59,23 @@ const RecipeTimer = ({ recipe }) => {
         }
     }, []);
 
+    // Go back a page when the timer completes:
     useEffect(() => {
-        const isComplete = recipe && timer.isComplete;
+        const isComplete = rendered && timer.isComplete;
 
         if (isComplete) {
             router.back();
         }
     }, [timer.isComplete]);
 
-    useWakeLock(true);
-
-    if (!recipe) return null;
+    // Don't render anything as long as the volume is not corrected:
+    if (!isValidVolume) return null;
 
     return (
         <>
             <Nav>
                 <BackButton />
-                <NavHeading>{recipe.name}</NavHeading>
+                <NavHeading>{rendered.name}</NavHeading>
             </Nav>
             <Main>
                 <Section>
@@ -53,14 +84,14 @@ const RecipeTimer = ({ recipe }) => {
                 <Section>
                     <CurrentTimeLeft
                         stepDescription={
-                            recipe.steps[timer.currentStepIndex].description
+                            rendered.steps[timer.currentStepIndex].description
                         }
                         timeRemaining={timer.currentStepRemaining}
                     />
                 </Section>
                 <Section scroll>
                     <RecipeStepsList
-                        steps={recipe.steps}
+                        steps={rendered.steps}
                         currentStepIndex={timer.currentStepIndex}
                     />
                 </Section>
