@@ -1,6 +1,8 @@
 import "typeface-montserrat";
-import { createGlobalStyle } from "styled-components";
+
+import type { AppProps } from "next/app";
 import { useEffect } from "react";
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
     html, time {
@@ -59,7 +61,7 @@ const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
 };
 
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }: AppProps) => {
     useEffect(() => {
         // Update the height of the app:
         updateHeight();

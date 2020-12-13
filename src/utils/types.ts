@@ -10,8 +10,8 @@ export type Recipe = {
     image: string;
     minWater: number;
     maxWater: number;
-    defaultRatio: number;
     defaultVolume: number;
+    ratio: number;
     steps: RecipeStep[];
 };
 

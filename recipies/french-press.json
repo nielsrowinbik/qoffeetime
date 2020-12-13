@@ -1,0 +1,28 @@
+{
+    "name": "French Press",
+    "tagline": "James Hoffman's recommended technique for making coffee with the French Press.",
+    "image": "https://images.pexels.com/photos/4556526/pexels-photo-4556526.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    "description": "TODO: write description",
+    "minWater": 500,
+    "maxWater": 1000,
+    "defaultRatio": 65,
+    "defaultVolume": 500,
+    "steps": [
+        {
+            "description": "Pour in ${volume}ml and let it steep",
+            "duration": 240
+        },
+        {
+            "description": "Stir the crust and scoop off the foam",
+            "duration": 20
+        },
+        {
+            "description": "Let the coffee steep",
+            "duration": 360
+        },
+        {
+            "description": "Put in the plunger just below the surface of the coffee and use it as a strainer",
+            "duration": 15
+        }
+    ]
+}

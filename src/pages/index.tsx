@@ -1,17 +1,14 @@
 import Head from "next/head";
 import { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
-import slugify from "slugify";
 
 import { FixedFooter } from "../components/FixedFooter";
 import { LinkButton } from "../components/LinkButton";
 import { RecipeSlide } from "../components/RecipeSlide";
+import { getStaticRecipies } from "../utils/helpers";
+import { Recipies } from "../utils/types";
 
-import recipies from "../recipies";
-
-const recipeList = Object.values(recipies);
-
-const IndexView = () => {
+const IndexView = ({ recipies }) => {
     const [index, setIndex] = useState(0);
 
     return (
@@ -56,7 +53,7 @@ const IndexView = () => {
             <SwipeableViews
                 containerStyle={{ height: "100%" }}
                 enableMouseEvents
-                onChangeIndex={(index: number) => setIndex(index)}
+                // onChangeIndex={(index: number) => setIndex(index)}
                 style={{ height: "100%", gridArea: "nav / nav / main / main" }}
             >
                 {Object.keys(recipies).map((slug) => {
@@ -66,17 +63,15 @@ const IndexView = () => {
                     );
                 })}
             </SwipeableViews>
-            <FixedFooter>
-                <LinkButton
-                    href={`/recipe/${slugify(recipeList[index].name, {
-                        lower: true,
-                    })}`}
-                >
-                    Prepare {recipeList[index].name}!
+            {/* <FixedFooter>
+                <LinkButton href={`/recipe/${recipies[index].slug}`}>
+                    Prepare {recipies[index].name}!
                 </LinkButton>
-            </FixedFooter>
+            </FixedFooter> */}
         </>
     );
 };
+
+export { getStaticRecipies as getStaticProps };
 
 export default IndexView;

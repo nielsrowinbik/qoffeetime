@@ -1,0 +1,36 @@
+{
+    "name": "V60",
+    "tagline": "James Hoffman's recommended technique for making coffee with the Hario V60, and any other cone-shaped brewer with a large open area.",
+    "image": "https://cdn.shopify.com/s/files/1/2525/7682/products/Hario-Copper-Dripper1_900x.jpg?v=1569022983",
+    "description": "TODO: write description",
+    "minWater": 250,
+    "maxWater": 500,
+    "defaultVolume": 360,
+    "ratio": 60,
+    "steps": [
+        {
+            "description": "Pour ${coffee * 2}ml and swirl, wetting all the grounds evenly",
+            "duration": 15
+        },
+        {
+            "description": "Wait, allowing the coffee to bloom",
+            "duration": 15
+        },
+        {
+            "description": "Pour ${volume * 0.6}ml at a constant rate",
+            "duration": 30
+        },
+        {
+            "description": "Pour the rest of the water at a constant rate",
+            "duration": 30
+        },
+        {
+            "description": "Gently stir once clockwise and once counterclockwise",
+            "duration": 10
+        },
+        {
+            "description": "Gently swirl once clockwise and once counterclockwise",
+            "duration": 10
+        }
+    ]
+}
