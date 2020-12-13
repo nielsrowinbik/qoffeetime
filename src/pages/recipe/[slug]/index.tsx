@@ -32,9 +32,8 @@ const RecipeSettings = ({ recipe }) => {
             : minmax(actual, recipe.minWater, recipe.maxWater);
 
         router.replace({
-            pathname: router.pathname,
+            pathname: `/recipe/${slug}`,
             query: {
-                slug,
                 volume: corrected,
             },
         });
@@ -44,7 +43,7 @@ const RecipeSettings = ({ recipe }) => {
     const onChange = useCallback(
         (newValue) => {
             router.replace({
-                pathname: router.pathname,
+                pathname: `/recipe/${slug}`,
                 query: {
                     slug,
                     volume: newValue,
