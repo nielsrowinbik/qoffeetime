@@ -39,9 +39,8 @@ const RecipeTimer = ({ recipe }) => {
             : minmax(actual, recipe.minWater, recipe.maxWater);
 
         router.replace({
-            pathname: router.pathname,
+            pathname: `/recipe/${slug}`,
             query: {
-                slug,
                 volume: corrected,
             },
         });
