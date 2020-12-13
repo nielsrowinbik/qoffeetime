@@ -8,12 +8,11 @@ import { Main } from "../../../components/Layout";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
 
-import recipies from "../../../recipies";
+import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/helpers";
 
-const RecipeSettings = () => {
+const RecipeSettings = ({ recipe }) => {
     const router = useRouter();
     const { slug } = router.query;
-    const recipe = recipies[slug as string];
 
     // Keep track of the desired coffee volume, default to 400ml:
     const [desiredVolume, setDesiredVolume] = useState(400);
@@ -56,6 +55,11 @@ const RecipeSettings = () => {
             </FixedFooter>
         </>
     );
+};
+
+export {
+    getStaticRecipe as getStaticProps,
+    getStaticRecipePaths as getStaticPaths,
 };
 
 export default RecipeSettings;

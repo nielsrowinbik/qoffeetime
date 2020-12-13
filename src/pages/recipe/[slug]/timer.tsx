@@ -14,13 +14,11 @@ import { TotalTimeLeft } from "../../../components/TotalTimeLeft";
 import { useTimer } from "../../../hooks/use-timer";
 import { useWakeLock } from "../../../hooks/use-wakelock";
 
-import recipies from "../../../recipies";
+import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/helpers";
 
-const RecipeTimer = () => {
+const RecipeTimer = ({ recipe }) => {
     const router = useRouter();
-    const { slug } = router.query;
 
-    const recipe = useMemo(() => recipies[slug as string], [slug]);
     const timer = useTimer(recipe);
 
     const onStopClick = useCallback(() => {
@@ -32,7 +30,7 @@ const RecipeTimer = () => {
 
     useEffect(() => {
         const isComplete = recipe && timer.isComplete;
-        
+
         if (isComplete) {
             router.back();
         }
@@ -86,6 +84,11 @@ const RecipeTimer = () => {
             </FixedFooter>
         </>
     );
+};
+
+export {
+    getStaticRecipe as getStaticProps,
+    getStaticRecipePaths as getStaticPaths,
 };
 
 export default RecipeTimer;

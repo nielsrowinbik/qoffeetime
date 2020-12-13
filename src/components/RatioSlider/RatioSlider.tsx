@@ -23,7 +23,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
     height = 250,
     minFill = 0.5,
     onChange,
-    recipe: { defaultRatio, maxWater, minWater },
+    recipe: { ratio, maxWater, minWater },
     width = 175,
     ...props
 }) => {
@@ -128,7 +128,7 @@ export const RatioSlider: FC<RatioSliderProps> = ({
                 <Label
                     bottomOffset={coffeeLabelOffset}
                     type="Coffee"
-                    value={(defaultRatio / 1000) * value}
+                    value={(ratio / 1000) * value}
                     unit="g"
                 />
             </LabelContainer>
