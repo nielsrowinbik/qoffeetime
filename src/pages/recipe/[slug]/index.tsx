@@ -45,7 +45,6 @@ const RecipeSettings = ({ recipe }) => {
             router.replace({
                 pathname: `/recipe/${slug}`,
                 query: {
-                    slug,
                     volume: newValue,
                 },
             });
