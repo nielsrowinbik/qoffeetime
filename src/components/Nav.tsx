@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const NavHeading = styled.h1`
-    font-family: Roboto;
+    font-family: inherit;
     font-size: 1.4rem;
     margin-left: 24px;
 `;

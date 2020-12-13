@@ -1,8 +1,6 @@
 import { FC } from "react";
 import Link from "next/link";
 
-import { LinkButton } from "../LinkButton";
-
 import { Recipe } from "../../utils/types";
 
 import { RecipeSlideContainer as Container } from "./RecipeSlideContainer";

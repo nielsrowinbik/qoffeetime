@@ -1,5 +1,4 @@
 import "typeface-montserrat";
-import "typeface-roboto";
 import { createGlobalStyle } from "styled-components";
 import { useEffect } from "react";
 
