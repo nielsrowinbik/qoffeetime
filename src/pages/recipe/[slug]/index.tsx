@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { BackButton } from "../../../components/BackButton";
 import { FixedFooter } from "../../../components/FixedFooter";
 import { LinkButton } from "../../../components/LinkButton";
-import { Main, Section } from "../../../components/Layout";
+import { Main } from "../../../components/Layout";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
 

@@ -24,7 +24,6 @@ export const Button = styled(UnstyledButton)`
     border: none;
     border-radius: 32px;
     color: ${({ dark }) => (dark ? "#fff" : "#000")};
-    font-family: Roboto;
     font-size: 1rem;
     font-weight: 700;
     line-height: 1rem;
