@@ -8,7 +8,7 @@ import { Main } from "../../../components/Layout";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
 
-import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/helpers";
+import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/recipies";
 
 const RecipeSettings = ({ recipe }) => {
     const router = useRouter();

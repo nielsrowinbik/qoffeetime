@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect } from "react";
 
 import { BackButton } from "../../../components/BackButton";
 import { Button } from "../../../components/Button";
@@ -14,7 +14,7 @@ import { TotalTimeLeft } from "../../../components/TotalTimeLeft";
 import { useTimer } from "../../../hooks/use-timer";
 import { useWakeLock } from "../../../hooks/use-wakelock";
 
-import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/helpers";
+import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/recipies";
 
 const RecipeTimer = ({ recipe }) => {
     const router = useRouter();
