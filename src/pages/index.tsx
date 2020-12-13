@@ -5,8 +5,8 @@ import SwipeableViews from "react-swipeable-views";
 import { FixedFooter } from "../components/FixedFooter";
 import { LinkButton } from "../components/LinkButton";
 import { RecipeSlide } from "../components/RecipeSlide";
-import { getStaticRecipies } from "../utils/helpers";
-import { Recipies } from "../utils/types";
+
+import { getStaticRecipies } from "../utils/recipies";
 
 const IndexView = ({ recipies }) => {
     const [index, setIndex] = useState(0);
@@ -53,7 +53,7 @@ const IndexView = ({ recipies }) => {
             <SwipeableViews
                 containerStyle={{ height: "100%" }}
                 enableMouseEvents
-                // onChangeIndex={(index: number) => setIndex(index)}
+                onChangeIndex={(index: number) => setIndex(index)}
                 style={{ height: "100%", gridArea: "nav / nav / main / main" }}
             >
                 {Object.keys(recipies).map((slug) => {
@@ -63,11 +63,11 @@ const IndexView = ({ recipies }) => {
                     );
                 })}
             </SwipeableViews>
-            {/* <FixedFooter>
-                <LinkButton href={`/recipe/${recipies[index].slug}`}>
-                    Prepare {recipies[index].name}!
+            <FixedFooter>
+                <LinkButton href={`/recipe/${Object.keys(recipies)[index]}`}>
+                    Prepare {recipies[Object.keys(recipies)[index]].name}!
                 </LinkButton>
-            </FixedFooter> */}
+            </FixedFooter>
         </>
     );
 };
