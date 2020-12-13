@@ -5,8 +5,8 @@
     "description": "TODO: write description",
     "minWater": 500,
     "maxWater": 1000,
-    "defaultRatio": 65,
     "defaultVolume": 500,
+    "ratio": 65,
     "steps": [
         {
             "description": "Pour in ${volume}ml and let it steep",
