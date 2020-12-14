@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 
 import { FixedFooter } from "../components/FixedFooter";
@@ -9,7 +9,15 @@ import { RecipeSlide } from "../components/RecipeSlide";
 import { getStaticRecipies } from "../utils/recipies";
 
 const IndexView = ({ recipies }) => {
-    const [index, setIndex] = useState(0);
+    const slugs = Object.keys(recipies);
+
+    const [slug, setSlug] = useState(slugs[0]);
+    const recipe = recipies[slug];
+
+    const onChangeIndex = useCallback(
+        (newIndex: number) => setSlug(slugs[newIndex]),
+        []
+    );
 
     return (
         <>
@@ -53,10 +61,10 @@ const IndexView = ({ recipies }) => {
             <SwipeableViews
                 containerStyle={{ height: "100%" }}
                 enableMouseEvents
-                onChangeIndex={(index: number) => setIndex(index)}
+                onChangeIndex={onChangeIndex}
                 style={{ height: "100%", gridArea: "nav / nav / main / main" }}
             >
-                {Object.keys(recipies).map((slug) => {
+                {slugs.map((slug) => {
                     const recipe = recipies[slug];
                     return (
                         <RecipeSlide recipe={recipe} key={slug} slug={slug} />
@@ -64,8 +72,13 @@ const IndexView = ({ recipies }) => {
                 })}
             </SwipeableViews>
             <FixedFooter>
-                <LinkButton href={`/recipe/${Object.keys(recipies)[index]}`}>
-                    Prepare {recipies[Object.keys(recipies)[index]].name}!
+                <LinkButton
+                    href={{
+                        pathname: `/recipe/${slug}`,
+                        query: { volume: recipe.minWater },
+                    }}
+                >
+                    Prepare {recipe.name}!
                 </LinkButton>
             </FixedFooter>
         </>
