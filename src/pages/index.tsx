@@ -5,6 +5,7 @@ import SwipeableViews from "react-swipeable-views";
 import { FixedFooter } from "../components/FixedFooter";
 import { LinkButton } from "../components/LinkButton";
 import { RecipeSlide } from "../components/RecipeSlide";
+import { TimelineButton } from "../components/TimelineButton";
 
 import { getStaticRecipies } from "../utils/recipies";
 
@@ -71,6 +72,7 @@ const IndexView = ({ recipies }) => {
                     );
                 })}
             </SwipeableViews>
+            <TimelineButton href="/timeline">Timeline</TimelineButton>
             <FixedFooter>
                 <LinkButton
                     href={{

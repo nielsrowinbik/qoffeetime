@@ -40,12 +40,12 @@ const RecipeTimer = ({ recipe }) => {
         }
     }, []);
 
-    // Go back a page when the timer completes:
+    // Redirect to the coffee log when the timer completes:
     useEffect(() => {
         const isComplete = rendered && timer.isComplete;
 
         if (isComplete) {
-            router.back();
+            router.replace(`/timeline`);
         }
     }, [timer.isComplete]);
 
