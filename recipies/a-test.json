@@ -1,0 +1,16 @@
+{
+    "name": "Short Test",
+    "tagline": "Short recipe, for testing purposes",
+    "image": "https://images.pexels.com/photos/4556526/pexels-photo-4556526.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
+    "description": "Just testing.",
+    "minWater": 500,
+    "maxWater": 1000,
+    "defaultVolume": 500,
+    "ratio": 65,
+    "steps": [
+        {
+            "description": "Pour in ${volume}ml and let it steep",
+            "duration": 5
+        }
+    ]
+}
