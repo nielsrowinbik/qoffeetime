@@ -31,23 +31,32 @@ const RecipeSettings = ({ recipe }) => {
             ? recipe.defaultVolume
             : minmax(actual, recipe.minWater, recipe.maxWater);
 
-        router.replace({
-            pathname: `/recipe/${slug}`,
-            query: {
-                volume: corrected,
+        router.replace(
+            {
+                pathname: `/recipe/${slug}`,
+                query: {
+                    volume: corrected,
+                },
             },
-        });
+            undefined,
+            { shallow: true }
+        );
     }, [isValidVolume]);
 
     // Update the URL with a new desired coffee volume:
     const onChange = useCallback(
         (newValue) => {
-            router.replace({
-                pathname: `/recipe/${slug}`,
-                query: {
-                    volume: newValue,
+            console.log("onChange");
+            router.replace(
+                {
+                    pathname: `/recipe/${slug}`,
+                    query: {
+                        volume: newValue,
+                    },
                 },
-            });
+                undefined,
+                { shallow: true }
+            );
         },
         [slug]
     );

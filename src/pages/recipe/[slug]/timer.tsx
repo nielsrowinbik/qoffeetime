@@ -38,12 +38,16 @@ const RecipeTimer = ({ recipe }) => {
             ? recipe.defaultVolume
             : minmax(actual, recipe.minWater, recipe.maxWater);
 
-        router.replace({
-            pathname: `/recipe/${slug}`,
-            query: {
-                volume: corrected,
+        router.replace(
+            {
+                pathname: `/recipe/${slug}`,
+                query: {
+                    volume: corrected,
+                },
             },
-        });
+            undefined,
+            { shallow: true }
+        );
     }, [isValidVolume]);
 
     // Render the recipe steps and set up a timer:
