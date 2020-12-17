@@ -21,7 +21,7 @@
             "duration": 30
         },
         {
-            "description": "Pour at a constant rate until you reacy ${volume}ml",
+            "description": "Pour at a constant rate until you reach your desired volume (${volume}ml)",
             "duration": 30
         },
         {
