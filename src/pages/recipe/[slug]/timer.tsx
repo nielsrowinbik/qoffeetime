@@ -40,7 +40,7 @@ const RecipeTimer = ({ recipe }) => {
 
         router.replace(
             {
-                pathname: `/recipe/${slug}`,
+                pathname: `/recipe/${slug}/timer`,
                 query: {
                     volume: corrected,
                 },
