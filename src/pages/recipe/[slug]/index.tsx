@@ -46,7 +46,6 @@ const RecipeSettings = ({ recipe }) => {
     // Update the URL with a new desired coffee volume:
     const onChange = useCallback(
         (newValue) => {
-            console.log("onChange");
             router.replace(
                 {
                     pathname: `/recipe/${slug}`,
