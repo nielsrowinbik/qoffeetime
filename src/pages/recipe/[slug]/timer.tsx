@@ -54,6 +54,9 @@ const RecipeTimer = ({ recipe }) => {
     const rendered = useRenderedRecipe(recipe, volume);
     const timer = useTimer(rendered);
 
+    // Keep the screen on as long as this page is visible:
+    useWakeLock(true);
+
     // Handle the user clicking "stop":
     const onStopClick = useCallback(() => {
         if (confirm("Do you want to cancel the timer?")) {

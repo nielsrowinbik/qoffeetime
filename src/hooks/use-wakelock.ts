@@ -1,42 +1,32 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-export const useWakeLock = (shouldHaveWakeLock = false) => {
-    const wakeLock = useRef<WakeLockSentinel>();
+// TODO: Reaquire wakelock if it's released and the document becomes visible again
 
-    const [wakeLockActive, setWakeLockActive] = useState(false);
+export const useWakeLock = (shouldHaveWakeLock = true) => {
+    const savedWakeLock = useRef<WakeLockSentinel>();
 
     useEffect(() => {
-        const requestWakeLock = async () => {
-            if (shouldHaveWakeLock) {
-                try {
-                    // Request a wakelock:
-                    wakeLock.current = await navigator.wakeLock.request(
-                        "screen"
-                    );
-
-                    // Update the state accordingly:
-                    setWakeLockActive(true);
-
-                    // Make sure to grab the wakelock again when the page becomes visible:
-                    document.addEventListener("visibilitychange", async () => {
-                        if (
-                            wakeLock.current !== null &&
-                            document.visibilityState === "visible"
-                        ) {
-                            requestWakeLock();
-                        }
-                    });
-                } catch (e) {
-                    // If something went wrong, set the state accordingly:
-                    setWakeLockActive(false);
-                }
+        const requestWakelock = async () => {
+            if (!savedWakeLock.current || savedWakeLock.current.released) {
+                const wakeLock = window.navigator.wakeLock;
+                savedWakeLock.current = await wakeLock.request("screen");
             }
         };
 
-        requestWakeLock();
+        const cleanup = () => {
+            savedWakeLock.current?.release();
+            window.removeEventListener("visibilitychange", requestWakelock);
+        };
 
-        return () => wakeLock.current?.release();
+        if (shouldHaveWakeLock) {
+            requestWakelock();
+            window.addEventListener("visibilitychange", requestWakelock);
+        } else {
+            cleanup();
+        }
+
+        return cleanup;
     }, [shouldHaveWakeLock]);
 
-    return { wakeLockActive };
+    return {};
 };
