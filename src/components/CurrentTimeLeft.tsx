@@ -11,11 +11,11 @@ type CurrentTimeLeftProps = {
 const H1 = styled.h1`
     line-height: 4.6rem;
     margin: 0;
-    margin: 1.2rem 0;
+    margin: 1.6rem 0;
 `;
 
 const H4 = styled.h4`
-    margin: 1.2rem 0;
+    margin: 1.6rem 0;
     margin-right: 20%;
 `;
 
