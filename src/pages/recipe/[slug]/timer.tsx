@@ -13,42 +13,17 @@ import { TotalTimeLeft } from "../../../components/TotalTimeLeft";
 
 import { useRenderedRecipe } from "../../../hooks/use-rendered-recipe";
 import { useTimer } from "../../../hooks/use-timer";
+import { useVolume } from "../../../hooks/use-volume";
 import { useWakeLock } from "../../../hooks/use-wakelock";
 
-import { minmax } from "../../../utils/helpers";
 import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/recipies";
 
 const RecipeTimer = ({ recipe }) => {
     const router = useRouter();
-    const { slug, volume: volumeStr } = router.query;
+    const { slug } = router.query;
 
-    // Parse volume from the URL and check correctness:
-    const volume = parseInt(volumeStr as string);
-    const isValidVolume =
-        !Number.isNaN(volume) &&
-        volume <= recipe.maxWater &&
-        volume >= recipe.minWater;
-
-    // Correct the volume in the URL if it's outside the volume range set by the recipe:
-    useEffect(() => {
-        if (isValidVolume) return;
-
-        const actual = volume;
-        const corrected = Number.isNaN(actual)
-            ? recipe.defaultVolume
-            : minmax(actual, recipe.minWater, recipe.maxWater);
-
-        router.replace(
-            {
-                pathname: `/recipe/${slug}/timer`,
-                query: {
-                    volume: corrected,
-                },
-            },
-            undefined,
-            { shallow: true }
-        );
-    }, [isValidVolume]);
+    // Get the volume from the URL:
+    const { volume } = useVolume(recipe, `/recipe/${slug}/timer`);
 
     // Render the recipe steps and set up a timer:
     const rendered = useRenderedRecipe(recipe, volume);
@@ -73,9 +48,6 @@ const RecipeTimer = ({ recipe }) => {
             router.back();
         }
     }, [timer.isComplete]);
-
-    // Don't render anything as long as the volume is not corrected:
-    if (!isValidVolume) return null;
 
     return (
         <>
