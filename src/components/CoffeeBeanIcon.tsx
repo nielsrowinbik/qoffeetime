@@ -1,6 +1,6 @@
-import { FC, HTMLProps } from "react";
+import { FC, SVGProps } from "react";
 
-export const CoffeeBeanIcon: FC<HTMLProps<SVGElement>> = (props) => (
+export const CoffeeBeanIcon: FC<SVGProps<SVGElement>> = (props) => (
     // @ts-ignore
     <svg viewBox="0 0 511.664 511.664" {...props}>
         <path

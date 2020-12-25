@@ -1,6 +1,6 @@
-import { FC, HTMLProps } from "react";
+import { FC, SVGProps } from "react";
 
-export const WaterDropIcon: FC<HTMLProps<SVGElement>> = (props) => (
+export const WaterDropIcon: FC<SVGProps<SVGElement>> = (props) => (
     // @ts-ignore
     <svg viewBox="0 0 405.047 405.047" {...props}>
         <path
