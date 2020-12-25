@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import Modal from "react-modal";
 
+import { BrewsList } from "../components/BrewsList";
 import { Button } from "../components/Button";
 import { ButtonGroup } from "../components/ButtonGroup";
 import { BackButton } from "../components/BackButton";
@@ -9,20 +10,38 @@ import { Main } from "../components/Layout";
 import { Nav, NavHeading } from "../components/Nav";
 import { RecipeDropdown, VolumeDropdown } from "../components/RecipeDropdown";
 
+import { useBrews } from "../hooks/use-brews-context";
+
 import { getStaticRecipies } from "../utils/recipies";
 
 Modal.setAppElement("#__next");
 
 const TimelineView = ({ recipies }) => {
+    const { brews, createBrew } = useBrews();
+
     const [modalIsOpen, setIsOpen] = useState(false);
     const [recipe, setRecipe] = useState("");
-    const [volume, setVolume] = useState("");
+    const [volumeStr, setVolumeStr] = useState("");
 
     const openModal = useCallback(() => setIsOpen(true), []);
     const closeModal = useCallback(() => setIsOpen(false), []);
 
     const onRecipeSelect = useCallback((newRecipe) => setRecipe(newRecipe), []);
-    const onVolumeSelect = useCallback((newVolume) => setVolume(newVolume), []);
+    const onVolumeSelect = useCallback(
+        (newVolume) => setVolumeStr(newVolume),
+        []
+    );
+
+    const onAddButtonClick = useCallback(() => {
+        const volume = parseInt(volumeStr.replace("ml", ""));
+        const brew = {
+            coffee: Math.round((recipies[recipe].ratio / 1000) * volume),
+            recipe,
+            volume,
+        };
+
+        createBrew(brew).then(closeModal);
+    }, [recipe, volumeStr]);
 
     return (
         <>
@@ -30,7 +49,9 @@ const TimelineView = ({ recipies }) => {
                 <BackButton />
                 <NavHeading>Coffee Timeline</NavHeading>
             </Nav>
-            <Main></Main>
+            <Main>
+                <BrewsList brews={brews} recipies={recipies} />
+            </Main>
             <FixedFooter>
                 <Button onClick={openModal}>Add coffee consumption</Button>
             </FixedFooter>
@@ -63,10 +84,10 @@ const TimelineView = ({ recipies }) => {
                 <VolumeDropdown
                     onChange={onVolumeSelect}
                     recipe={recipies[recipe]}
-                    value={volume}
+                    value={volumeStr}
                 />
                 <ButtonGroup>
-                    <Button>Add</Button>
+                    <Button onClick={onAddButtonClick}>Add</Button>
                 </ButtonGroup>
                 <p onClick={closeModal}>Cancel</p>
             </Modal>

@@ -4,6 +4,8 @@ import type { AppProps } from "next/app";
 import { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 
+import { ProvideBrewsContext } from "../hooks/use-brews-context";
+
 const GlobalStyle = createGlobalStyle`
     html, time {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -76,7 +78,9 @@ const App = ({ Component, pageProps }: AppProps) => {
     return (
         <>
             <GlobalStyle />
-            <Component {...pageProps} />
+            <ProvideBrewsContext>
+                <Component {...pageProps} />
+            </ProvideBrewsContext>
         </>
     );
 };

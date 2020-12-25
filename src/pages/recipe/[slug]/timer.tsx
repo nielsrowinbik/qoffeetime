@@ -11,6 +11,7 @@ import { Nav, NavHeading } from "../../../components/Nav";
 import { RecipeStepsList } from "../../../components/RecipeStepsList";
 import { TotalTimeLeft } from "../../../components/TotalTimeLeft";
 
+import { useBrews } from "../../../hooks/use-brews-context";
 import { useRenderedRecipe } from "../../../hooks/use-rendered-recipe";
 import { useTimer } from "../../../hooks/use-timer";
 import { useVolume } from "../../../hooks/use-volume";
@@ -40,12 +41,19 @@ const RecipeTimer = ({ recipe }) => {
         }
     }, []);
 
-    // Redirect to the coffee log when the timer completes:
+    // Save the brew and redirect when the timer completes:
+    const { createBrew } = useBrews();
     useEffect(() => {
         const isComplete = rendered && timer.isComplete;
 
         if (isComplete) {
-            router.replace(`/timeline`);
+            const brew = {
+                coffee: Math.round((recipe.ratio / 1000) * volume),
+                recipe: slug as string,
+                volume,
+            };
+
+            createBrew(brew).then(() => router.replace(`/timeline`));
         }
     }, [timer.isComplete]);
 
