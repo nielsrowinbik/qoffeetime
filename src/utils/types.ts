@@ -1,3 +1,11 @@
+export type Brew = {
+    coffee: number;
+    created?: Date;
+    id?: number;
+    recipe: string;
+    volume: number;
+};
+
 export type RecipeStep = {
     description: string;
     duration: number;
@@ -18,3 +26,5 @@ export type Recipe = {
 export type Recipies = {
     [slug: string]: Recipe;
 };
+
+export type UserBrew = Brew;
