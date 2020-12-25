@@ -17,7 +17,7 @@
             "duration": 15
         },
         {
-            "description": "Pour at a constant rate until you reach ${Math.ceil((coffee * 2) / 10) * 10 + Math.ceil((volume * 0.6) / 50) * 50}ml",
+            "description": "Pour at a constant rate until you reach ${Math.ceil((volume * 0.6) / 50) * 50}ml",
             "duration": 30
         },
         {
