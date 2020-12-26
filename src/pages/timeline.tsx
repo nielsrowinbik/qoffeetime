@@ -53,7 +53,9 @@ const TimelineView = ({ recipies }) => {
                 <BrewsList brews={brews} recipies={recipies} />
             </Main>
             <FixedFooter>
-                <Button onClick={openModal}>Add coffee consumption</Button>
+                <Button onClick={openModal} variant="large">
+                    Add coffee consumption
+                </Button>
             </FixedFooter>
             <Modal
                 isOpen={modalIsOpen}
@@ -87,9 +89,11 @@ const TimelineView = ({ recipies }) => {
                     value={volumeStr}
                 />
                 <ButtonGroup>
-                    <Button onClick={onAddButtonClick}>Add</Button>
+                    <Button onClick={onAddButtonClick} variant="large">
+                        Add
+                    </Button>
                 </ButtonGroup>
-                <p onClick={closeModal}>Cancel</p>
+                <Button onClick={closeModal}>Cancel</Button>
             </Modal>
         </>
     );

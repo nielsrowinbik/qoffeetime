@@ -1,16 +1,8 @@
-import Link, { LinkProps } from "next/link";
-import { FC } from "react";
+import Link from "next/link";
 import styled from "styled-components";
 
-import { Button } from "./Button";
-
-const SmallButton = styled(Button)`
-    background-color: #ff1744;
-    color: white;
-    font-size: 0.8rem;
-    font-weight: 500;
-    padding: 6px 14px;
-`;
+import { IconButton } from "./Button";
+import { TimelineIcon } from "./TimelineIcon";
 
 const Container = styled.div`
     position: absolute;
@@ -19,34 +11,12 @@ const Container = styled.div`
     margin: 40px;
 `;
 
-export const TimelineButton: FC<LinkProps> = (props) => {
-    const {
-        href,
-        as,
-        replace,
-        scroll,
-        shallow,
-        passHref,
-        prefetch,
-        locale,
-        ...buttonProps
-    } = props;
-    const linkProps = {
-        href,
-        as,
-        replace,
-        scroll,
-        shallow,
-        passHref,
-        prefetch,
-        locale,
-    };
-
-    return (
-        <Container>
-            <Link {...linkProps}>
-                <SmallButton {...buttonProps} />
-            </Link>
-        </Container>
-    );
-};
+export const TimelineButton = () => (
+    <Container>
+        <Link href="/timeline">
+            <IconButton icon={<TimelineIcon height={20} width={20} />}>
+                Timeline
+            </IconButton>
+        </Link>
+    </Container>
+);

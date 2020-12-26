@@ -33,6 +33,7 @@ const UnstyledBrewsList: FC<BrewsListProps> = ({
 );
 
 export const BrewsList = styled(UnstyledBrewsList)`
-    padding: 0;
     margin: 0;
+    overflow: auto;
+    padding: 0;
 `;
