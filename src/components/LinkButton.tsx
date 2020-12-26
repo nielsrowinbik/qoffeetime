@@ -1,9 +1,11 @@
 import Link, { LinkProps } from "next/link";
 import { FC } from "react";
 
-import { Button } from "./Button";
+import { Button, ButtonProps } from "./Button";
 
-export const LinkButton: FC<LinkProps> = (props) => {
+export type LinkButtonProps = ButtonProps & LinkProps;
+
+export const LinkButton: FC<LinkButtonProps> = (props) => {
     const {
         href,
         as,

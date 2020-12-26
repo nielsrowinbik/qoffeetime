@@ -85,14 +85,16 @@ const RecipeTimer = ({ recipe }) => {
             <FixedFooter>
                 <ButtonGroup>
                     {timer.elapsed === 0 && (
-                        <Button onClick={timer.start}>Start</Button>
+                        <Button onClick={timer.start} variant="large">
+                            Start
+                        </Button>
                     )}
                     {timer.elapsed > 0 && (
                         <>
-                            <Button onClick={timer.toggle}>
+                            <Button onClick={timer.toggle} variant="large">
                                 {timer.isRunning ? "Pause" : "Continue"}
                             </Button>
-                            <Button dark onClick={onStopClick}>
+                            <Button dark onClick={onStopClick} variant="large">
                                 Stop
                             </Button>
                         </>

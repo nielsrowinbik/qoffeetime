@@ -1,9 +1,10 @@
 import Head from "next/head";
+import Link from "next/link";
 import { useCallback, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 
 import { FixedFooter } from "../components/FixedFooter";
-import { LinkButton } from "../components/LinkButton";
+import { Button, IconButton } from "../components/Button";
 import { RecipeSlide } from "../components/RecipeSlide";
 import { TimelineButton } from "../components/TimelineButton";
 
@@ -72,16 +73,16 @@ const IndexView = ({ recipies }) => {
                     );
                 })}
             </SwipeableViews>
-            <TimelineButton href="/timeline">Timeline</TimelineButton>
+            <TimelineButton />
             <FixedFooter>
-                <LinkButton
+                <Link
                     href={{
                         pathname: `/recipe/${slug}`,
                         query: { volume: recipe.minWater },
                     }}
                 >
-                    Prepare {recipe.name}!
-                </LinkButton>
+                    <Button variant="large">Prepare {recipe.name}!</Button>
+                </Link>
             </FixedFooter>
         </>
     );

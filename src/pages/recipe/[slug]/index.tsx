@@ -1,9 +1,10 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback } from "react";
 
 import { BackButton } from "../../../components/BackButton";
+import { Button } from "../../../components/Button";
 import { FixedFooter } from "../../../components/FixedFooter";
-import { LinkButton } from "../../../components/LinkButton";
 import { Main } from "../../../components/Layout";
 import { Nav } from "../../../components/Nav";
 import { RatioSlider } from "../../../components/RatioSlider";
@@ -62,7 +63,7 @@ const RecipeSettings = ({ recipe }) => {
                 </section>
             </Main>
             <FixedFooter>
-                <LinkButton
+                <Link
                     href={{
                         pathname: `/recipe/${slug}/timer`,
                         query: {
@@ -70,8 +71,8 @@ const RecipeSettings = ({ recipe }) => {
                         },
                     }}
                 >
-                    Let's do it!
-                </LinkButton>
+                    <Button variant="large">Let's do it!</Button>
+                </Link>
             </FixedFooter>
         </>
     );

@@ -1,28 +1,45 @@
 import { FC, forwardRef, HTMLProps, ReactElement } from "react";
 import styled from "styled-components";
 
-type ButtonProps = {
+export type ButtonProps = HTMLProps<HTMLButtonElement> & {
     dark?: boolean;
     icon?: ReactElement;
-    type?: "submit" | "button" | "reset";
+    type?: "button" | "submit" | "reset";
+    variant?: "small" | "large";
 };
 
-const UnstyledButton: FC<
-    ButtonProps & HTMLProps<HTMLButtonElement>
-> = forwardRef(({ children, dark, icon, ...props }, ref) => (
-    <button {...props} ref={ref}>
-        {icon}
-        {children}
-    </button>
-));
-
-export const Button = styled(UnstyledButton)`
-    background-color: ${({ dark }) => (dark ? "#000" : "#fff")};
+export const Button = styled.button<ButtonProps>`
+    align-items: center;
+    background-color: ${({ dark, variant }) =>
+        variant === "large" ? (dark ? "#000" : "#fff") : "#ff1744"};
     border: none;
     border-radius: 32px;
-    color: ${({ dark }) => (dark ? "#fff" : "#000")};
-    font-size: 1rem;
-    font-weight: 700;
+    color: ${({ dark, variant }) =>
+        dark || variant !== "large" ? "#fff" : "#000"};
+    display: flex;
+    flex-direction: row;
+    font-size: ${({ variant }) => (variant === "large" ? "1rem" : "0.8rem")};
+    font-weight: ${({ variant }) => (variant === "large" ? 700 : 500)};
+    justify-content: center;
     line-height: 1rem;
-    padding: 14px;
+    padding: ${({ variant }) => (variant === "large" ? "14px" : "6px 14px")};
+`;
+
+export type IconButtonProps = ButtonProps & {
+    icon: ReactElement;
+};
+
+const UnstyledIconButton: FC<IconButtonProps> = forwardRef(
+    ({ as, children, icon, ref, ...props }, forwardedRef) => (
+        <Button ref={forwardedRef} {...props}>
+            {icon}
+            {children}
+        </Button>
+    )
+);
+
+export const IconButton = styled(UnstyledIconButton)`
+    & > :first-child {
+        margin-right: 6px;
+    }
 `;
