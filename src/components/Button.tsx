@@ -1,4 +1,4 @@
-import { FC, HTMLProps, ReactElement } from "react";
+import { FC, forwardRef, HTMLProps, ReactElement } from "react";
 import styled from "styled-components";
 
 type ButtonProps = {
@@ -7,17 +7,14 @@ type ButtonProps = {
     type?: "submit" | "button" | "reset";
 };
 
-const UnstyledButton: FC<ButtonProps & HTMLProps<HTMLButtonElement>> = ({
-    children,
-    dark,
-    icon,
-    ...props
-}) => (
-    <button {...props}>
+const UnstyledButton: FC<
+    ButtonProps & HTMLProps<HTMLButtonElement>
+> = forwardRef(({ children, dark, icon, ...props }, ref) => (
+    <button {...props} ref={ref}>
         {icon}
         {children}
     </button>
-);
+));
 
 export const Button = styled(UnstyledButton)`
     background-color: ${({ dark }) => (dark ? "#000" : "#fff")};
