@@ -17,7 +17,7 @@ const RecipeSettings = ({ recipe }) => {
     const { slug } = router.query;
 
     // Get the volume from the URL:
-    const { volume } = useVolume(recipe, `/recipe/${slug}`);
+    const { isValid, volume } = useVolume(recipe, `/recipe/${slug}`);
 
     // Update the URL with a new desired coffee volume:
     const onChange = useCallback(
@@ -35,6 +35,10 @@ const RecipeSettings = ({ recipe }) => {
         },
         [slug]
     );
+
+    // Don't render anything when the volume is invalid, as it will
+    // result in malformed SVG's:
+    if (!isValid) return null;
 
     return (
         <>
