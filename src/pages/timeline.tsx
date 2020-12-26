@@ -1,4 +1,5 @@
-import { useCallback, useState } from "react";
+import range from "lodash.range";
+import { useCallback, useEffect, useState } from "react";
 import Modal from "react-modal";
 
 import { BrewsList } from "../components/BrewsList";
@@ -8,7 +9,7 @@ import { BackButton } from "../components/BackButton";
 import { FixedFooter } from "../components/FixedFooter";
 import { Main } from "../components/Layout";
 import { Nav, NavHeading } from "../components/Nav";
-import { RecipeDropdown, VolumeDropdown } from "../components/RecipeDropdown";
+import { Select } from "../components/Select";
 
 import { useBrews } from "../hooks/use-brews-context";
 
@@ -20,17 +21,29 @@ const TimelineView = ({ recipies }) => {
     const { brews, createBrew } = useBrews();
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [recipe, setRecipe] = useState("");
-    const [volumeStr, setVolumeStr] = useState("");
+
+    const recipeOptions = Object.keys(recipies).map((slug) => ({
+        label: recipies[slug].name,
+        value: slug,
+    }));
+    const [recipe, setRecipe] = useState(recipeOptions[0].value);
+
+    const stepSize = 10;
+    const volumeOptions = range(
+        recipies[recipe]?.minWater,
+        recipies[recipe]?.maxWater + stepSize,
+        stepSize
+    ).map((step) => ({
+        label: `${step}ml`,
+        value: `${step}`,
+    }));
+    const [volumeStr, setVolumeStr] = useState(volumeOptions[0].value);
 
     const openModal = useCallback(() => setIsOpen(true), []);
     const closeModal = useCallback(() => setIsOpen(false), []);
 
-    const onRecipeSelect = useCallback((newRecipe) => setRecipe(newRecipe), []);
-    const onVolumeSelect = useCallback(
-        (newVolume) => setVolumeStr(newVolume),
-        []
-    );
+    const onRecipeSelect = useCallback((value) => setRecipe(value), []);
+    const onVolumeSelect = useCallback((value) => setVolumeStr(value), []);
 
     const onAddButtonClick = useCallback(() => {
         const volume = parseInt(volumeStr.replace("ml", ""));
@@ -42,6 +55,11 @@ const TimelineView = ({ recipies }) => {
 
         createBrew(brew).then(closeModal);
     }, [recipe, volumeStr]);
+
+    useEffect(() => {
+        if (volumeOptions.map(({ value }) => value).includes(volumeStr)) return;
+        setVolumeStr(volumeOptions[0].value);
+    }, [recipe]);
 
     return (
         <>
@@ -78,22 +96,26 @@ const TimelineView = ({ recipies }) => {
                 }}
             >
                 <h4>Add coffee</h4>
-                <RecipeDropdown
-                    onChange={onRecipeSelect}
-                    recipies={recipies}
-                    value={recipe}
-                />
-                <VolumeDropdown
-                    onChange={onVolumeSelect}
-                    recipe={recipies[recipe]}
-                    value={volumeStr}
-                />
+                <ButtonGroup>
+                    <Select
+                        onChange={onRecipeSelect}
+                        options={recipeOptions}
+                        value={recipe}
+                    />
+                    <Select
+                        onChange={onVolumeSelect}
+                        options={volumeOptions}
+                        value={volumeStr}
+                    />
+                </ButtonGroup>
                 <ButtonGroup>
                     <Button onClick={onAddButtonClick} variant="large">
                         Add
                     </Button>
                 </ButtonGroup>
-                <Button onClick={closeModal}>Cancel</Button>
+                <ButtonGroup>
+                    <Button onClick={closeModal}>Cancel</Button>
+                </ButtonGroup>
             </Modal>
         </>
     );
