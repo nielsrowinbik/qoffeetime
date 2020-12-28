@@ -27,4 +27,12 @@ export type Recipies = {
     [slug: string]: Recipe;
 };
 
+export type RecipeProps = {
+    recipe: Recipe;
+};
+
+export type RecipiesProps = {
+    recipies: Recipies;
+};
+
 export type UserBrew = Brew;

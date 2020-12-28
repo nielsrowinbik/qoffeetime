@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { FC, useCallback, useState } from "react";
 
 import { FixedFooter } from "../components/FixedFooter";
 import { Button } from "../components/Button";
@@ -7,8 +7,9 @@ import { RecipeSlides } from "../components/RecipeSlide";
 import { TimelineButton } from "../components/TimelineButton";
 
 import { getStaticRecipies } from "../utils/recipies";
+import type { RecipiesProps } from "../utils/types";
 
-const IndexView = ({ recipies }) => {
+const IndexView: FC<RecipiesProps> = ({ recipies }) => {
     const slugs = Object.keys(recipies);
     const [slug, setSlug] = useState(slugs[0]);
     const recipe = recipies[slug];

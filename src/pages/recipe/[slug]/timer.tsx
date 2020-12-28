@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
+import { FC, useCallback, useEffect } from "react";
 
 import { BackButton } from "../../../components/BackButton";
 import { Button } from "../../../components/Button";
@@ -18,8 +18,9 @@ import { useVolume } from "../../../hooks/use-volume";
 import { useWakeLock } from "../../../hooks/use-wakelock";
 
 import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/recipies";
+import type { RecipeProps } from "../../../utils/types";
 
-const RecipeTimer = ({ recipe }) => {
+const RecipeTimer: FC<RecipeProps> = ({ recipe }) => {
     const router = useRouter();
     const { slug } = router.query;
 

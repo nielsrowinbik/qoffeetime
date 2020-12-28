@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useCallback } from "react";
+import { FC, useCallback } from "react";
 
 import { BackButton } from "../../../components/BackButton";
 import { Button } from "../../../components/Button";
@@ -12,8 +12,9 @@ import { RatioSlider } from "../../../components/RatioSlider";
 import { useVolume } from "../../../hooks/use-volume";
 
 import { getStaticRecipe, getStaticRecipePaths } from "../../../utils/recipies";
+import type { RecipeProps } from "../../../utils/types";
 
-const RecipeSettings = ({ recipe }) => {
+const RecipeSettings: FC<RecipeProps> = ({ recipe }) => {
     const router = useRouter();
     const { slug } = router.query;
 

@@ -1,18 +1,20 @@
 import { readdirSync, readFileSync } from "fs";
 import path from "path";
 
+import type { Recipe, Recipies } from "./types";
+
 const recipeDirName = "recipies";
 
 export const getStaticRecipe = ({ params }) => {
     const dir = path.join(process.cwd(), recipeDirName);
     const filename = path.join(dir, `${params.slug}.json`);
 
-    const recipe = JSON.parse(readFileSync(filename, "utf-8"));
+    const recipe: Recipe = JSON.parse(readFileSync(filename, "utf-8"));
 
     return { props: { recipe } };
 };
 
-const getRecipiesFromFolder = () => {
+const getRecipiesFromFolder = (): Recipies => {
     const dir = path.join(process.cwd(), recipeDirName);
     const filenames = readdirSync(dir);
 
