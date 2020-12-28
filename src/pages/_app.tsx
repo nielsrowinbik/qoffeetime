@@ -1,6 +1,8 @@
 import "typeface-montserrat";
 
 import type { AppProps } from "next/app";
+import Head from "next/head";
+import { DefaultSeo } from "next-seo";
 import { useEffect } from "react";
 import { createGlobalStyle } from "styled-components";
 
@@ -78,6 +80,15 @@ const App = ({ Component, pageProps }: AppProps) => {
     return (
         <>
             <GlobalStyle />
+            <DefaultSeo
+                titleTemplate="%s | Brewtime"
+                title="Create the perfect cup of coffee"
+                description="Create the perfect cup of coffee using one of Brewtime's many built-in recipies."
+            />
+            <Head>
+                <link rel="manifest" href="/site.webmanifest" />
+                <meta name="theme-color" content="#ff1744" />
+            </Head>
             <ProvideBrewsContext>
                 <Component {...pageProps} />
             </ProvideBrewsContext>

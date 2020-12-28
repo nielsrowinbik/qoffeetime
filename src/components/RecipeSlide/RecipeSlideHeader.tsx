@@ -29,7 +29,6 @@ export const RecipeSlideHeader = styled(UnstyledRecipeSlideHeader)`
     flex: 100%;
     flex-direction: column;
     justify-content: flex-end;
-    margin: 24px 24px 36px 24px;
     padding: 16px;
 
     h1,

@@ -1,1 +1,1 @@
-export { RecipeSlide } from "./RecipeSlide";
+export { RecipeSlides } from "./RecipeSlides";
