@@ -15,6 +15,7 @@ export const Main = styled.main`
     grid-area: main;
     margin: 0 24px;
     overflow: hidden;
+    overscroll-behavior-y: contain;
 
     & > section:not(${Section}) + section:not(${Section}) {
         margin-top: 24px;
