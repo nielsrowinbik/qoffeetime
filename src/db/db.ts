@@ -20,7 +20,12 @@ export class BrewsDB extends Dexie {
         return this.brews.get({ id });
     }
 
-    async create(brew: UserBrew) {
+    async create(userBrew: UserBrew) {
+        const brew = {
+            ...userBrew,
+            created: new Date(),
+        };
+
         const id = await this.brews.add(brew);
         return (await this.brews.get(id)) as Brew;
     }
