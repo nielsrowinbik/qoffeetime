@@ -1,7 +1,7 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-import { IconButton } from "./Button";
+import { Button } from "./Button";
 import { TimelineIcon } from "./TimelineIcon";
 
 const Container = styled.div`
@@ -14,9 +14,9 @@ const Container = styled.div`
 export const TimelineButton = () => (
     <Container>
         <Link href="/timeline">
-            <IconButton icon={<TimelineIcon height={20} width={20} />}>
+            <Button icon={<TimelineIcon height={20} width={20} />}>
                 Timeline
-            </IconButton>
+            </Button>
         </Link>
     </Container>
 );

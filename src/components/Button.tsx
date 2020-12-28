@@ -8,7 +8,16 @@ export type ButtonProps = HTMLProps<HTMLButtonElement> & {
     variant?: "small" | "large";
 };
 
-export const Button = styled.button<ButtonProps>`
+const UnstyledButton: FC<ButtonProps> = forwardRef(
+    ({ children, icon, ...props }, ref) => (
+        <button {...props} ref={ref}>
+            {icon}
+            {children}
+        </button>
+    )
+);
+
+export const Button = styled(UnstyledButton)`
     align-items: center;
     background-color: ${({ dark, variant }) =>
         variant === "large" ? (dark ? "#000" : "#fff") : "#ff1744"};
@@ -23,22 +32,7 @@ export const Button = styled.button<ButtonProps>`
     justify-content: center;
     line-height: 1rem;
     padding: ${({ variant }) => (variant === "large" ? "14px" : "6px 14px")};
-`;
 
-export type IconButtonProps = ButtonProps & {
-    icon: ReactElement;
-};
-
-const UnstyledIconButton: FC<IconButtonProps> = forwardRef(
-    ({ as, children, icon, ref, ...props }, forwardedRef) => (
-        <Button ref={forwardedRef} {...props}>
-            {icon}
-            {children}
-        </Button>
-    )
-);
-
-export const IconButton = styled(UnstyledIconButton)`
     & > :first-child {
         margin-right: 6px;
     }

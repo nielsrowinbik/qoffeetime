@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 
 import { FixedFooter } from "../components/FixedFooter";
-import { Button, IconButton } from "../components/Button";
+import { Button } from "../components/Button";
 import { RecipeSlide } from "../components/RecipeSlide";
 import { TimelineButton } from "../components/TimelineButton";
 
