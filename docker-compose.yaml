@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  brewtime:
+    command: npm run dev
+    container_name: brewtime
+    environment:
+      PATH: ./node_modules/.bin:$PATH
+    expose:
+      - ${SERVER_PORT:-3000}
+    image: node:alpine
+    user: node
+    volumes:
+      - ./:/app
+    working_dir: /app
+    ports:
+      - ${SERVER_PORT:-3000}:3000
