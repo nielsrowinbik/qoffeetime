@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 #__next {
-    display: grid;
+    /* display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 64px 1fr 64px;
-    grid-template-areas: 'nav' 'main' 'footer';
+    grid-template-areas: 'nav' 'main' 'footer'; */
     height: 100%;
 }
