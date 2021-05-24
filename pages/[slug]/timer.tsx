@@ -2,17 +2,9 @@ import template from 'lodash.template';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { queryArgToNumber } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import TimerLayout from '../../layouts/timer';
-
-// FIXME: Duplicate code (see index.tsx)
-const queryArgToNumber = (
-    arg: undefined | string | string[]
-): number | undefined => {
-    if (!arg) return undefined;
-    if (typeof arg === 'string') return parseFloat(arg);
-    return parseFloat(arg[0]);
-};
 
 export default function RecipeTimer({ name, ...recipe }) {
     const router = useRouter();

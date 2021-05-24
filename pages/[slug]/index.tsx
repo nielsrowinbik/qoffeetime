@@ -1,18 +1,9 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import { queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import RecipeLayout from '../../layouts/recipe';
-
-// TODO: Move this out to a utility file so it can be used elsewhere
-const queryArgToNumber = (
-    arg: undefined | string | string[]
-): number | undefined => {
-    if (!arg) return undefined;
-    if (typeof arg === 'string') return parseFloat(arg);
-    return parseFloat(arg[0]);
-};
-const round = Math.round;
 
 export default function Recipe({
     defaultRatio,
