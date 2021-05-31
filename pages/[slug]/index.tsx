@@ -58,10 +58,8 @@ const Recipe = ({
     return (
         <>
             <NavLayout>
-                <Link href="/">
-                    <a>
-                        <IconButton icon={mdiClose} small />
-                    </a>
+                <Link href="/" passHref>
+                    <IconButton icon={mdiClose} small />
                 </Link>
             </NavLayout>
             <MainLayout>
@@ -107,7 +105,6 @@ const Recipe = ({
                 </section>
             </MainLayout>
             <FooterLayout>
-                {/* FIXME: This wrapping is ugly and should be done in Button component */}
                 <Link
                     href={{
                         pathname: `/${slug}/timer`,
@@ -116,10 +113,9 @@ const Recipe = ({
                             volume: round(volumeWithDefault),
                         },
                     }}
+                    passHref
                 >
-                    <a className="flex-1">
-                        <Button>Go to timer</Button>
-                    </a>
+                    <Button>Go to timer</Button>
                 </Link>
             </FooterLayout>
         </>

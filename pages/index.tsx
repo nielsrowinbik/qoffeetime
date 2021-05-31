@@ -35,11 +35,8 @@ const Index = ({ recipies }) => {
                 </div>
             </FullHeightLayout>
             <FooterLayout>
-                {/* FIXME: This wrapping is ugly and should be done in Button component */}
-                <Link href={`/${slug}`}>
-                    <a className="flex-1">
-                        <Button>Prepare {name}</Button>
-                    </a>
+                <Link href={`/${slug}`} passHref>
+                    <Button>Prepare {name}</Button>
                 </Link>
             </FooterLayout>
         </>
