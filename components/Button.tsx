@@ -1,12 +1,13 @@
 export default function Button({ children, ...props }) {
+    const Tag = props.href ? 'a' : 'button';
     return (
-        <button
+        <Tag
             className="bg-white text-black font-semibold w-full py-3 rounded-lg inline-flex justify-center align-center
                  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed relative,
                  overflow-hidden outline-none"
             {...props}
         >
             {children}
-        </button>
+        </Tag>
     );
 }

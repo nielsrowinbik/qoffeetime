@@ -102,10 +102,8 @@ const RecipeTimer = ({ name, ...recipe }) => {
     return (
         <>
             <NavLayout>
-                <Link href="/">
-                    <a>
-                        <IconButton icon={mdiClose} small />
-                    </a>
+                <Link href="/" passHref>
+                    <IconButton icon={mdiClose} small />
                 </Link>
             </NavLayout>
             <MainLayout>
