@@ -13,11 +13,11 @@ import IconButton from '../../components/IconButton';
 
 const Recipe = ({
     defaultRatio,
+    description,
     maxVolume,
     minVolume,
     name,
     slug,
-    tagline,
 }) => {
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
@@ -65,35 +65,46 @@ const Recipe = ({
                 </Link>
             </NavLayout>
             <MainLayout>
-                <h1>{name}</h1>
-                <p>
-                    <label>
-                        <span>Cofee: </span>
-                        <input
-                            type="range"
-                            max={100}
-                            min={1}
-                            onChange={onCoffeeChange}
-                            step={1}
-                            value={coffeeWithDefault}
-                        />
-                        <span>({round(coffeeWithDefault)} gr)</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <span>Volume: </span>
-                        <input
-                            type="range"
-                            max={maxVolume}
-                            min={minVolume}
-                            onChange={onVolumeChange}
-                            step={10}
-                            value={volumeWithDefault}
-                        />
-                        <span>({round(volumeWithDefault)} ml)</span>
-                    </label>
-                </p>
+                <h1 className="text-5xl font-bold">{name}</h1>
+                <section>
+                    <p>
+                        <label>
+                            <span>Cofee: </span>
+                            <input
+                                type="range"
+                                max={100}
+                                min={1}
+                                onChange={onCoffeeChange}
+                                step={1}
+                                value={coffeeWithDefault}
+                            />
+                            <span>({round(coffeeWithDefault)} gr)</span>
+                        </label>
+                    </p>
+                    <p>
+                        <label>
+                            <span>Volume: </span>
+                            <input
+                                type="range"
+                                max={maxVolume}
+                                min={minVolume}
+                                onChange={onVolumeChange}
+                                step={10}
+                                value={volumeWithDefault}
+                            />
+                            <span>({round(volumeWithDefault)} ml)</span>
+                        </label>
+                    </p>
+                </section>
+                <section>
+                    <p>
+                        <strong>
+                            We recommend: {minVolume}ml,{' '}
+                            {Math.round((defaultRatio / 1000) * minVolume)}g
+                        </strong>
+                    </p>
+                    <p>{description}</p>
+                </section>
             </MainLayout>
             <FooterLayout>
                 {/* FIXME: This wrapping is ugly and should be done in Button component */}
