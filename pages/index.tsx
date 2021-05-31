@@ -16,7 +16,7 @@ const Index = ({ recipies }) => {
     return (
         <>
             <FullHeightLayout>
-                <div className="pb-10 pt-4 h-full">
+                <div className="pb-10 pt-6 h-full">
                     <Swiper
                         centeredSlides
                         className="h-full"
