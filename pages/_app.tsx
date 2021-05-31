@@ -3,8 +3,9 @@ import { ThemeProvider } from 'next-themes';
 import { useEffect } from 'react';
 
 import '../styles/globals.css';
+import 'swiper/swiper-bundle.min.css';
 
-// import Container from '../components/Container';
+import AppContainer from '../components/AppContainer';
 
 const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
@@ -22,6 +23,8 @@ export default function App({ Component, pageProps }) {
         return () => window.removeEventListener('resize', updateHeight);
     }, []);
 
+    const getLayout = Component.getLayout || ((page) => page);
+
     return (
         <ThemeProvider attribute="class">
             <Head>
@@ -32,7 +35,9 @@ export default function App({ Component, pageProps }) {
                     content="width=device-width, initial-scale=1"
                 />
             </Head>
-            <Component {...pageProps} />
+            {/* <AppContainer> */}
+            {getLayout(<Component {...pageProps} />)}
+            {/* </AppContainer> */}
         </ThemeProvider>
     );
 }

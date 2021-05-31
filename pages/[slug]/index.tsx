@@ -1,18 +1,24 @@
+import { mdiClose } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import FooterLayout from '../../layouts/FooterLayout';
+import MainLayout from '../../layouts/MainLayout';
+import NavLayout from '../../layouts/NavLayout';
 import { queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
-import RecipeLayout from '../../layouts/recipe';
 
-export default function Recipe({
+import Button from '../../components/Button';
+import IconButton from '../../components/IconButton';
+
+const Recipe = ({
     defaultRatio,
     maxVolume,
     minVolume,
     name,
     slug,
     tagline,
-}) {
+}) => {
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
     const coffee = queryArgToNumber(coffeeParam);
@@ -50,12 +56,16 @@ export default function Recipe({
         );
 
     return (
-        <RecipeLayout>
-            <Link href="/">Go back</Link>
-            <h1>{name}</h1>
-            <h2>{tagline}</h2>
-            <details>
-                <summary>Customise recipe</summary>
+        <>
+            <NavLayout>
+                <Link href="/">
+                    <a>
+                        <IconButton icon={mdiClose} small />
+                    </a>
+                </Link>
+            </NavLayout>
+            <MainLayout>
+                <h1>{name}</h1>
                 <p>
                     <label>
                         <span>Cofee: </span>
@@ -84,23 +94,28 @@ export default function Recipe({
                         <span>({round(volumeWithDefault)} ml)</span>
                     </label>
                 </p>
+            </MainLayout>
+            <FooterLayout>
+                {/* FIXME: This wrapping is ugly and should be done in Button component */}
                 <Link
                     href={{
-                        pathname: `${slug}/timer`,
+                        pathname: `/${slug}/timer`,
                         query: {
                             coffee: round(coffeeWithDefault),
                             volume: round(volumeWithDefault),
                         },
                     }}
                 >
-                    Go to timer
+                    <a className="flex-1">
+                        <Button>Go to timer</Button>
+                    </a>
                 </Link>
-            </details>
-        </RecipeLayout>
+            </FooterLayout>
+        </>
     );
-}
+};
 
-export async function getStaticPaths() {
+const getStaticPaths = async () => {
     const recipies = await getRecipeFiles();
 
     return {
@@ -111,10 +126,13 @@ export async function getStaticPaths() {
         })),
         fallback: false,
     };
-}
+};
 
-export async function getStaticProps({ params }) {
+const getStaticProps = async ({ params }) => {
     const recipe = await getRecipeBySlug(params.slug);
 
     return { props: { ...recipe } };
-}
+};
+
+export default Recipe;
+export { getStaticPaths, getStaticProps };
