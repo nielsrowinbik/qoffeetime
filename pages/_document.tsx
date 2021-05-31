@@ -76,7 +76,7 @@ class MyDocument extends Document {
                         sizes="16x16"
                         href="/assets/icons/favicon-16x16.png"
                     />
-                    <link rel="manifest" href="/manifest.json" />
+                    <link rel="manifest" href="/site.webmanifest" />
                     <link
                         rel="mask-icon"
                         href="/assets/icons/safari-pinned-tab.svg"
@@ -91,7 +91,7 @@ class MyDocument extends Document {
                         name="msapplication-TileImage"
                         content="/assets/icons/mstile-144x144.png"
                     />
-                    <meta name="theme-color" content="#ffffff" />
+                    <meta name="theme-color" content="#ff1744" />
                 </Head>
                 <body className="min-h-screen bg-brewtime-red text-white">
                     <Main />
