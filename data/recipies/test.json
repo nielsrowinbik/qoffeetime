@@ -1,0 +1,28 @@
+{
+    "name": "Test",
+    "tagline": "Quickest coffee brew you'll ever find!",
+    "image": "https://cdn.shopify.com/s/files/1/2525/7682/products/Hario-Copper-Dripper1_900x.jpg?v=1569022983",
+    "description": "TODO: write description",
+    "minVolume": 250,
+    "maxVolume": 500,
+    "defaultVolume": 360,
+    "defaultRatio": 60,
+    "steps": [
+        {
+            "description": "Pour in ${Math.ceil((coffee * 2) / 10) * 10}ml and swirl",
+            "duration": 5
+        },
+        {
+            "description": "Wait, allowing the coffee to bloom",
+            "duration": 5
+        },
+        {
+            "description": "Pour at a constant rate until you reach your desired volume (${volume}ml)",
+            "duration": 5
+        },
+        {
+            "description": "Gently swirl once clockwise and once counterclockwise",
+            "duration": 5
+        }
+    ]
+}

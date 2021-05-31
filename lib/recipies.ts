@@ -33,11 +33,11 @@ export const getAllRecipies = async () => {
         const recipe = JSON.parse(source);
 
         return [
+            ...allRecipies,
             {
                 ...recipe,
                 slug: recipeSlug.replace('.json', ''),
             },
-            ...allRecipies,
-        ];
+        ].sort((a, b) => a.name.localeCompare(b.name));
     }, []);
 };

@@ -1,3 +1,5 @@
+import { NextRouter } from 'next/router';
+
 export const queryArgToNumber = (
     arg: undefined | string | string[]
 ): number | undefined => {
