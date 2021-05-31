@@ -1,4 +1,6 @@
-export default function Button({ children, ...props }) {
+import { forwardRef } from 'react';
+
+const Button = forwardRef(({ children, ...props }, ref) => {
     const Tag = props.href ? 'a' : 'button';
     return (
         <Tag
@@ -6,8 +8,11 @@ export default function Button({ children, ...props }) {
                  disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed relative,
                  overflow-hidden outline-none"
             {...props}
+            ref={ref as any} // Explicit 'any' needed, see https://github.com/mui-org/material-ui/issues/24901 and https://github.com/microsoft/TypeScript/issues/30748
         >
             {children}
         </Tag>
     );
-}
+});
+
+export default Button;
