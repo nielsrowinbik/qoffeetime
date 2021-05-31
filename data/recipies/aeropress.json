@@ -1,0 +1,28 @@
+{
+    "name": "Aeropress",
+    "tagline": "James Hoffmann's Ultimate AeroPress recipe - the AeroPress recipe everyone has been waiting for!",
+    "image": "https://cdn.shopify.com/s/files/1/2525/7682/products/Hario-Copper-Dripper1_900x.jpg?v=1569022983",
+    "description": "This simple and tasty recipe throws away a lot of AeroPress mysconceptions such as rinsing your paper filter and preheating your AeroPress.",
+    "minVolume": 200,
+    "maxVolume": 200,
+    "defaultVolume": 200,
+    "defaultRatio": 55,
+    "steps": [
+        {
+            "description": "Pour in ${volume}ml, wetting all the grounds",
+            "duration": 10
+        },
+        {
+            "description": "Place the piston piece into the top, about 1cm in, and wait",
+            "duration": 120
+        },
+        {
+            "description": "Holding the brewer and piston, gently swirl, and wait",
+            "duration": 30
+        },
+        {
+            "description": "Press down gently until the brewer is empty",
+            "duration": 20
+        }
+    ]
+}
