@@ -1,3 +1,5 @@
+import { mdiHistory } from '@mdi/js';
+import Icon from '@mdi/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -16,6 +18,18 @@ const Index = ({ recipies }) => {
     return (
         <>
             <FullHeightLayout>
+                <div className="absolute bg-brewtime-red shadow-sm rounded-full py-1 px-3 z-10 right-10 top-10">
+                    <Link href="/timeline">
+                        <a className="flex flex-row items-center">
+                            <Icon
+                                className="mr-2"
+                                path={mdiHistory}
+                                size="24px"
+                            />
+                            <span>Timeline</span>
+                        </a>
+                    </Link>
+                </div>
                 <div className="pb-10 pt-6 h-full">
                     <Swiper
                         centeredSlides
