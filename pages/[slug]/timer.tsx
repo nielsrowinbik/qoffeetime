@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import template from 'lodash.template';
-import { mdiClose } from '@mdi/js';
+import { mdiClose, mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useWakeLock } from 'react-screen-wake-lock';
@@ -154,11 +154,20 @@ const RecipeTimer = ({ name, ...recipe }) => {
                 </section>
             </MainLayout>
             <FooterLayout>
-                <Button onClick={() => toggle()}>
-                    {isRunning ? 'Pause' : 'Start'}
-                </Button>
+                {!isRunning && (
+                    <Button icon={mdiPlayOutline} onClick={() => toggle()}>
+                        Start
+                    </Button>
+                )}
+                {isRunning && (
+                    <Button icon={mdiPause} onClick={() => toggle()}>
+                        Pause
+                    </Button>
+                )}
                 {(isRunning || elapsed > 0) && (
-                    <Button onClick={() => reset()}>Stop</Button>
+                    <Button icon={mdiStop} onClick={() => reset()}>
+                        Stop
+                    </Button>
                 )}
             </FooterLayout>
         </>
