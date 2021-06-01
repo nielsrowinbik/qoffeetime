@@ -113,7 +113,7 @@ const RecipeTimer = ({ name, ...recipe }) => {
                     </time>
                     <span className="block">total left</span>
                 </header>
-                <section className="m-6">
+                <section className="mx-4 my-6">
                     <time className="text-7xl font-bold">
                         {formatTime(currentStep.remaining)}
                     </time>
@@ -121,13 +121,13 @@ const RecipeTimer = ({ name, ...recipe }) => {
                         {steps[currentStep.index].description}
                     </p>
                 </section>
-                <section>
+                <section className="overflow-auto">
                     <ol>
                         {steps.map(({ description, duration }, stepIndex) => {
                             const isCurrentStep =
                                 currentStep.index === stepIndex;
                             const className = classNames(
-                                'text-lg leading-5 text-white text-base mr-2',
+                                'text-lg leading-5 text-white text-base',
                                 {
                                     'text-opacity-60': !isCurrentStep,
                                     'text-opacity-100': isCurrentStep,
@@ -140,10 +140,10 @@ const RecipeTimer = ({ name, ...recipe }) => {
                                     className="flex flex-row items-center mb-3"
                                     key={stepIndex}
                                 >
-                                    <span className="text-black text-opacity-30 font-bold flex-none mx-2">
+                                    <span className="text-black text-opacity-30 font-bold flex-none mr-2">
                                         {stepIndex + 1}
                                     </span>
-                                    <time className="border border-white rounded-full w-10 h-10 text-xs flex items-center justify-center flex-none font-semibold mr-3">
+                                    <time className="border border-white rounded-full w-10 h-10 text-xs flex items-center justify-center flex-none font-semibold mr-2">
                                         {formatTime(duration)}
                                     </time>
                                     <p className={className}>{description}</p>
