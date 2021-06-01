@@ -4,7 +4,7 @@ const { colors } = require('tailwindcss/defaultTheme');
 module.exports = {
     darkMode: 'class',
     mode: 'jit',
-    plugins: [],
+    plugins: [require('tailwindcss-only-child')],
     purge: ['./pages/**/*.tsx', './components/**/*.tsx', './layouts/**/*.tsx'],
     theme: {
         colors: {
@@ -17,5 +17,7 @@ module.exports = {
             },
         },
     },
-    variants: {},
+    variants: {
+        borderRadius: ['responsive', 'only'],
+    },
 };
