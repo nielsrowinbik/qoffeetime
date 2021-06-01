@@ -10,6 +10,7 @@ import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 
 import Button from '../../components/Button';
 import IconButton from '../../components/IconButton';
+import RatioSlider from '../../components/RatioSlider';
 
 const Recipe = ({
     defaultRatio,
@@ -42,13 +43,13 @@ const Recipe = ({
             { shallow: true }
         );
 
-    const onVolumeChange = (e) =>
+    const onVolumeChange = (newValue) =>
         router.replace(
             {
                 pathname: slug,
                 query: {
-                    coffee: (ratio / 1000) * e.target.value,
-                    volume: e.target.value,
+                    coffee: (ratio / 1000) * newValue,
+                    volume: newValue,
                 },
             },
             undefined,
@@ -64,35 +65,13 @@ const Recipe = ({
             </NavLayout>
             <MainLayout>
                 <h1 className="text-5xl font-bold">{name}</h1>
-                <section>
-                    <p>
-                        <label>
-                            <span>Cofee: </span>
-                            <input
-                                type="range"
-                                max={100}
-                                min={1}
-                                onChange={onCoffeeChange}
-                                step={1}
-                                value={coffeeWithDefault}
-                            />
-                            <span>({round(coffeeWithDefault)} gr)</span>
-                        </label>
-                    </p>
-                    <p>
-                        <label>
-                            <span>Volume: </span>
-                            <input
-                                type="range"
-                                max={maxVolume}
-                                min={minVolume}
-                                onChange={onVolumeChange}
-                                step={10}
-                                value={volumeWithDefault}
-                            />
-                            <span>({round(volumeWithDefault)} ml)</span>
-                        </label>
-                    </p>
+                <section className="mt-10 mb-16">
+                    <RatioSlider
+                        max={maxVolume}
+                        min={minVolume}
+                        onChange={onVolumeChange}
+                        value={volumeWithDefault}
+                    />
                 </section>
                 <section>
                     <p>
