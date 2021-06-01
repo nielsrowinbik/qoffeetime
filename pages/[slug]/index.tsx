@@ -30,18 +30,18 @@ const Recipe = ({
         coffee || (defaultRatio / 1000) * volumeWithDefault;
     const ratio = round((coffeeWithDefault / volumeWithDefault) * 1000);
 
-    const onCoffeeChange = (e) =>
-        router.replace(
-            {
-                pathname: slug,
-                query: {
-                    coffee: e.target.value,
-                    volume: volumeWithDefault,
-                },
-            },
-            undefined,
-            { shallow: true }
-        );
+    // const onCoffeeChange = (e) =>
+    //     router.replace(
+    //         {
+    //             pathname: slug,
+    //             query: {
+    //                 coffee: e.target.value,
+    //                 volume: volumeWithDefault,
+    //             },
+    //         },
+    //         undefined,
+    //         { shallow: true }
+    //     );
 
     const onVolumeChange = (newValue) =>
         router.replace(
