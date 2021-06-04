@@ -77,7 +77,7 @@ const Recipe = ({
                     <p>
                         <strong>
                             We recommend: {minVolume}ml,{' '}
-                            {Math.round((defaultRatio / 1000) * minVolume)}g
+                            {round((defaultRatio / 1000) * minVolume)}g
                         </strong>
                     </p>
                     <p>{description}</p>

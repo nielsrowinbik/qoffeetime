@@ -8,7 +8,7 @@ import { useWakeLock } from 'react-screen-wake-lock';
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
 import NavLayout from '../../layouts/NavLayout';
-import { queryArgToNumber } from '../../lib/helpers';
+import { queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 
 import Button from '../../components/Button';
@@ -66,7 +66,7 @@ const getCurrentStep = (steps, elapsed: number, isComplete: boolean) => {
     // Return the index and the remaining seconds:
     return {
         index,
-        remaining: Math.round(remaining / 1000),
+        remaining: round(remaining / 1000),
     };
 };
 
@@ -80,13 +80,13 @@ const RecipeTimer = ({ name, ...recipe }) => {
         ...step,
         description: template(step.description)({ coffee, volume }),
     }));
-    const target = Math.round(sumIncludingIndex(steps, steps.length) / 1000);
+    const target = round(sumIncludingIndex(steps, steps.length) / 1000);
 
     const { elapsed, isComplete, isRunning, remaining, reset, toggle } =
         useTimer({
             target,
         });
-    const remainingInSeconds = Math.round(remaining / 1000);
+    const remainingInSeconds = round(remaining / 1000);
     const currentStep = getCurrentStep(steps, elapsed, isComplete);
 
     // Keep the screen on while this page is rendered:
