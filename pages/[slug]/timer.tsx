@@ -15,7 +15,7 @@ import type { Recipe, RecipeStep } from '../../lib/types';
 
 import Button from '../../components/Button';
 import IconButton from '../../components/IconButton';
-import { useEffect } from 'react';
+import StopWatch from '../../components/StopWatch';
 
 // Sum all step durations up and including the provided index:
 const sumIncludingIndex = (steps: RecipeStep[], index: number) =>
@@ -130,10 +130,12 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                                     className="flex flex-row items-center mb-3"
                                     key={stepIndex}
                                 >
-                                    <span className="text-black text-opacity-30 font-bold flex-none mr-2">
+                                    <span className="text-black text-opacity-30 font-bold flex-none mr-4">
                                         {stepIndex + 1}
                                     </span>
+                                    <StopWatch className="mr-4">
                                         {formatTime(duration, false)}
+                                    </StopWatch>
                                     <p className={className}>{description}</p>
                                 </li>
                             );
