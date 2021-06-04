@@ -111,7 +111,7 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                         {steps[currentStep.index].description}
                     </p>
                 </section>
-                <section className="overflow-auto">
+                <section className="overflow-auto mt-4">
                     <ol>
                         {steps.map(({ description, duration }, stepIndex) => {
                             const isCurrentStep =
