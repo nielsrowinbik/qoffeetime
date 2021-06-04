@@ -11,6 +11,7 @@ import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
 import Button from '../../components/Button';
+import GoBack from '../../components/GoBack';
 import IconButton from '../../components/IconButton';
 import RatioSlider from '../../components/RatioSlider';
 
@@ -61,9 +62,9 @@ const RecipePage: FC<Recipe> = ({
     return (
         <>
             <NavLayout>
-                <Link href="/" passHref>
+                <GoBack>
                     <IconButton icon={mdiClose} small />
-                </Link>
+                </GoBack>
             </NavLayout>
             <MainLayout>
                 <h1 className="text-5xl font-bold">{name}</h1>

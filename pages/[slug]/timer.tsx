@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import template from 'lodash.template';
 import { mdiClose, mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
@@ -14,6 +13,7 @@ import { useTimer, useWakeLock } from '../../lib/timer';
 import type { Recipe, RecipeStep } from '../../lib/types';
 
 import Button from '../../components/Button';
+import GoBack from '../../components/GoBack';
 import IconButton from '../../components/IconButton';
 import StopWatch from '../../components/StopWatch';
 
@@ -92,9 +92,9 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
     return (
         <>
             <NavLayout>
-                <Link href="/" passHref>
+                <GoBack>
                     <IconButton icon={mdiClose} small />
-                </Link>
+                </GoBack>
             </NavLayout>
             <MainLayout>
                 <header className="text-center">
