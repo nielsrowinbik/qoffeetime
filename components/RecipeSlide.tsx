@@ -1,8 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-// FIXME: The solution to have the <a> and the <article> both take up the full height isn't pretty...
-
 export default function RecipeSlide({ slug, tagline, ...recipe }) {
     // Nasty hack insering a space between 'Aero' and 'Press' in order for it to render correctly.
     // Keeping it as one word will incorrectly break up the word, but it is the correct spelling, so
@@ -20,10 +18,10 @@ export default function RecipeSlide({ slug, tagline, ...recipe }) {
                             src="https://via.placeholder.com/500x700"
                         />
                         <header className="absolute h-full flex flex-col justify-end p-2">
-                            <h2 className="text-7xl font-bold w-8/12 break-words">
+                            <h2 className="text-7xl font-bold w-3/4 break-words">
                                 {name}
                             </h2>
-                            <h3 className="text-lg my-10 break-words">
+                            <h3 className="text-lg my-10 break-words h-full max-h-32">
                                 {tagline}
                             </h3>
                         </header>
