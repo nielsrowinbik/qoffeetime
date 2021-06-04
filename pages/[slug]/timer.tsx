@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import template from 'lodash.template';
 import { mdiClose, mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -91,6 +91,14 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
     // Keep the screen on while this page is rendered:
     useWakeLock();
 
+    // Once the timer completes, store a brew and show the timeline:
+    useEffect(() => {
+        if (isComplete) {
+            console.log('Timer done, store brew');
+            router.replace('/timeline');
+        }
+    }, [isComplete]);
+
     return (
         <>
             <NavLayout>
@@ -159,8 +167,8 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                 {(isRunning || elapsed > 0) && (
                     <GoBack confirm={confirmMessage}>
                         <Button icon={mdiStop} variant="dark">
-                        Stop
-                    </Button>
+                            Stop
+                        </Button>
                     </GoBack>
                 )}
             </FooterLayout>
