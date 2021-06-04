@@ -1,17 +1,18 @@
 import { mdiHistory } from '@mdi/js';
 import Icon from '@mdi/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import FooterLayout from '../layouts/FooterLayout';
 import FullHeightLayout from '../layouts/FullHeightLayout';
 import { getAllRecipies } from '../lib/recipies';
+import type { Recipe } from '../lib/types';
 
 import Button from '../components/Button';
 import RecipeSlide from '../components/RecipeSlide';
 
-const Index = ({ recipies }) => {
+const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const { name, slug } = recipies[activeIndex];
 
@@ -63,5 +64,5 @@ const getStaticProps = async () => {
     return { props: { recipies } };
 };
 
-export default Index;
+export default IndexPage;
 export { getStaticProps };

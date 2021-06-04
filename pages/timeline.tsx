@@ -8,7 +8,7 @@ import NavLayout from '../layouts/NavLayout';
 import Button from '../components/Button';
 import IconButton from '../components/IconButton';
 
-const Timeline = () => (
+const TimelinePage = () => (
     <>
         <NavLayout>
             <Link href="/">
@@ -22,4 +22,4 @@ const Timeline = () => (
     </>
 );
 
-export default Timeline;
+export default TimelinePage;

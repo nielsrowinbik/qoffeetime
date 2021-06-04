@@ -3,20 +3,22 @@ import template from 'lodash.template';
 import { mdiClose, mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useWakeLock } from 'react-screen-wake-lock';
+import { FC } from 'react';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
 import NavLayout from '../../layouts/NavLayout';
 import { queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
+import { useTimer, useWakeLock } from '../../lib/timer';
+import type { Recipe, RecipeStep } from '../../lib/types';
 
 import Button from '../../components/Button';
 import IconButton from '../../components/IconButton';
-import useTimer from '../../lib/timer';
 import { useEffect } from 'react';
 
 // Format a number of seconds to a string in the HH:MM:ss format:
+// TODO: support optional padding 0 (now mandatory)
 const formatTime = (
     seconds: number,
     h = Math.floor(seconds / 3600),
@@ -25,12 +27,16 @@ const formatTime = (
 ) => [h, m > 9 ? m : '0' + m, s > 9 ? s : '0' + s].filter((s) => s).join(':');
 
 // Sum all step durations up and including the provided index:
-const sumIncludingIndex = (steps, index: number) =>
+const sumIncludingIndex = (steps: RecipeStep[], index: number) =>
     steps
         .slice(0, Math.min(index + 1, steps.length))
         .reduce((total: number, { duration }) => total + duration, 0) * 1000;
 
-const getCurrentStep = (steps, elapsed: number, isComplete: boolean) => {
+const getCurrentStep = (
+    steps: RecipeStep[],
+    elapsed: number,
+    isComplete: boolean
+) => {
     // If the timer is complete, return the last step as being the current and
     // return a remaining time within that step of 0:
     if (isComplete)
@@ -70,7 +76,7 @@ const getCurrentStep = (steps, elapsed: number, isComplete: boolean) => {
     };
 };
 
-const RecipeTimer = ({ name, ...recipe }) => {
+const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
     const coffee = queryArgToNumber(coffeeParam);
@@ -90,14 +96,7 @@ const RecipeTimer = ({ name, ...recipe }) => {
     const currentStep = getCurrentStep(steps, elapsed, isComplete);
 
     // Keep the screen on while this page is rendered:
-    const { request, release } = useWakeLock();
-    useEffect(() => {
-        request();
-
-        return () => {
-            release();
-        };
-    }, []);
+    useWakeLock();
 
     return (
         <>
@@ -193,5 +192,5 @@ const getStaticProps = async ({ params }) => {
     return { props: { ...recipe } };
 };
 
-export default RecipeTimer;
+export default TimePage;
 export { getStaticPaths, getStaticProps };

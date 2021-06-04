@@ -1,7 +1,6 @@
-import Dexie from "dexie";
+import Dexie from 'dexie';
 
-type Brew = {};
-type UserBrew = {};
+import type { Brew } from '../lib/types';
 
 const LIST_SIZE = 100;
 
@@ -9,34 +8,35 @@ export class BrewsDB extends Dexie {
     brews: Dexie.Table<Brew, number>;
 
     constructor() {
-        super("BrewsDB");
+        super('BrewsDB');
 
         this.version(1).stores({
-            brews: "++id, coffee, created, recipe, volume",
+            brews: '++id, coffee, created, recipe, volume',
         });
-        this.brews = this.table("brews");
+        this.brews = this.table('brews');
     }
 
     async get(id: number) {
         return this.brews.get({ id });
     }
 
-    async create(brew: UserBrew) {
-        const id = await this.brews.add(brew);
-        return (await this.brews.get(id)) as Brew;
+    async create(brew: Brew) {
+        const created = Date.now();
+        const id = await this.brews.add({ ...brew, created });
+        return await this.brews.get(id);
     }
 
     async list(start: number = 0) {
         return this.brews
-            .orderBy("created")
+            .orderBy('created')
             .reverse()
             .offset(start)
             .limit(LIST_SIZE)
             .toArray();
     }
 
-    async remove(brewId: number) {
-        return await this.brews.delete(brewId);
+    async remove(id: number) {
+        return await this.brews.delete(id);
     }
 }
 
