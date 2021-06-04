@@ -68,6 +68,8 @@ const getCurrentStep = (
 };
 
 const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
+    const confirmMessage = 'Do you want to cancel the timer?';
+
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
     const coffee = queryArgToNumber(coffeeParam);
@@ -92,7 +94,7 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
     return (
         <>
             <NavLayout>
-                <GoBack>
+                <GoBack confirm={isRunning && confirmMessage}>
                     <IconButton icon={mdiClose} small />
                 </GoBack>
             </NavLayout>
@@ -155,13 +157,11 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                     </Button>
                 )}
                 {(isRunning || elapsed > 0) && (
-                    <Button
-                        icon={mdiStop}
-                        onClick={() => reset()}
-                        variant="dark"
-                    >
+                    <GoBack confirm={confirmMessage}>
+                        <Button icon={mdiStop} variant="dark">
                         Stop
                     </Button>
+                    </GoBack>
                 )}
             </FooterLayout>
         </>
