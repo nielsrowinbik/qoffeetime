@@ -155,7 +155,11 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                     </Button>
                 )}
                 {(isRunning || elapsed > 0) && (
-                    <Button icon={mdiStop} onClick={() => reset()}>
+                    <Button
+                        icon={mdiStop}
+                        onClick={() => reset()}
+                        variant="dark"
+                    >
                         Stop
                     </Button>
                 )}
