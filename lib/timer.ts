@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useWakeLock as useWakeLockHook } from 'react-screen-wake-lock';
 
 interface TimerOptions {
     target: number;
@@ -23,7 +24,7 @@ const useInterval = (callback: CallableFunction, delay: number) => {
     }, [delay]);
 };
 
-export default function useTimer(options: TimerOptions) {
+export const useTimer = (options: TimerOptions) => {
     const { target } = options;
 
     // Store whether the timer is running in state:
@@ -90,4 +91,16 @@ export default function useTimer(options: TimerOptions) {
         stop,
         toggle,
     };
-}
+};
+
+export const useWakeLock = () => {
+    const { request, release } = useWakeLockHook();
+
+    useEffect(() => {
+        request();
+
+        return () => {
+            release();
+        };
+    }, []);
+};
