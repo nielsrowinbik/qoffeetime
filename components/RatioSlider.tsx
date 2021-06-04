@@ -1,6 +1,8 @@
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useBoundingclientrectRef } from 'rooks';
 
+import { round } from '../lib/helpers';
+
 const RatioSlider = ({
     borderRadius = 64,
     height = 225,
@@ -41,7 +43,7 @@ const RatioSlider = ({
             const normalized = normalize(percentage);
             const value = min + normalized * (max - min);
 
-            return Math.round(value);
+            return round(value);
         },
         [max, min]
     );
