@@ -8,7 +8,7 @@ import { FC } from 'react';
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
 import NavLayout from '../../layouts/NavLayout';
-import { queryArgToNumber, round } from '../../lib/helpers';
+import { formatTime, queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import { useTimer, useWakeLock } from '../../lib/timer';
 import type { Recipe, RecipeStep } from '../../lib/types';
@@ -16,15 +16,6 @@ import type { Recipe, RecipeStep } from '../../lib/types';
 import Button from '../../components/Button';
 import IconButton from '../../components/IconButton';
 import { useEffect } from 'react';
-
-// Format a number of seconds to a string in the HH:MM:ss format:
-// TODO: support optional padding 0 (now mandatory)
-const formatTime = (
-    seconds: number,
-    h = Math.floor(seconds / 3600),
-    m = Math.floor((seconds % 3600) / 60),
-    s = seconds % 60
-) => [h, m > 9 ? m : '0' + m, s > 9 ? s : '0' + s].filter((s) => s).join(':');
 
 // Sum all step durations up and including the provided index:
 const sumIncludingIndex = (steps: RecipeStep[], index: number) =>
@@ -142,9 +133,7 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                                     <span className="text-black text-opacity-30 font-bold flex-none mr-2">
                                         {stepIndex + 1}
                                     </span>
-                                    <time className="border border-white rounded-full w-10 h-10 text-xs flex items-center justify-center flex-none font-semibold mr-2">
-                                        {formatTime(duration)}
-                                    </time>
+                                        {formatTime(duration, false)}
                                     <p className={className}>{description}</p>
                                 </li>
                             );

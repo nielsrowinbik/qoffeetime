@@ -1,3 +1,13 @@
+export const formatTime = (
+    seconds: number,
+    padZeroMinutes: boolean = true,
+    h = Math.floor(seconds / 3600),
+    m = Math.floor((seconds % 3600) / 60),
+    s = seconds % 60,
+    p = padZeroMinutes ? '0' : ''
+) =>
+    [h, m > 9 ? m : `${p}${m}`, s > 9 ? s : `0${s}`].filter((s) => s).join(':');
+
 export const queryArgToNumber = (
     arg: undefined | string | string[]
 ): number | undefined => {
