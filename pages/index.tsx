@@ -19,18 +19,12 @@ const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
     return (
         <>
             <FullHeightLayout>
-                <div className="absolute bg-brewtime-red shadow-sm rounded-full py-1 px-3 z-10 right-10 top-10">
-                    <Link href="/timeline">
-                        <a className="flex flex-row items-center">
-                            <Icon
-                                className="mr-2"
-                                path={mdiHistory}
-                                size="24px"
-                            />
-                            <span>Timeline</span>
-                        </a>
-                    </Link>
-                </div>
+                <Link href="/timeline">
+                    <a className="absolute bg-brewtime-red shadow-sm rounded-full py-1 px-3 z-10 right-10 top-10 flex flex-row items-center text-sm">
+                        <Icon className="mr-2" path={mdiHistory} size="20px" />
+                        <span>Timeline</span>
+                    </a>
+                </Link>
                 <div className="pb-10 pt-6 h-full">
                     <Swiper
                         centeredSlides
