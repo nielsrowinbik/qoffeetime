@@ -1,7 +1,9 @@
 import { mdiCheck } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import type { FC } from 'react';
+import Confetti from 'react-canvas-confetti';
 
 import NavLayout from '../../layouts/NavLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -19,10 +21,24 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     const coffee = queryArgToNumber(coffeeParam);
     const volume = queryArgToNumber(volumeParam);
 
+    // Fire confetti upon page load:
+    const [shouldFire, setShouldFire] = useState(false);
+    useEffect(() => {
+        setShouldFire(true);
+    }, []);
+
     return (
         <>
             <NavLayout />
             <MainLayout>
+                <Confetti
+                    className="fixed inset-0 z-0 w-full h-full"
+                    disableForReducedMotion
+                    fire={shouldFire}
+                    particleCount={75}
+                    spread={60}
+                    ticks={500}
+                />
                 <section className="flex-1 flex flex-col items-center justify-center">
                     <LargeIcon icon={mdiCheck} />
                 </section>
