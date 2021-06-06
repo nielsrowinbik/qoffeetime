@@ -3,7 +3,16 @@ import Link from 'next/link';
 
 import type { Recipe } from '../lib/types';
 
-export default function RecipeSlide({ slug, tagline, ...recipe }: Recipe) {
+type RecipeSlideProps = Recipe & {
+    priority?: boolean;
+};
+
+const RecipeSlide = ({
+    priority = false,
+    slug,
+    tagline,
+    ...recipe
+}: RecipeSlideProps) => {
     // Nasty hack insering a space between 'Aero' and 'Press' in order for it to render correctly.
     // Keeping it as one word will incorrectly break up the word, but it is the correct spelling, so
     // this will have to do.
@@ -19,6 +28,7 @@ export default function RecipeSlide({ slug, tagline, ...recipe }: Recipe) {
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center center"
+                            priority={priority}
                             src={`/assets/images/${slug}.jpg`}
                         />
                         <header className="absolute h-full flex flex-col justify-end p-4">
@@ -34,4 +44,6 @@ export default function RecipeSlide({ slug, tagline, ...recipe }: Recipe) {
             </a>
         </Link>
     );
-}
+};
+
+export default RecipeSlide;
