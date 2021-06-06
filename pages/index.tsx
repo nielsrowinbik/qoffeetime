@@ -28,7 +28,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
                         <span>Timeline</span>
                     </a>
                 </Link>
-                <div className="pt-6 pb-2 h-full">
+                <div className="pt-6 h-full">
                     <Swiper
                         centeredSlides
                         className="h-full"
@@ -49,7 +49,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
             </FullHeightLayout>
             <FooterLayout>
                 <Link href={`/${slug}`} passHref>
-                    <Button>Prepare {name}</Button>
+                    <Button>Brew {name}</Button>
                 </Link>
             </FooterLayout>
         </>
