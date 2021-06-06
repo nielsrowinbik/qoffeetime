@@ -46,13 +46,13 @@ const RecipePage: FC<Recipe> = ({
     //         { shallow: true }
     //     );
 
-    const onVolumeChange = (newValue) =>
+    const onVolumeChange = (volume: number) =>
         router.replace(
             {
                 pathname: slug,
                 query: {
-                    coffee: (ratio / 1000) * newValue,
-                    volume: newValue,
+                    coffee: round((ratio / 1000) * volume),
+                    volume: volume,
                 },
             },
             undefined,
@@ -73,6 +73,7 @@ const RecipePage: FC<Recipe> = ({
                         max={maxVolume}
                         min={minVolume}
                         onChange={onVolumeChange}
+                        ratio={ratio}
                         value={volumeWithDefault}
                     />
                 </section>

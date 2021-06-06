@@ -3,6 +3,39 @@ import { useBoundingclientrectRef } from 'rooks';
 
 import { round } from '../lib/helpers';
 
+type ValueLabelProps = {
+    bottomOffset: number;
+    type: 'coffee' | 'water';
+    value: number;
+};
+
+const ValueLabel = ({ bottomOffset, type, value }: ValueLabelProps) => (
+    <label
+        className="flex flex-col -mr-4 items-end absolute right-0"
+        style={{
+            transform: `translate3d(0, calc(${bottomOffset}px - 55%), 0)`,
+        }}
+    >
+        <span className="text-sm capitalize">{type}</span>
+        <span className="font-bold text-lg">
+            {round(value)}
+            {type === 'coffee' ? 'g' : 'ml'}
+        </span>
+    </label>
+);
+
+type RatioSliderProps = {
+    borderRadius?: number;
+    height?: number;
+    min: number;
+    max: number;
+    minFill?: number;
+    onChange: (newValue: number) => void;
+    ratio: number;
+    width?: number;
+    value: number;
+};
+
 const RatioSlider = ({
     borderRadius = 64,
     height = 225,
@@ -10,9 +43,10 @@ const RatioSlider = ({
     max,
     minFill = 0.5,
     onChange,
+    ratio,
     width = 164,
     ...props
-}) => {
+}: RatioSliderProps) => {
     const [svgRef, svgRect] = useBoundingclientrectRef();
 
     // Keep whether we're dragging in state:
@@ -110,20 +144,18 @@ const RatioSlider = ({
 
     return (
         <div className="grid grid-cols-5">
-            {/* <div className="relative">
-                <Label
+            <div className="relative">
+                <ValueLabel
                     bottomOffset={waterLabelOffset}
-                    type="Water"
+                    type="water"
                     value={value}
-                    unit="ml"
                 />
-                <Label
+                <ValueLabel
                     bottomOffset={coffeeLabelOffset}
-                    type="Coffee"
+                    type="coffee"
                     value={(ratio / 1000) * value}
-                    unit="g"
                 />
-            </div> */}
+            </div>
             <svg
                 className="col-start-2 col-span-3"
                 height={height}
