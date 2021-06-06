@@ -22,11 +22,12 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
                 'bg-white text-black': variant === 'light',
                 'bg-black text-white': variant === 'dark',
                 'text-current': variant === 'text',
-            }
+            },
+            props.className
         );
         const Tag = props.href ? 'a' : 'button';
         return (
-            <Tag className={className} {...props} ref={ref}>
+            <Tag {...props} className={className} ref={ref}>
                 {props.icon && (
                     <Icon className="mr-2" path={props.icon} size="24px" />
                 )}
