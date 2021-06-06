@@ -3,12 +3,7 @@ import Link from 'next/link';
 
 import type { Recipe } from '../lib/types';
 
-export default function RecipeSlide({
-    image,
-    slug,
-    tagline,
-    ...recipe
-}: Recipe) {
+export default function RecipeSlide({ slug, tagline, ...recipe }: Recipe) {
     // Nasty hack insering a space between 'Aero' and 'Press' in order for it to render correctly.
     // Keeping it as one word will incorrectly break up the word, but it is the correct spelling, so
     // this will have to do.
