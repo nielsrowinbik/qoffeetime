@@ -40,7 +40,7 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
             <FooterLayout>
                 <Link
                     href={{
-                        href: `/timeline/add`,
+                        pathname: `/timeline/add`,
                         query: {
                             coffee,
                             recipe: slug,
