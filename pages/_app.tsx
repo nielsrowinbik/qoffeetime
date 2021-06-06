@@ -6,6 +6,8 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import '../styles/globals.css';
 
+import { ProvideBrewsContext } from '../lib/brews';
+
 const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
 };
@@ -22,8 +24,6 @@ export default function App({ Component, pageProps }) {
         return () => window.removeEventListener('resize', updateHeight);
     }, []);
 
-    const getLayout = Component.getLayout || ((page) => page);
-
     return (
         <ThemeProvider attribute="class">
             <Head>
@@ -34,9 +34,9 @@ export default function App({ Component, pageProps }) {
                     content="width=device-width, initial-scale=1"
                 />
             </Head>
-            {/* <AppContainer> */}
-            {getLayout(<Component {...pageProps} />)}
-            {/* </AppContainer> */}
+            <ProvideBrewsContext>
+                <Component {...pageProps} />
+            </ProvideBrewsContext>
         </ThemeProvider>
     );
 }
