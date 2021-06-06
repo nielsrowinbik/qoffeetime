@@ -1,7 +1,7 @@
 {
     "name": "AeroPress",
     "tagline": "James Hoffmann's Ultimate AeroPress recipe - the AeroPress recipe everyone has been waiting for!",
-    "description": "This simple and tasty recipe throws away a lot of AeroPress mysconceptions such as rinsing your paper filter and preheating your AeroPress.",
+    "description": "Forget about the AeroPress mysconceptions such as rinsing your paper filter and preheating your AeroPress, and just brew an awesome cup using this recipe. Don't press down to hard, be gentle!",
     "minVolume": 200,
     "maxVolume": 200,
     "defaultVolume": 200,
