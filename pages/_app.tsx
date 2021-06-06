@@ -2,10 +2,9 @@ import Head from 'next/head';
 import { ThemeProvider } from 'next-themes';
 import { useEffect } from 'react';
 
-import '../styles/globals.css';
 import 'swiper/swiper-bundle.min.css';
-
-import AppContainer from '../components/AppContainer';
+import 'swiper/components/pagination/pagination.min.css';
+import '../styles/globals.css';
 
 const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;

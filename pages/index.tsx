@@ -2,6 +2,7 @@ import { mdiHistory } from '@mdi/js';
 import Icon from '@mdi/react';
 import Link from 'next/link';
 import { FC, useState } from 'react';
+import SwiperCore, { Pagination } from 'swiper/core';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import FooterLayout from '../layouts/FooterLayout';
@@ -11,6 +12,8 @@ import type { Recipe } from '../lib/types';
 
 import Button from '../components/Button';
 import RecipeSlide from '../components/RecipeSlide';
+
+SwiperCore.use([Pagination]);
 
 const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
     const [activeIndex, setActiveIndex] = useState(0);
@@ -25,7 +28,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
                         <span>Timeline</span>
                     </a>
                 </Link>
-                <div className="pb-10 pt-6 h-full">
+                <div className="pt-6 pb-2 h-full">
                     <Swiper
                         centeredSlides
                         className="h-full"
@@ -34,6 +37,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
                         onActiveIndexChange={({ activeIndex }) =>
                             setActiveIndex(activeIndex)
                         }
+                        pagination
                     >
                         {recipies.map((recipe) => (
                             <SwiperSlide key={recipe.slug}>
