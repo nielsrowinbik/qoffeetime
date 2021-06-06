@@ -15,7 +15,7 @@ type ButtonProps = PropsWithChildren<
 >;
 
 const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
-    ({ children, inGroup = false, variant = 'light', ...props }, ref) => {
+    ({ children, icon, inGroup = false, variant = 'light', ...props }, ref) => {
         const className = classNames(
             'font-semibold w-full py-3 inline-flex justify-center align-center disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed relative overflow-hidden outline-none',
             {
@@ -31,9 +31,7 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
         const Tag = props.href ? 'a' : 'button';
         return (
             <Tag {...props} className={className} ref={ref}>
-                {props.icon && (
-                    <Icon className="mr-2" path={props.icon} size="24px" />
-                )}
+                {icon && <Icon className="mr-2" path={icon} size="24px" />}
                 {children}
             </Tag>
         );
