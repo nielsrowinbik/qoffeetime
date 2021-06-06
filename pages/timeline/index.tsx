@@ -1,4 +1,4 @@
-import { mdiClose, mdiCoffeeOutline } from '@mdi/js';
+import { mdiClose } from '@mdi/js';
 import Link from 'next/link';
 
 import FooterLayout from '../../layouts/FooterLayout';
@@ -29,7 +29,7 @@ const TimelinePage = () => {
             </MainLayout>
             <FooterLayout>
                 <Link href="/timeline/add" passHref>
-                    <Button icon={mdiCoffeeOutline}>Add a brew</Button>
+                    <Button>Add a brew</Button>
                 </Link>
             </FooterLayout>
         </>
