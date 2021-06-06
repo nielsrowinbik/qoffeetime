@@ -3,7 +3,7 @@ import type { PropsWithChildren } from 'react';
 type FooterProps = PropsWithChildren<{}>;
 
 const Footer = ({ children }: FooterProps) => (
-    <footer className="px-4" style={{ gridArea: 'footer' }}>
+    <footer className="p-4 pt-6" style={{ gridArea: 'footer' }}>
         {children}
     </footer>
 );
