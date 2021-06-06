@@ -1,7 +1,8 @@
 import { mdiHistory } from '@mdi/js';
 import Icon from '@mdi/react';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { useState } from 'react';
+import type { FC } from 'react';
 import SwiperCore, { Pagination } from 'swiper/core';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
