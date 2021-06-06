@@ -1,6 +1,6 @@
 # Brewtime
 
-Create the perfect cup of coffee.
+[Next.js](https://nextjs.org) implementation of [Brewtime](https://brewtimeapp.com), available on iOS and Android, with recipes from James Hoffmann.
 
 ## Running locally
 
