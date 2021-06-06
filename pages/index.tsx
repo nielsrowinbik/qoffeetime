@@ -49,9 +49,12 @@ const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
                         }
                         pagination
                     >
-                        {recipies.map((recipe) => (
+                        {recipies.map((recipe, index) => (
                             <SwiperSlide key={recipe.slug}>
-                                <RecipeSlide {...recipe} />
+                                <RecipeSlide
+                                    priority={index <= 1}
+                                    {...recipe}
+                                />
                             </SwiperSlide>
                         ))}
                     </Swiper>
