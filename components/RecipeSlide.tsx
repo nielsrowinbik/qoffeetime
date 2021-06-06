@@ -24,7 +24,7 @@ export default function RecipeSlide({
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center center"
-                            src="https://via.placeholder.com/500x700"
+                            src={`/assets/images/${slug}.jpg`}
                         />
                         <header className="absolute h-full flex flex-col justify-end p-4">
                             <h2 className="text-7xl font-bold w-3/4 break-words">
