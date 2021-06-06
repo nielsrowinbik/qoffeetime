@@ -8,7 +8,7 @@ import Confetti from 'react-canvas-confetti';
 import NavLayout from '../../layouts/NavLayout';
 import MainLayout from '../../layouts/MainLayout';
 import FooterLayout from '../../layouts/FooterLayout';
-import { queryArgToNumber } from '../../lib/helpers';
+import { envToBool, queryArgToNumber } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
@@ -26,6 +26,8 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     useEffect(() => {
         setShouldFire(true);
     }, []);
+
+    const timelineEnabled = envToBool(process.env.NEXT_PUBLIC_ENABLE_TIMELINE);
 
     return (
         <>
@@ -48,28 +50,39 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                     </h1>
                 </section>
                 <section className="flex-1 flex flex-col justify-end">
-                    <h2 className="text-center font-bold">
-                        Would you like to save your brew?
-                    </h2>
+                    {timelineEnabled && (
+                        <h2 className="text-center font-bold">
+                            Would you like to save your brew?
+                        </h2>
+                    )}
                 </section>
             </MainLayout>
             <FooterLayout>
-                <Link
-                    href={{
-                        pathname: `/timeline/add`,
-                        query: {
-                            coffee,
-                            recipe: slug,
-                            volume,
-                        },
-                    }}
-                    passHref
-                >
-                    <Button>Save</Button>
-                </Link>
-                <Link href="/" passHref>
-                    <Button variant="text">No thanks</Button>
-                </Link>
+                {timelineEnabled && (
+                    <>
+                        <Link
+                            href={{
+                                pathname: `/timeline/add`,
+                                query: {
+                                    coffee,
+                                    recipe: slug,
+                                    volume,
+                                },
+                            }}
+                            passHref
+                        >
+                            <Button>Save</Button>
+                        </Link>
+                        <Link href="/" passHref replace>
+                            <Button variant="text">No thanks</Button>
+                        </Link>{' '}
+                    </>
+                )}
+                {!timelineEnabled && (
+                    <Link href="/" passHref replace>
+                        <Button>Continue</Button>
+                    </Link>
+                )}
             </FooterLayout>
         </>
     );

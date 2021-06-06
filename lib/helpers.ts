@@ -8,6 +8,14 @@ export const formatTime = (
 ) =>
     [h, m > 9 ? m : `${p}${m}`, s > 9 ? s : `0${s}`].filter((s) => s).join(':');
 
+export const envToBool = (val: string): boolean => {
+    try {
+        return !!JSON.parse(val.toLowerCase());
+    } catch (e) {
+        return false;
+    }
+};
+
 export const queryArgToNumber = (
     arg: undefined | string | string[]
 ): number | undefined => {

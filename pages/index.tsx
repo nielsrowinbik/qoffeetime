@@ -8,6 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import FooterLayout from '../layouts/FooterLayout';
 import FullHeightLayout from '../layouts/FullHeightLayout';
+import { envToBool } from '../lib/helpers';
 import { getAllRecipies } from '../lib/recipies';
 import type { Recipe } from '../lib/types';
 
@@ -20,15 +21,23 @@ const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
     const [activeIndex, setActiveIndex] = useState(0);
     const { name, slug } = recipies[activeIndex];
 
+    const timelineEnabled = envToBool(process.env.NEXT_PUBLIC_ENABLE_TIMELINE);
+
     return (
         <>
             <FullHeightLayout>
-                <Link href="/timeline">
-                    <a className="absolute bg-brewtime-red shadow-sm rounded-full py-1 px-3 z-10 right-10 top-10 flex flex-row items-center text-sm">
-                        <Icon className="mr-2" path={mdiHistory} size="20px" />
-                        <span>Timeline</span>
-                    </a>
-                </Link>
+                {timelineEnabled && (
+                    <Link href="/timeline">
+                        <a className="absolute bg-brewtime-red shadow-sm rounded-full py-1 px-3 z-10 right-10 top-10 flex flex-row items-center text-sm">
+                            <Icon
+                                className="mr-2"
+                                path={mdiHistory}
+                                size="20px"
+                            />
+                            <span>Timeline</span>
+                        </a>
+                    </Link>
+                )}
                 <div className="pt-6 h-full">
                     <Swiper
                         centeredSlides
