@@ -49,12 +49,10 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                     }}
                     passHref
                 >
-                    <Button className="mb-2">Save</Button>
+                    <Button>Save</Button>
                 </Link>
                 <Link href="/" passHref>
-                    <Button className="mb-2" variant="text">
-                        No thanks
-                    </Button>
+                    <Button variant="text">No thanks</Button>
                 </Link>
             </FooterLayout>
         </>
