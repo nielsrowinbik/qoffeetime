@@ -97,7 +97,7 @@ const RecipePage: FC<Recipe> = ({
                     }}
                     passHref
                 >
-                    <Button>Go to timer</Button>
+                    <Button>Next</Button>
                 </Link>
             </FooterLayout>
         </>
