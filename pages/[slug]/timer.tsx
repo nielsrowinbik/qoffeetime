@@ -12,7 +12,7 @@ import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import { useTimer, useWakeLock } from '../../lib/timer';
 import type { Recipe, RecipeStep } from '../../lib/types';
 
-import Button from '../../components/Button';
+import Button, { ButtonGroup } from '../../components/Button';
 import GoBack from '../../components/GoBack';
 import IconButton from '../../components/IconButton';
 import StopWatch from '../../components/StopWatch';
@@ -154,6 +154,7 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                 </section>
             </MainLayout>
             <FooterLayout>
+                <ButtonGroup>
                 {!isRunning && (
                     <Button icon={mdiPlayOutline} onClick={() => toggle()}>
                         Start
@@ -171,6 +172,7 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
                         </Button>
                     </GoBack>
                 )}
+                </ButtonGroup>
             </FooterLayout>
         </>
     );

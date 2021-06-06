@@ -35,4 +35,11 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
     }
 );
 
+type ButtonGroupProps = PropsWithChildren<{}>;
+
+const ButtonGroup = ({ children }: ButtonGroupProps) => (
+    <div className="flex flex-row">{children}</div>
+);
+
 export default Button;
+export { ButtonGroup };
