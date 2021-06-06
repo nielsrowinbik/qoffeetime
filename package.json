@@ -48,6 +48,6 @@
         "prettier": "^2.3.0",
         "tailwindcss": "^2.1.2",
         "tailwindcss-only-child": "^1.0.0",
-        "typescript": "^4.2.4"
+        "typescript": "^4.3.2"
     }
 }
