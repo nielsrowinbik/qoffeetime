@@ -173,7 +173,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                     )}
                     {(isRunning || elapsed > 0) && (
                         <GoBack confirm={confirmMessage}>
-                            <Button icon={mdiStop} variant="dark">
+                            <Button icon={mdiStop} inGroup variant="dark">
                                 Stop
                             </Button>
                         </GoBack>
