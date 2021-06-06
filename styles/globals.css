@@ -9,3 +9,15 @@
     grid-template-areas: 'nav' 'main' 'footer';
     height: 100%;
 }
+
+/* TODO: Can we change the location of these styles? */
+.swiper-pagination-bullet {
+    background: transparent;
+    border: 1px white solid;
+    border-radius: 100%;
+    opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+    background: white;
+}
