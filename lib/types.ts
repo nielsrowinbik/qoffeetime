@@ -6,7 +6,6 @@ export type RecipeStep = {
 export type RecipeFromFile = {
     name: string;
     tagline: string;
-    image: string;
     description: string;
     maxVolume: number;
     minVolume: number;
