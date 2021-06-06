@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import template from 'lodash.template';
 import { mdiClose, mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
 import { useRouter } from 'next/router';
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
+import type { FC } from 'react';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -67,7 +68,7 @@ const getCurrentStep = (
     };
 };
 
-const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
+const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     const confirmMessage = 'Do you want to cancel the timer?';
 
     const router = useRouter();
@@ -91,11 +92,16 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
     // Keep the screen on while this page is rendered:
     useWakeLock();
 
-    // Once the timer completes, store a brew and show the timeline:
+    // Once the timer completes, show the success page:
     useEffect(() => {
         if (isComplete) {
-            console.log('Timer done, store brew');
-            router.replace('/timeline');
+            router.replace({
+                pathname: `/${slug}/success`,
+                query: {
+                    coffee,
+                    volume,
+                },
+            });
         }
     }, [isComplete]);
 
@@ -155,23 +161,23 @@ const TimePage: FC<Recipe> = ({ name, ...recipe }) => {
             </MainLayout>
             <FooterLayout>
                 <ButtonGroup>
-                {!isRunning && (
-                    <Button icon={mdiPlayOutline} onClick={() => toggle()}>
-                        Start
-                    </Button>
-                )}
-                {isRunning && (
-                    <Button icon={mdiPause} onClick={() => toggle()}>
-                        Pause
-                    </Button>
-                )}
-                {(isRunning || elapsed > 0) && (
-                    <GoBack confirm={confirmMessage}>
-                        <Button icon={mdiStop} variant="dark">
-                            Stop
+                    {!isRunning && (
+                        <Button icon={mdiPlayOutline} onClick={() => toggle()}>
+                            Start
                         </Button>
-                    </GoBack>
-                )}
+                    )}
+                    {isRunning && (
+                        <Button icon={mdiPause} onClick={() => toggle()}>
+                            Pause
+                        </Button>
+                    )}
+                    {(isRunning || elapsed > 0) && (
+                        <GoBack confirm={confirmMessage}>
+                            <Button icon={mdiStop} variant="dark">
+                                Stop
+                            </Button>
+                        </GoBack>
+                    )}
                 </ButtonGroup>
             </FooterLayout>
         </>
@@ -197,5 +203,5 @@ const getStaticProps = async ({ params }) => {
     return { props: { ...recipe } };
 };
 
-export default TimePage;
+export default TimerPage;
 export { getStaticPaths, getStaticProps };
