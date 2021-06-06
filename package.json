@@ -22,7 +22,7 @@
         "@mdi/js": "^5.9.55",
         "@mdi/react": "^1.5.0",
         "classnames": "^2.2.6",
-        "date-fns": "^2.21.3",
+        "date-fns": "^2.22.1",
         "dexie": "^3.0.3",
         "lodash.range": "^3.2.0",
         "lodash.template": "^4.5.0",
