@@ -10,7 +10,7 @@ type ButtonProps = PropsWithChildren<
             href?: string;
             icon?: string;
             type?: 'button' | 'submit' | 'reset';
-            variant?: 'light' | 'dark';
+            variant?: 'dark' | 'light' | 'text';
         }
 >;
 
@@ -21,6 +21,7 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
             {
                 'bg-white text-black': variant === 'light',
                 'bg-black text-white': variant === 'dark',
+                'text-current': variant === 'text',
             }
         );
         const Tag = props.href ? 'a' : 'button';
