@@ -9,3 +9,4 @@ public/feed.xml
 public/sw*
 public/workbox*
 .vercel
+data/recipies/test.json
