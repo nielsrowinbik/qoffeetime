@@ -24,4 +24,12 @@ export const queryArgToNumber = (
     return parseFloat(arg[0]);
 };
 
+export const queryArgToString = (
+    arg: undefined | string | string[]
+): string | undefined => {
+    if (!arg) return undefined;
+    if (typeof arg === 'string') return arg;
+    return arg[0];
+};
+
 export const round = Math.round;
