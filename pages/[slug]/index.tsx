@@ -59,6 +59,9 @@ const RecipePage: FC<Recipe> = ({
             { shallow: true }
         );
 
+    // Don't render anything until we've parsed query parameters:
+    if (!router.isReady) return null;
+
     return (
         <>
             <NavLayout>

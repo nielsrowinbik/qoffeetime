@@ -105,6 +105,9 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
         }
     }, [isComplete]);
 
+    // Don't render anything until we've parsed query parameters:
+    if (!router.isReady) return null;
+
     return (
         <>
             <NavLayout>
