@@ -29,6 +29,9 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
 
     const timelineEnabled = envToBool(process.env.NEXT_PUBLIC_ENABLE_TIMELINE);
 
+    // Don't render anything until we've parsed query parameters:
+    if (!router.isReady) return null;
+
     return (
         <>
             <NavLayout />

@@ -47,6 +47,9 @@ const AddToTimelinePage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
         }
     };
 
+    // Don't render anything until we've parsed query parameters:
+    if (!router.isReady) return null;
+
     return (
         <>
             <NavLayout>
