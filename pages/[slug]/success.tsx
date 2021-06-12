@@ -27,8 +27,6 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
         setShouldFire(true);
     }, []);
 
-    const timelineEnabled = envToBool(process.env.NEXT_PUBLIC_ENABLE_TIMELINE);
-
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
 
@@ -53,39 +51,30 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                     </h1>
                 </section>
                 <section className="flex-1 flex flex-col justify-end">
-                    {timelineEnabled && (
-                        <h2 className="text-center font-bold">
-                            Would you like to save your brew?
-                        </h2>
-                    )}
+                    <h2 className="text-center font-bold">
+                        Would you like to save your brew?
+                    </h2>
                 </section>
             </MainLayout>
             <FooterLayout>
-                {timelineEnabled && (
-                    <>
-                        <Link
-                            href={{
-                                pathname: `/timeline/add`,
-                                query: {
-                                    coffee,
-                                    recipe: slug,
-                                    volume,
-                                },
-                            }}
-                            passHref
-                        >
-                            <Button>Save</Button>
-                        </Link>
-                        <Link href="/" passHref replace>
-                            <Button variant="text">No thanks</Button>
-                        </Link>{' '}
-                    </>
-                )}
-                {!timelineEnabled && (
-                    <Link href="/" passHref replace>
-                        <Button>Continue</Button>
+                <>
+                    <Link
+                        href={{
+                            pathname: `/timeline/add`,
+                            query: {
+                                coffee,
+                                recipe: slug,
+                                volume,
+                            },
+                        }}
+                        passHref
+                    >
+                        <Button>Save</Button>
                     </Link>
-                )}
+                    <Link href="/" passHref replace>
+                        <Button variant="text">No thanks</Button>
+                    </Link>{' '}
+                </>
             </FooterLayout>
         </>
     );
