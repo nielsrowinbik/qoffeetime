@@ -1,11 +1,11 @@
 import { mdiClose, mdiCoffeeOutline } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useState } from 'react';
-import Webcam from 'react-webcam';
+import { FC, useEffect, useState } from 'react';
 
-import NavLayout from '../../layouts/NavLayout';
 import FullHeightLayout from '../../layouts/FullHeightLayout';
+import FooterLayout from '../../layouts/FooterLayout';
+import MainLayout from '../../layouts/MainLayout';
 import { useBrews } from '../../lib/brews';
 import { queryArgToNumber, queryArgToString } from '../../lib/helpers';
 import { getAllRecipies } from '../../lib/recipies';
@@ -28,16 +28,19 @@ const AddToTimelinePage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
         (item) => !!item
     );
 
-    const [coffee] = useState(queryArgToNumber(coffeeParam) || 0);
-    const [recipe] = useState(queryArgToString(recipeParam));
-    const [volume] = useState(queryArgToNumber(volumeParam) || 0);
+    const coffee = queryArgToNumber(coffeeParam);
+    const recipe = queryArgToString(recipeParam);
+    const volume = queryArgToNumber(volumeParam);
 
     const { createBrew } = useBrews();
     const saveBrew = async () => {
         try {
-            const savedBrew = await createBrew({
+            const recipeName = recipies.find(
+                ({ slug }) => slug === recipe
+            ).name;
+            await createBrew({
                 coffee,
-                recipe,
+                recipe: recipeName,
                 volume,
             });
             router.replace('/timeline');
@@ -47,38 +50,28 @@ const AddToTimelinePage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
         }
     };
 
+    // If we were redirect, store the brew immediately:
+    useEffect(() => {
+        if (!wasRedirected) return;
+        saveBrew();
+    }, [wasRedirected]);
+
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
 
     return (
         <>
-            <NavLayout>
-                <h1 className="font-semibold">Share your moment</h1>
-            </NavLayout>
-            <FullHeightLayout align="bottom">
-                <Webcam
-                    audio={false}
-                    // className="w-full h-full object-cover"
-                    videoConstraints={{
-                        facingMode: 'environment',
-                    }}
-                />
-                <div className="absolute bottom-0 right-0 left-0 flex flex-row items-center justify-around">
-                    <button>Snap</button>
-                </div>
-            </FullHeightLayout>
-            {/* <FooterLayout>
-                <Button onClick={saveBrew}>Save brew</Button>
-                {wasRedirected ? (
-                    <Link href="/" passHref>
-                        <Button variant="text">Cancel</Button>
-                    </Link>
-                ) : (
-                    <GoBack>
-                        <Button variant="text">Cancel</Button>
-                    </GoBack>
+            <FullHeightLayout></FullHeightLayout>
+            <FooterLayout>
+                {wasRedirected ? null : (
+                    <>
+                        <Button onClick={saveBrew}>Save brew</Button>
+                        <GoBack>
+                            <Button variant="text">Cancel</Button>
+                        </GoBack>
+                    </>
                 )}
-            </FooterLayout> */}
+            </FooterLayout>
         </>
     );
 };
