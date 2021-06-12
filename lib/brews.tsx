@@ -16,6 +16,7 @@ type BrewsContext = {
     getBrew(id: number): Promise<Brew | undefined>;
     createBrew(values: Brew): Promise<Brew>;
     deleteBrew(brewId: number): Promise<void>;
+    updateBrew(brewId: number, values: Partial<Brew>): Promise<Brew>;
 };
 
 export const BrewsContext = createContext<BrewsContext>(undefined);
@@ -29,20 +30,32 @@ export const ProvideBrewsContext = ({ children }: PropsWithChildren<{}>) => {
 
     const createBrew = useCallback(async (values: Brew) => {
         const result = await db.create(values);
-        setBrews((previous) => [result, ...previous]);
+        // setBrews((previous) => [result, ...previous]);
+        refresh();
         return result;
     }, []);
 
     const deleteBrew = useCallback(async (brewId: number) => {
         await db.remove(brewId);
-        setBrews((previous) => previous.filter((brew) => brew.id !== brewId));
+        refresh();
+        // setBrews((previous) => previous.filter((brew) => brew.id !== brewId));
     }, []);
 
+    const updateBrew = useCallback(
+        async (brewId: number, values: Partial<Brew>) => {
+            const result = await db.update(brewId, values);
+            refresh();
+            return result;
+        },
+        []
+    );
+
+    const refresh = async () => {
+        const brews = await db.list();
+        setBrews(brews);
+    };
+
     useEffect(() => {
-        const refresh = async () => {
-            const brews = await db.list();
-            setBrews(brews);
-        };
         refresh();
     }, []);
 
@@ -51,6 +64,7 @@ export const ProvideBrewsContext = ({ children }: PropsWithChildren<{}>) => {
         getBrew,
         createBrew,
         deleteBrew,
+        updateBrew,
     };
 
     return (
