@@ -10,8 +10,8 @@ export class BrewsDB extends Dexie {
     constructor() {
         super('BrewsDB');
 
-        this.version(1).stores({
-            brews: '++id, coffee, created, recipe, volume',
+        this.version(2).stores({
+            brews: '++id, coffee, comment, created, recipe, volume',
         });
         this.brews = this.table('brews');
     }
@@ -33,6 +33,11 @@ export class BrewsDB extends Dexie {
             .offset(start)
             .limit(LIST_SIZE)
             .toArray();
+    }
+
+    async update(id: number, data: Partial<Brew>) {
+        await this.brews.update(id, data);
+        return await this.brews.get(id);
     }
 
     async remove(id: number) {
