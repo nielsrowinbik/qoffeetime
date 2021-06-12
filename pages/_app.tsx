@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/pagination/pagination.min.css';
+import 'react-spring-bottom-sheet/dist/style.css';
 import '../styles/globals.css';
 
 import { ProvideBrewsContext } from '../lib/brews';
