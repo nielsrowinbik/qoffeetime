@@ -22,6 +22,7 @@ export type Brew = {
     id?: number;
     created?: number;
     coffee: number;
+    comment?: string;
     recipe: string;
     volume: number;
 };
