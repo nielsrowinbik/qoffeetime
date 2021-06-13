@@ -1,11 +1,8 @@
-import { mdiClose, mdiCoffeeOutline } from '@mdi/js';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 
 import FullHeightLayout from '../../layouts/FullHeightLayout';
 import FooterLayout from '../../layouts/FooterLayout';
-import MainLayout from '../../layouts/MainLayout';
 import { useBrews } from '../../lib/brews';
 import { queryArgToNumber, queryArgToString } from '../../lib/helpers';
 import { getAllRecipies } from '../../lib/recipies';
@@ -13,7 +10,6 @@ import type { Recipe } from '../../lib/types';
 
 import Button from '../../components/Button';
 import GoBack from '../../components/GoBack';
-import IconButton from '../../components/IconButton';
 
 const AddToTimelinePage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
     const router = useRouter();
@@ -61,7 +57,13 @@ const AddToTimelinePage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
 
     return (
         <>
-            <FullHeightLayout></FullHeightLayout>
+            <FullHeightLayout>
+                {wasRedirected && (
+                    <div className="w-full h-full flex items-center justify-center">
+                        <span>Saving your brew...</span>
+                    </div>
+                )}
+            </FullHeightLayout>
             <FooterLayout>
                 {wasRedirected ? null : (
                     <>
