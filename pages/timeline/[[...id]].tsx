@@ -1,4 +1,4 @@
-import { formatDistance } from 'date-fns';
+import { format, isToday, isYesterday } from 'date-fns';
 import { mdiClose } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -29,8 +29,8 @@ const TimelinePage = () => {
     const prevSelectedBrew = useRef<Brew>();
     const brew = selectedBrew || prevSelectedBrew.current;
 
-    // When `id` updates, update the selected brew, and keep a reference
-    // to the previously selected brew:
+    // When `id` or the list of brews update, update the selected
+    // brew, and keep a reference to the previously selected brew:
     useEffect(() => {
         const selected = brews.find((brew) => brew.id === id);
         if (selected !== undefined) prevSelectedBrew.current = selected;
@@ -42,6 +42,26 @@ const TimelinePage = () => {
             shallow: true,
         });
 
+    const groupedBrews: { [group: string]: Brew[] } = brews.reduce(
+        (groups, brew) => {
+            const date = new Date(brew.created);
+            const key = isToday(date)
+                ? 'Today'
+                : isYesterday(date)
+                ? 'Yesterday'
+                : format(date, 'MMMM D');
+
+            if (!groups[key]) {
+                groups[key] = [];
+            }
+
+            groups[key].push(brew);
+
+            return groups;
+        },
+        {}
+    );
+
     return (
         <>
             <NavLayout>
@@ -50,33 +70,67 @@ const TimelinePage = () => {
                 </GoBack>
             </NavLayout>
             <MainLayout>
-                <ul>
-                    {brews.map(({ id, recipe }) => (
-                        <li key={id}>
-                            <Link
-                                href={{
-                                    pathname: `/timeline/${id}`,
-                                }}
-                                shallow
-                            >
-                                <a>{recipe}</a>
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
+                {Object.keys(groupedBrews).map((date) => (
+                    <section className="mb-6" key={date}>
+                        <header className="flex flex-row justify-between items-center">
+                            <h2 className="text-lg font-semibold">{date}</h2>
+                            <h4>
+                                {groupedBrews[date].reduce(
+                                    (res, { volume }) => res + volume,
+                                    0
+                                )}{' '}
+                                ml
+                            </h4>
+                        </header>
+                        <ul>
+                            {groupedBrews[date].map(
+                                ({ coffee, created, id, recipe, volume }) => (
+                                    <li className="my-1" key={id}>
+                                        <Link
+                                            href={{
+                                                pathname: `/timeline/${id}`,
+                                            }}
+                                            shallow
+                                        >
+                                            <a className="flex flex-row justify-between items-center py-2">
+                                                <div>
+                                                    <h3>{recipe}</h3>
+                                                    <p className="text-white text-opacity-60 text-sm">
+                                                        {coffee} g cofee,{' '}
+                                                        {volume} ml water
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    {format(
+                                                        new Date(created),
+                                                        'HH:mm'
+                                                    )}
+                                                </div>
+                                            </a>
+                                        </Link>
+                                    </li>
+                                )
+                            )}
+                        </ul>
+                    </section>
+                ))}
                 <BottomSheet
                     className="text-black"
                     defaultSnap={innerHeight / 2}
                     open={selectedBrew !== undefined}
                     onDismiss={onDismiss}
+                    snapPoints={({ maxHeight, minHeight }) => [
+                        minHeight,
+                        maxHeight,
+                    ]}
                 >
                     {brew && <BrewDetails {...brew} />}
                 </BottomSheet>
             </MainLayout>
             <FooterLayout>
-                <Link href="/timeline/add" passHref>
+                {/* <Link href="/timeline/add" passHref>
                     <Button>Add a brew</Button>
-                </Link>
+                </Link> */}
             </FooterLayout>
         </>
     );
