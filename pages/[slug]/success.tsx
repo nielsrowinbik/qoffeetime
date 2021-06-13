@@ -8,7 +8,7 @@ import Confetti from 'react-canvas-confetti';
 import NavLayout from '../../layouts/NavLayout';
 import MainLayout from '../../layouts/MainLayout';
 import FooterLayout from '../../layouts/FooterLayout';
-import { envToBool, queryArgToNumber } from '../../lib/helpers';
+import { queryArgToNumber } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
@@ -24,8 +24,8 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     // Fire confetti upon page load:
     const [shouldFire, setShouldFire] = useState(false);
     useEffect(() => {
-        setShouldFire(true);
-    }, []);
+        router.isReady && setShouldFire(true);
+    }, [router.isReady]);
 
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
