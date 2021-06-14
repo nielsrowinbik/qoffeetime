@@ -18,7 +18,11 @@ const BrewDetails = ({ comment, created, id, recipe }: Brew) => {
     const canShare = 'canShare' in navigator;
     const onShareClick = async () => {
         try {
-            await navigator.share({});
+            await navigator.share({
+                title: 'Brewtime',
+                text: `I just brewed a delicious cup of ${recipe} coffee with Brewtime!`,
+                url: window.location.origin,
+            });
         } catch (e) {
             // TODO: Do something with the error other than logging it
             console.log(e);
