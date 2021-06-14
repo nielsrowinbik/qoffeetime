@@ -48,7 +48,7 @@ const TimelinePage = () => {
                 ? 'Today'
                 : isYesterday(date)
                 ? 'Yesterday'
-                : format(date, 'MMMM D');
+                : format(date, 'MMMM d');
 
             if (!groups[key]) {
                 groups[key] = [];
