@@ -1,5 +1,5 @@
 import { formatDistance } from 'date-fns';
-import { mdiDelete, mdiShare } from '@mdi/js';
+import { mdiDeleteOutline, mdiShareVariantOutline } from '@mdi/js';
 import { useRouter } from 'next/router';
 
 import type { Brew } from '../lib/types';
@@ -11,14 +11,7 @@ import { FormEvent } from 'react';
 const timeAgo = (date: number) =>
     formatDistance(new Date(date), Date.now(), { addSuffix: true });
 
-const BrewDetails = ({
-    coffee,
-    comment,
-    created,
-    id,
-    recipe,
-    volume,
-}: Brew) => {
+const BrewDetails = ({ comment, created, id, recipe }: Brew) => {
     const { deleteBrew, updateBrew } = useBrews();
     const router = useRouter();
 
@@ -73,9 +66,22 @@ const BrewDetails = ({
                     rows={4}
                 />
             </p>
+            <hr className="my-4" />
             <div className="flex flex-row justify-around">
-                <div>{volume}ml</div>
-                <div>{coffee}g</div>
+                {canShare && (
+                    <IconButtonWithLabel
+                        icon={mdiShareVariantOutline}
+                        label="Share"
+                        onClick={onShareClick}
+                        tabIndex={-1}
+                    />
+                )}
+                <IconButtonWithLabel
+                    icon={mdiDeleteOutline}
+                    label="Delete"
+                    onClick={onDeleteClick}
+                    tabIndex={-1}
+                />
             </div>
         </div>
     );
