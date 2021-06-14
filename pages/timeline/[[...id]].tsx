@@ -36,10 +36,7 @@ const TimelinePage = () => {
         setSelectedBrew(selected);
     }, [brews, id]);
 
-    const onDismiss = () =>
-        router.replace({ pathname: router.pathname }, undefined, {
-            shallow: true,
-        });
+    const onDismiss = () => router.back();
 
     const groupedBrews: { [group: string]: Brew[] } = brews.reduce(
         (groups, brew) => {
