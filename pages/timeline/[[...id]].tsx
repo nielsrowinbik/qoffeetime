@@ -67,7 +67,7 @@ const TimelinePage = () => {
             </NavLayout>
             <MainLayout>
                 {Object.keys(groupedBrews).map((date) => (
-                    <section className="mb-6" key={date}>
+                    <section className="mb-4" key={date}>
                         <header className="flex flex-row justify-between items-center">
                             <h2 className="text-lg font-semibold">{date}</h2>
                             <h4>
@@ -88,7 +88,7 @@ const TimelinePage = () => {
                                             }}
                                             shallow
                                         >
-                                            <a className="flex flex-row justify-between items-center py-2">
+                                            <a className="flex flex-row justify-between items-center py-1">
                                                 <div>
                                                     <h3>{recipe}</h3>
                                                     <p className="text-white text-opacity-60 text-sm">
