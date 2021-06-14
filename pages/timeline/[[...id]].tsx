@@ -13,7 +13,6 @@ import { useBrews } from '../../lib/brews';
 import type { Brew } from '../../lib/types';
 
 import BrewDetails from '../../components/BrewDetails';
-import Button from '../../components/Button';
 import GoBack from '../../components/GoBack';
 import IconButton from '../../components/IconButton';
 import { queryArgToNumber } from '../../lib/helpers';
