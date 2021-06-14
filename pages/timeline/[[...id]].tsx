@@ -18,7 +18,7 @@ import IconButton from '../../components/IconButton';
 import { queryArgToNumber } from '../../lib/helpers';
 
 const TimelinePage = () => {
-    const { brews } = useBrews();
+    const { isReady, brews } = useBrews();
     const router = useRouter();
     const { innerHeight } = useWindowSize();
 
@@ -57,6 +57,8 @@ const TimelinePage = () => {
         },
         {}
     );
+
+    if (!isReady) return null;
 
     return (
         <>
