@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import type { PropsWithChildren } from 'react';
-import type { Brew } from './types';
+import type { Brew, Recipe } from './types';
 
 import { db } from './db';
 
@@ -82,4 +82,44 @@ export const useBrews = () => {
         );
     }
     return ctx;
+};
+
+export const useSortRecipiesByBrews = (
+    recipies: Recipe[]
+): { isReady: boolean; recipies: Recipe[] } => {
+    const { isReady, brews } = useBrews();
+
+    // No brews stored? Just return the original array (which is sorted alphabetically):
+    if (brews.length === 0) return { isReady, recipies };
+
+    // Count the occurrance for each recipe:
+    const counted = brews.reduce((res, { recipe }) => {
+        res[recipe] = ~~res[recipe] + 1;
+        return res;
+    }, {});
+
+    // Find the most recently used recipe:
+    const mostRecent = recipies.find(({ name }) => name === brews[0].recipe);
+
+    // Create a list of recipies, sored by usage, omitting
+    // the most recently used:
+    const ordered = Object.keys(counted)
+        .filter((name) => name !== mostRecent.name)
+        .sort((a, b) => counted[b] - counted[a])
+        .map((name) => recipies.find((recipe) => recipe.name === name));
+
+    // Create a list of the remaining recipe names, sorted alphabetically:
+    const remaining = recipies.filter(
+        ({ name }) =>
+            name !== mostRecent.name &&
+            !ordered.find((recipe) => recipe.name === name)
+    );
+
+    // Create a new array, in which the first item is always the most recently
+    // used recipe, which then contains the remainder of the recipies, first sorted by usage,
+    // and sorted alphabetically if it hasn't been logged yet, and return it:
+    return {
+        isReady,
+        recipies: [mostRecent, ...ordered, ...remaining],
+    };
 };

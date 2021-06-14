@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import FooterLayout from '../layouts/FooterLayout';
 import FullHeightLayout from '../layouts/FullHeightLayout';
-import { envToBool } from '../lib/helpers';
+import { useSortRecipiesByBrews } from '../lib/brews';
 import { getAllRecipies } from '../lib/recipies';
 import type { Recipe } from '../lib/types';
 
@@ -17,8 +17,12 @@ import RecipeSlide from '../components/RecipeSlide';
 
 SwiperCore.use([Pagination]);
 
-const IndexPage: FC<{ recipies: Recipe[] }> = ({ recipies }) => {
+const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
+    const { isReady, recipies } = useSortRecipiesByBrews(props.recipies);
     const [activeIndex, setActiveIndex] = useState(0);
+
+    if (!isReady) return null;
+
     const { name, slug } = recipies[activeIndex];
 
     return (
