@@ -12,6 +12,7 @@ import type { Brew } from './types';
 import { db } from './db';
 
 type BrewsContext = {
+    isReady: boolean;
     brews: Brew[];
     getBrew(id: number): Promise<Brew | undefined>;
     createBrew(values: Brew): Promise<Brew>;
@@ -22,6 +23,7 @@ type BrewsContext = {
 export const BrewsContext = createContext<BrewsContext>(undefined);
 
 export const ProvideBrewsContext = ({ children }: PropsWithChildren<{}>) => {
+    const [isReady, setIsReady] = useState(false);
     const [brews, setBrews] = useState<Brew[]>([]);
 
     const getBrew = useCallback(async (id: number) => {
@@ -30,7 +32,6 @@ export const ProvideBrewsContext = ({ children }: PropsWithChildren<{}>) => {
 
     const createBrew = useCallback(async (values: Brew) => {
         const result = await db.create(values);
-        // setBrews((previous) => [result, ...previous]);
         refresh();
         return result;
     }, []);
@@ -38,7 +39,6 @@ export const ProvideBrewsContext = ({ children }: PropsWithChildren<{}>) => {
     const deleteBrew = useCallback(async (brewId: number) => {
         await db.remove(brewId);
         refresh();
-        // setBrews((previous) => previous.filter((brew) => brew.id !== brewId));
     }, []);
 
     const updateBrew = useCallback(
@@ -53,6 +53,7 @@ export const ProvideBrewsContext = ({ children }: PropsWithChildren<{}>) => {
     const refresh = async () => {
         const brews = await db.list();
         setBrews(brews);
+        setIsReady(true);
     };
 
     useEffect(() => {
@@ -60,6 +61,7 @@ export const ProvideBrewsContext = ({ children }: PropsWithChildren<{}>) => {
     }, []);
 
     const ctx = {
+        isReady,
         brews,
         getBrew,
         createBrew,
