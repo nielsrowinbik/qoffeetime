@@ -48,11 +48,13 @@ const BrewDetails = ({ comment, created, id, recipe }: Brew) => {
             </p>
             <p className="my-2">
                 <textarea
+                    autoFocus={false}
                     className="w-full"
                     defaultValue={comment}
                     onBlur={onCommentBlur}
                     placeholder="Add a comment"
                     rows={4}
+                    tabIndex={-1}
                 />
             </p>
             <hr className="my-4" />
