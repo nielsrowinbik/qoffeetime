@@ -36,22 +36,7 @@ const BrewDetails = ({ comment, created, id, recipe }: Brew) => {
         updateBrew(id, { comment: e.currentTarget.value });
 
     return (
-        <div className="px-4">
-            <div className="flex flex-row justify-around">
-                {canShare && (
-                    <IconButtonWithLabel
-                        icon={mdiShare}
-                        label="Share"
-                        onClick={onShareClick}
-                    />
-                )}
-                <IconButtonWithLabel
-                    icon={mdiDelete}
-                    label="Delete"
-                    onClick={onDeleteClick}
-                />
-            </div>
-            <hr className="my-4" />
+        <div className="px-4 pb-4">
             <p className="font-semibold my-2">
                 <span>{recipe}</span>
                 <span>&nbsp;&bull;&nbsp;</span>
