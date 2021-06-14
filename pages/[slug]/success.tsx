@@ -67,6 +67,7 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                                 volume,
                             },
                         }}
+                        replace
                         passHref
                     >
                         <Button>Save</Button>
