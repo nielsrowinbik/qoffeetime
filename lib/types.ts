@@ -1,6 +1,13 @@
 export type RecipeStep = {
     description: string;
     duration: number;
+    target?: string;
+};
+
+export type ParsedRecipeStep = RecipeStep & {
+    start: number;
+    target: number;
+    toAdd: number;
 };
 
 export type RecipeFromFile = {
