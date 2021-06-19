@@ -188,12 +188,12 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                     </div>
                     <div>
                         <span className="block text-3xl font-bold">
-                            {(
+                            {round(
                                 steps[currentStep.index].start +
-                                currentStep.progress *
-                                    steps[currentStep.index].toAdd
-                            ).toFixed(1)}
-                            &nbsp;ml
+                                    currentStep.progress *
+                                        steps[currentStep.index].toAdd
+                            )}
+                            &nbsp;g
                         </span>
                         <span className="block">current weight</span>
                     </div>
