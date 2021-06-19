@@ -8,8 +8,9 @@
     "defaultRatio": 65,
     "steps": [
         {
-            "description": "Pour in ${volume}ml and let it steep",
-            "duration": 240
+            "description": "Pour in {{ target }}ml and let it steep",
+            "duration": 240,
+            "target": "{{ volume }}"
         },
         {
             "description": "Stir the crust and scoop off the foam",

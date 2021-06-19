@@ -11,7 +11,7 @@ import NavLayout from '../../layouts/NavLayout';
 import { formatTime, queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import { useTimer, useWakeLock } from '../../lib/timer';
-import type { Recipe, RecipeStep } from '../../lib/types';
+import type { Recipe, RecipeStep, ParsedRecipeStep } from '../../lib/types';
 
 import Button, { ButtonGroup } from '../../components/Button';
 import GoBack from '../../components/GoBack';
@@ -19,13 +19,70 @@ import IconButton from '../../components/IconButton';
 import StopWatch from '../../components/StopWatch';
 
 // Sum all step durations up and including the provided index:
-const sumIncludingIndex = (steps: RecipeStep[], index: number) =>
+const sumIncludingIndex = (
+    steps: RecipeStep[] | ParsedRecipeStep[],
+    index: number
+) =>
     steps
         .slice(0, Math.min(index + 1, steps.length))
         .reduce((total: number, { duration }) => total + duration, 0) * 1000;
 
-const getCurrentStep = (
+// Parse the recipe steps:
+const templateSettings = { interpolate: /{{([\s\S]+?)}}/g };
+const parseSteps = (
     steps: RecipeStep[],
+    { coffee, volume }: Record<string, any>
+): ParsedRecipeStep[] =>
+    steps.reduce((parsedSteps, step, index) => {
+        // Template this step's target weight, if any:
+        const parsedTarget = parseInt(
+            template(
+                step.target,
+                templateSettings
+            )({
+                coffee,
+                volume,
+            })
+        );
+
+        // Compute the actual target, if none was specified for this step.
+        // If this is the first step, then the target is 0.
+        // If this is any other
+        const target =
+            parsedTarget || parsedSteps[parsedSteps.length - 1]?.target || 0;
+
+        // Compute the start weight for this step:
+        const start = parsedSteps[parsedSteps.length - 1]?.target || 0;
+
+        // Compute the target difference compared to the previous step,
+        // so we can tell the user how much to pour in this step:
+        const toAdd = target - start;
+
+        // Template this step's description, allowing it to contain
+        // this step's target:
+        const description = template(
+            step.description,
+            templateSettings
+        )({
+            target,
+        });
+
+        // Return all previous steps, and add the currently parsed one:
+        return [
+            ...parsedSteps,
+            {
+                ...step,
+                description,
+                start,
+                target,
+                toAdd,
+            },
+        ];
+    }, []);
+
+// Compute the current step:
+const getCurrentStep = (
+    steps: RecipeStep[] | ParsedRecipeStep[],
     elapsed: number,
     isComplete: boolean
 ) => {
@@ -33,7 +90,9 @@ const getCurrentStep = (
     // return a remaining time within that step of 0:
     if (isComplete)
         return {
+            duration: steps[steps.length - 1].duration,
             index: steps.length - 1,
+            progress: 0,
             remaining: 0,
         };
 
@@ -61,9 +120,17 @@ const getCurrentStep = (
     const remaining =
         indexOffset > 0 ? steps[index].duration * 1000 : foundRemaining;
 
+    // Store the current step's duration:
+    const duration = steps[index].duration;
+
+    // Compute the current step's progress:
+    const progress = (duration * 1000 - remaining) / (duration * 1000);
+
     // Return the index and the remaining seconds:
     return {
+        duration,
         index,
+        progress,
         remaining: round(remaining / 1000),
     };
 };
@@ -76,16 +143,12 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     const coffee = queryArgToNumber(coffeeParam);
     const volume = queryArgToNumber(volumeParam);
 
-    const steps = recipe.steps.map((step) => ({
-        ...step,
-        description: template(step.description)({ coffee, volume }),
-    }));
-    const target = round(sumIncludingIndex(steps, steps.length) / 1000);
+    const steps = parseSteps(recipe.steps, { coffee, volume });
 
-    const { elapsed, isComplete, isRunning, remaining, reset, toggle } =
-        useTimer({
-            target,
-        });
+    const { elapsed, isComplete, isRunning, remaining, toggle } = useTimer({
+        interval: 100,
+        target: round(sumIncludingIndex(steps, steps.length) / 1000),
+    });
     const remainingInSeconds = round(remaining / 1000);
     const currentStep = getCurrentStep(steps, elapsed, isComplete);
 
@@ -116,11 +179,24 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                 </GoBack>
             </NavLayout>
             <MainLayout>
-                <header className="text-center">
-                    <time className="text-3xl font-bold">
-                        {formatTime(remainingInSeconds)}
-                    </time>
-                    <span className="block">total left</span>
+                <header className="text-center grid grid-cols-2">
+                    <div>
+                        <time className="block text-3xl font-bold">
+                            {formatTime(remainingInSeconds)}
+                        </time>
+                        <span className="block">total left</span>
+                    </div>
+                    <div>
+                        <span className="block text-3xl font-bold">
+                            {(
+                                steps[currentStep.index].start +
+                                currentStep.progress *
+                                    steps[currentStep.index].toAdd
+                            ).toFixed(1)}
+                            &nbsp;ml
+                        </span>
+                        <span className="block">current weight</span>
+                    </div>
                 </header>
                 <section className="mx-4 my-6">
                     <time className="text-7xl font-bold">
