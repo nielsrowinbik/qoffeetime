@@ -21,7 +21,7 @@
     "dependencies": {
         "@mdi/js": "^5.9.55",
         "@mdi/react": "^1.5.0",
-        "@sentry/nextjs": "^6.7.0",
+        "@sentry/nextjs": "^6.10.0",
         "classnames": "^2.2.6",
         "date-fns": "^2.22.1",
         "dexie": "^3.0.3",
