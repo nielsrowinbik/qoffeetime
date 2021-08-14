@@ -8,16 +8,20 @@
     "defaultRatio": 65,
     "steps": [
         {
-            "description": "Pour in {{ target }}ml and let it steep",
-            "duration": 240,
+            "description": "Quickly pour in {{ target }} ml",
+            "duration": 10,
             "target": "{{ volume }}"
+        },
+        {
+            "description": "Let your brew steep",
+            "duration": 230
         },
         {
             "description": "Stir the crust and scoop off the foam",
             "duration": 20
         },
         {
-            "description": "Let the coffee steep",
+            "description": "Let your brew steep",
             "duration": 360
         },
         {
