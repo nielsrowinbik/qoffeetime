@@ -69,7 +69,7 @@ const TimelinePage = () => {
             </NavLayout>
             <MainLayout>
                 {Object.keys(groupedBrews).map((date) => (
-                    <section className="mb-4 overflow-x-auto" key={date}>
+                    <section className="mb-4" key={date}>
                         <header className="flex flex-row justify-between items-center">
                             <h2 className="text-lg font-semibold">{date}</h2>
                             <h4>
