@@ -146,7 +146,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     const steps = parseSteps(recipe.steps, { coffee, volume });
 
     const { elapsed, isComplete, isRunning, remaining, toggle } = useTimer({
-        interval: 100,
+        interval: 10,
         target: round(sumIncludingIndex(steps, steps.length) / 1000),
     });
     const remainingInSeconds = round(remaining / 1000);
