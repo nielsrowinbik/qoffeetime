@@ -8,21 +8,25 @@
     "defaultRatio": 60,
     "steps": [
         {
-            "description": "Pour in {{ target }}ml and swirl, wetting all the grounds",
-            "duration": 15,
+            "description": "Quickly pour in {{ target }} ml",
+            "duration": 5,
             "target": "{{ Math.ceil((coffee * 2) / 10) * 10 }}"
         },
         {
-            "description": "Wait, allowing the coffee to bloom",
+            "description": "Swirl vigorously, making sure to wet all the grounds",
+            "duration": 10
+        },
+        {
+            "description": "Wait and allow the coffee to bloom",
             "duration": 15
         },
         {
-            "description": "Pour at a constant rate until you reach {{ target }}ml",
+            "description": "Pour at a constant rate until you reach {{ target }} ml",
             "duration": 30,
             "target": "{{ Math.ceil((volume * 0.6) / 50) * 50 }}"
         },
         {
-            "description": "Pour at a constant rate until you reach your desired volume",
+            "description": "Pour at a constant rate until you reach {{ target }} ml",
             "duration": 30,
             "target": "{{ volume }}"
         },
