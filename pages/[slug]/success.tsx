@@ -21,8 +21,10 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     const coffee = queryArgToNumber(coffeeParam);
     const volume = queryArgToNumber(volumeParam);
 
-    // Fire confetti upon page load:
+    // Set up a value to fire confetti:
     const [shouldFire, setShouldFire] = useState(false);
+
+    // Fire confetti upon page load:
     useEffect(() => {
         router.isReady && setShouldFire(true);
     }, [router.isReady]);
@@ -38,12 +40,17 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                     className="fixed inset-0 z-0 w-full h-full"
                     disableForReducedMotion
                     fire={shouldFire}
+                    onFire={() => setShouldFire(false)}
+                    origin={{ x: 0.5, y: 0.3 }}
                     particleCount={75}
                     spread={60}
-                    ticks={500}
+                    ticks={600}
                 />
-                <section className="flex-1 flex flex-col items-center justify-center">
-                    <LargeIcon icon={mdiCheck} />
+                <section className="flex-1 flex flex-col items-center justify-center z-10">
+                    <LargeIcon
+                        icon={mdiCheck}
+                        onClick={() => setShouldFire(true)}
+                    />
                 </section>
                 <section className="flex-1 flex flex-col justify-center">
                     <h1 className="text-3xl font-semibold text-center">
