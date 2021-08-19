@@ -7,7 +7,7 @@ type NavLayoutProps = PropsWithChildren<{
 
 const NavLayout = ({ children, ...props }: NavLayoutProps) => {
     const className = classNames(
-        'flex flex-row items-center px-2',
+        'flex flex-row items-center justify-between px-2',
         props.className
     );
 
