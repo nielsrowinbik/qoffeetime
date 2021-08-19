@@ -12,6 +12,7 @@ import { formatTime, queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import { useTimer, useWakeLock } from '../../lib/timer';
 import type { Recipe, RecipeStep, ParsedRecipeStep } from '../../lib/types';
+import { vibrate } from '../../lib/vibrate';
 
 import Button, { ButtonGroup } from '../../components/Button';
 import GoBack from '../../components/GoBack';
@@ -151,6 +152,11 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     });
     const remainingInSeconds = round(remaining / 1000);
     const currentStep = getCurrentStep(steps, elapsed, isComplete);
+
+    // Briefly vibrate when the current step changes:
+    useEffect(() => {
+        currentStep.index > 0 && vibrate(50);
+    }, [currentStep.index]);
 
     // Keep the screen on while this page is rendered:
     useWakeLock();
