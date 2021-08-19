@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 class MyDocument extends Document {
     render() {
         return (
-            <Html className="overscroll-none" lang="en">
+            <Html lang="en">
                 <Head>
                     <meta charSet="utf-8" />
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
@@ -44,7 +44,7 @@ class MyDocument extends Document {
                     />
                     <meta name="theme-color" content="#ff1744" />
                 </Head>
-                <body className="min-h-screen bg-brewtime-red text-white">
+                <body className="min-h-screen overscroll-none bg-brewtime-red text-white">
                     <Main />
                     <NextScript />
                 </body>
