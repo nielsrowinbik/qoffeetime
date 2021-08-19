@@ -15,6 +15,7 @@ import type { Brew } from '../../lib/types';
 import BrewDetails from '../../components/BrewDetails';
 import GoBack from '../../components/GoBack';
 import IconButton from '../../components/IconButton';
+import SyncButton from '../../components/SyncButton';
 import { queryArgToNumber } from '../../lib/helpers';
 
 const TimelinePage = () => {
@@ -66,6 +67,7 @@ const TimelinePage = () => {
                 <GoBack>
                     <IconButton icon={mdiClose} small />
                 </GoBack>
+                <SyncButton state="off" />
             </NavLayout>
             <MainLayout>
                 {Object.keys(groupedBrews).map((date) => (
