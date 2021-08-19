@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import { ThemeProvider } from 'next-themes';
 import { useEffect } from 'react';
 
 import 'swiper/swiper-bundle.min.css';
@@ -26,7 +25,7 @@ export default function App({ Component, pageProps }) {
     }, []);
 
     return (
-        <ThemeProvider attribute="class">
+        <>
             <Head>
                 <title>Create the perfect cup of coffee</title>
                 <link rel="manifest" href="/site.webmanifest" />
@@ -38,6 +37,6 @@ export default function App({ Component, pageProps }) {
             <ProvideBrewsContext>
                 <Component {...pageProps} />
             </ProvideBrewsContext>
-        </ThemeProvider>
+        </>
     );
 }
