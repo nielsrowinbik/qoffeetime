@@ -1,7 +1,9 @@
 import classNames from 'classnames';
 import { Children, cloneElement, forwardRef, isValidElement } from 'react';
-import type { HTMLProps, PropsWithChildren, ReactElement } from 'react';
+import type { HTMLProps, PropsWithChildren, MouseEvent } from 'react';
 import Icon from '@mdi/react';
+
+import { vibrate } from '../lib/vibrate';
 
 type ButtonProps = PropsWithChildren<
     HTMLProps<HTMLAnchorElement> &
@@ -11,11 +13,24 @@ type ButtonProps = PropsWithChildren<
             inGroup?: boolean;
             type?: 'button' | 'submit' | 'reset';
             variant?: 'dark' | 'light' | 'text';
+            vibration?: number;
         }
 >;
 
 const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
-    ({ children, icon, inGroup = false, variant = 'light', ...props }, ref) => {
+    (
+        {
+            children,
+            icon,
+            inGroup = false,
+            variant = 'light',
+            vibration,
+            ...props
+        },
+        ref
+    ) => {
+        const Tag = props.href ? 'a' : 'button';
+
         const className = classNames(
             'font-semibold w-full py-3 inline-flex justify-center align-center disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed relative overflow-hidden outline-none',
             {
@@ -28,9 +43,20 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
             },
             props.className
         );
-        const Tag = props.href ? 'a' : 'button';
+        const onClick = (
+            e: MouseEvent<HTMLAnchorElement & HTMLButtonElement>
+        ) => {
+            if (props.onClick) {
+                if (vibration) {
+                    vibrate(vibration);
+                }
+
+                props.onClick(e);
+            }
+        };
+
         return (
-            <Tag {...props} className={className} ref={ref}>
+            <Tag {...props} className={className} onClick={onClick} ref={ref}>
                 {icon && <Icon className="mr-2" path={icon} size="24px" />}
                 {children}
             </Tag>
