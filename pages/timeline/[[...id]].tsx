@@ -94,7 +94,7 @@ const TimelinePage = () => {
                                                 <div>
                                                     <h3>{recipe}</h3>
                                                     <p className="text-white text-opacity-60 text-sm">
-                                                        {coffee} g cofee,{' '}
+                                                        {coffee} g coffee,{' '}
                                                         {volume} ml water
                                                     </p>
                                                 </div>
