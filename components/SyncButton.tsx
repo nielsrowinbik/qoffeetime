@@ -1,18 +1,33 @@
 import classNames from 'classnames';
-import { mdiClose, mdiSyncAlert, mdiSync, mdiSyncOff } from '@mdi/js';
+import { mdiSyncAlert, mdiSync, mdiSyncOff } from '@mdi/js';
+import { forwardRef } from 'react';
+import type { HTMLProps } from 'react';
 
 import IconButton from './IconButton';
 
-type SyncButtonProps = {
-    state: 'alert' | 'off' | 'syncing' | 'synced';
-};
+type SyncButtonProps = HTMLProps<HTMLAnchorElement> &
+    HTMLProps<HTMLButtonElement> & {
+        state: 'alert' | 'off' | 'syncing' | 'synced';
+        type?: 'button' | 'submit' | 'reset';
+    };
 
-const SyncButton = ({ state }: SyncButtonProps) => {
+const SyncButton = forwardRef<
+    HTMLAnchorElement & HTMLButtonElement,
+    SyncButtonProps
+>(({ state, ...props }: SyncButtonProps, ref) => {
     const icon = getIcon(state);
     const className = classNames({ 'animate-spin': state === 'syncing' });
 
-    return <IconButton className={className} icon={icon} small />;
-};
+    return (
+        <IconButton
+            {...props}
+            className={className}
+            icon={icon}
+            small
+            ref={ref}
+        />
+    );
+});
 
 const getIcon = (state: SyncButtonProps['state']) => {
     switch (state) {
