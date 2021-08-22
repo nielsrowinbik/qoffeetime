@@ -1,13 +1,20 @@
+import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
+import SwiperCore, { Pagination } from 'swiper/core';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 import type { Recipe } from '../lib/types';
 
+SwiperCore.use([Pagination]);
+
 type RecipeSlideProps = Recipe & {
+    href: string;
     priority?: boolean;
 };
 
 const RecipeSlide = ({
+    href,
     priority = false,
     slug,
     tagline,
@@ -19,8 +26,8 @@ const RecipeSlide = ({
     const name = recipe.name === 'AeroPress' ? 'Aero Press' : recipe.name;
 
     return (
-        <Link href={`/${slug}`}>
-            <a className="w-full h-full relative block pb-12">
+        <Link href={href}>
+            <a className="w-full h-full relative block">
                 <article className="w-full h-full relative block">
                     <div className="bg-brewtime-red relative w-full h-full">
                         <Image
@@ -46,4 +53,43 @@ const RecipeSlide = ({
     );
 };
 
-export default RecipeSlide;
+type RecipeSliderProps = {
+    hrefPrefix?: string;
+    onActiveIndexChange: (activeIndex: number) => void;
+    pagination?: boolean;
+    recipies: Recipe[];
+};
+
+const RecipeSlider = ({
+    hrefPrefix = '',
+    onActiveIndexChange,
+    pagination = true,
+    recipies,
+}: RecipeSliderProps) => {
+    const className = classNames('h-full', { 'pb-12': pagination });
+
+    return (
+        <Swiper
+            centeredSlides
+            className={className}
+            slidesPerView={1.15}
+            spaceBetween={12}
+            onActiveIndexChange={({ activeIndex }) =>
+                onActiveIndexChange(activeIndex)
+            }
+            pagination={pagination}
+        >
+            {recipies.map((recipe, index) => (
+                <SwiperSlide key={recipe.slug}>
+                    <RecipeSlide
+                        href={`${hrefPrefix}/${recipe.slug}`}
+                        priority={index <= 1}
+                        {...recipe}
+                    />
+                </SwiperSlide>
+            ))}
+        </Swiper>
+    );
+};
+
+export default RecipeSlider;
