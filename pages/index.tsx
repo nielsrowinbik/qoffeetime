@@ -3,8 +3,6 @@ import Icon from '@mdi/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import type { FC } from 'react';
-import SwiperCore, { Pagination } from 'swiper/core';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
 import FooterLayout from '../layouts/FooterLayout';
 import FullHeightLayout from '../layouts/FullHeightLayout';
@@ -13,6 +11,7 @@ import { getAllRecipies } from '../lib/recipies';
 import type { Recipe } from '../lib/types';
 
 import Button from '../components/Button';
+import RecipeSlider from '../components/RecipeSlider';
 import TimelineButton from '../components/TimelineButton';
 
 const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
@@ -28,25 +27,10 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
             <FullHeightLayout>
                 <TimelineButton />
                 <div className="pt-6 h-full">
-                    <Swiper
-                        centeredSlides
-                        className="h-full"
-                        slidesPerView={1.15}
-                        spaceBetween={12}
-                        onActiveIndexChange={({ activeIndex }) =>
-                            setActiveIndex(activeIndex)
-                        }
-                        pagination
-                    >
-                        {recipies.map((recipe, index) => (
-                            <SwiperSlide key={recipe.slug}>
-                                <RecipeSlide
-                                    priority={index <= 1}
-                                    {...recipe}
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
+                    <RecipeSlider
+                        onActiveIndexChange={setActiveIndex}
+                        recipies={recipies}
+                    />
                 </div>
             </FullHeightLayout>
             <FooterLayout>
