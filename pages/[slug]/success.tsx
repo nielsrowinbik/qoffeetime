@@ -2,12 +2,14 @@ import { mdiCheck } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import type { FC } from 'react';
+import toast from 'react-hot-toast';
 import Confetti from 'react-canvas-confetti';
+import type { FC } from 'react';
 
 import NavLayout from '../../layouts/NavLayout';
 import MainLayout from '../../layouts/MainLayout';
 import FooterLayout from '../../layouts/FooterLayout';
+import { useBrews } from '../../lib/brews';
 import { queryArgToNumber } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
@@ -28,6 +30,29 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     useEffect(() => {
         router.isReady && setShouldFire(true);
     }, [router.isReady]);
+
+    // Save the finished brew:
+    const { createBrew } = useBrews();
+
+    const saveBrew = () =>
+        toast.promise(
+            createBrew({
+                coffee,
+                recipe: name,
+                volume,
+            }),
+            {
+                loading: 'Saving your brew...',
+                success: () => {
+                    router.replace('/timeline');
+                    return 'Successfully saved your brew!';
+                },
+                error: (error) => {
+                    console.error(error);
+                    return 'Something went wrong saving your brew';
+                },
+            }
+        );
 
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
@@ -65,23 +90,10 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
             </MainLayout>
             <FooterLayout>
                 <>
-                    <Link
-                        href={{
-                            pathname: `/timeline/add`,
-                            query: {
-                                coffee,
-                                recipe: slug,
-                                volume,
-                            },
-                        }}
-                        replace
-                        passHref
-                    >
-                        <Button>Save</Button>
-                    </Link>
+                    <Button onClick={() => saveBrew()}>Save</Button>
                     <Link href="/" passHref replace>
                         <Button variant="text">No thanks</Button>
-                    </Link>{' '}
+                    </Link>
                 </>
             </FooterLayout>
         </>

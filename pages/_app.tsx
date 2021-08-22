@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/pagination/pagination.min.css';
@@ -12,7 +13,7 @@ const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
 };
 
-export default function App({ Component, pageProps }) {
+const App = ({ Component, pageProps }) => {
     useEffect(() => {
         // Update the height of the app:
         updateHeight();
@@ -36,7 +37,10 @@ export default function App({ Component, pageProps }) {
             </Head>
             <ProvideBrewsContext>
                 <Component {...pageProps} />
+                <Toaster position="bottom-center" />
             </ProvideBrewsContext>
         </>
     );
-}
+};
+
+export default App;
