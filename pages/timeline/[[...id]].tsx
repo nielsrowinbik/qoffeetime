@@ -119,7 +119,7 @@ const TimelinePage = () => {
                     onDismiss={onDismiss}
                     snapPoints={({ maxHeight, minHeight }) => [
                         minHeight,
-                        maxHeight,
+                        maxHeight - 20,
                     ]}
                 >
                     {brew && <BrewDetails {...brew} />}
