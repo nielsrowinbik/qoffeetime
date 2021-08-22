@@ -19,6 +19,7 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
+        "@headlessui/react": "^1.4.0",
         "@mdi/js": "^5.9.55",
         "@mdi/react": "^1.5.0",
         "@sentry/nextjs": "^6.10.0",
@@ -33,6 +34,7 @@
         "react": "^17.0.2",
         "react-canvas-confetti": "^1.2.0",
         "react-dom": "^17.0.2",
+        "react-hot-toast": "^2.1.0",
         "react-screen-wake-lock": "^1.1.10",
         "react-spring-bottom-sheet": "^3.4.0",
         "react-webcam": "^5.2.4",
