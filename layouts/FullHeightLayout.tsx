@@ -1,17 +1,33 @@
+import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 
 type FullHeightLayoutProps = PropsWithChildren<{
-    align?: 'top' | 'bottom';
+    align?: 'bottom' | 'top' | 'full';
+    className?: string;
 }>;
+
+const getGridRow = (align: FullHeightLayoutProps['align']) => {
+    switch (align) {
+        case 'bottom':
+            return 'main / footer';
+        case 'full':
+            return 'nav / footer';
+        case 'top':
+        default:
+            return 'nav / main';
+    }
+};
 
 const FullHeightLayout = ({
     align = 'top',
     children,
+    ...props
 }: FullHeightLayoutProps) => {
-    const gridRow = align === 'top' ? 'nav / main' : 'main / footer';
+    const className = classNames('overflow-hidden', props.className);
+    const gridRow = getGridRow(align);
 
     return (
-        <main className="overflow-hidden" style={{ gridRow }}>
+        <main className={className} style={{ gridRow }}>
             {children}
         </main>
     );
