@@ -1,7 +1,6 @@
-import { mdiClose } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -10,9 +9,8 @@ import { queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
+import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
-import GoBack from '../../components/GoBack';
-import IconButton from '../../components/IconButton';
 import RatioSlider from '../../components/RatioSlider';
 
 const RecipePage: FC<Recipe> = ({
@@ -65,9 +63,7 @@ const RecipePage: FC<Recipe> = ({
     return (
         <>
             <NavLayout>
-                <GoBack>
-                    <IconButton icon={mdiClose} small />
-                </GoBack>
+                <BackButton />
             </NavLayout>
             <MainLayout>
                 <h1 className="text-5xl font-bold">{name}</h1>
