@@ -1,5 +1,4 @@
 import { format, isToday, isYesterday } from 'date-fns';
-import { mdiClose } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
@@ -12,9 +11,9 @@ import NavLayout from '../../layouts/NavLayout';
 import { useBrews } from '../../lib/brews';
 import type { Brew } from '../../lib/types';
 
+import BackButton from '../../components/BackButton';
+import Button from '../../components/Button';
 import BrewDetails from '../../components/BrewDetails';
-import GoBack from '../../components/GoBack';
-import IconButton from '../../components/IconButton';
 import { queryArgToNumber } from '../../lib/helpers';
 
 const TimelinePage = () => {
@@ -36,8 +35,10 @@ const TimelinePage = () => {
         setSelectedBrew(selected);
     }, [brews, id]);
 
+    // Go back in history when the bottom sheet is dismissed:
     const onDismiss = () => router.back();
 
+    // Group brews by the day they were brewed on, and call 'Today' and 'Yesterday' just that:
     const groupedBrews: { [group: string]: Brew[] } = brews.reduce(
         (groups, brew) => {
             const date = new Date(brew.created);
@@ -58,14 +59,13 @@ const TimelinePage = () => {
         {}
     );
 
+    // Don't render anything when brews haven't loaded yet:
     if (!isReady) return null;
 
     return (
         <>
             <NavLayout>
-                <GoBack>
-                    <IconButton icon={mdiClose} small />
-                </GoBack>
+                <BackButton />
             </NavLayout>
             <MainLayout>
                 {Object.keys(groupedBrews).map((date) => (

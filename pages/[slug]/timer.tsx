@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import template from 'lodash.template';
-import { mdiClose, mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
+import { mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { FC } from 'react';
@@ -13,9 +13,8 @@ import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import { useTimer, useWakeLock } from '../../lib/timer';
 import type { Recipe, RecipeStep, ParsedRecipeStep } from '../../lib/types';
 
+import BackButton from '../../components/BackButton';
 import Button, { ButtonGroup } from '../../components/Button';
-import GoBack from '../../components/GoBack';
-import IconButton from '../../components/IconButton';
 import StopWatch from '../../components/StopWatch';
 
 // Sum all step durations up and including the provided index:
@@ -174,9 +173,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     return (
         <>
             <NavLayout>
-                <GoBack confirm={isRunning && confirmMessage}>
-                    <IconButton icon={mdiClose} small />
-                </GoBack>
+                <BackButton confirm={isRunning && confirmMessage} />
             </NavLayout>
             <MainLayout>
                 <header className="text-center grid grid-cols-2">
