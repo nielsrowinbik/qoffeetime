@@ -15,6 +15,7 @@ import type { Recipe, RecipeStep, ParsedRecipeStep } from '../../lib/types';
 
 import BackButton from '../../components/BackButton';
 import Button, { ButtonGroup } from '../../components/Button';
+import GoBack from '../../components/GoBack';
 import StopWatch from '../../components/StopWatch';
 
 // Sum all step durations up and including the provided index:
