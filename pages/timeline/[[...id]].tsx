@@ -126,9 +126,9 @@ const TimelinePage = () => {
                 </BottomSheet>
             </MainLayout>
             <FooterLayout>
-                {/* <Link href="/timeline/add" passHref>
+                <Link href="/timeline/add" passHref>
                     <Button>Add a brew</Button>
-                </Link> */}
+                </Link>
             </FooterLayout>
         </>
     );
