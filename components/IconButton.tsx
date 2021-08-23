@@ -22,7 +22,7 @@ const IconButton = forwardRef<
         <Tag
             {...props}
             className={classNames(
-                'rounded-full rounded-full text-white items-center justify-center bg-black bg-opacity-40',
+                'rounded-full text-white items-center justify-center bg-black bg-opacity-40',
                 { 'p-1': !!small, 'p-2': !small }
             )}
             ref={ref}
