@@ -38,7 +38,7 @@ const AddToTimelineLandingPage: FC<{ recipies: Recipe[] }> = (props) => {
             </MainLayout>
             <FooterLayout>
                 <Link href={`/timeline/add/${slug}`} passHref>
-                    <Button>Save {name} brew</Button>
+                    <Button>Add {name} brew</Button>
                 </Link>
                 {/* <GoBack>
                     <Button variant="text">Cancel</Button>
