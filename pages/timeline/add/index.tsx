@@ -29,7 +29,7 @@ const AddToTimelineLandingPage: FC<{ recipies: Recipe[] }> = (props) => {
             <MainLayout className="!px-0">
                 <div className="h-full">
                     <RecipeSlider
-                        hrefPrefix="/timeline/add/"
+                        hrefPrefix="/timeline/add"
                         onActiveIndexChange={setActiveIndex}
                         pagination={false}
                         recipies={recipies}
