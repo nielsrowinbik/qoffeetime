@@ -37,7 +37,13 @@ const App = ({ Component, pageProps }) => {
             </Head>
             <ProvideBrewsContext>
                 <Component {...pageProps} />
-                <Toaster position="bottom-center" />
+                <Toaster
+                    position="bottom-center"
+                    toastOptions={{
+                        className:
+                            '!text-black !shadow-md !py-4 !px-6 !text-base font-semibold',
+                    }}
+                />
             </ProvideBrewsContext>
         </>
     );
