@@ -3,21 +3,16 @@
 @tailwind utilities;
 
 #__next {
-    display: grid;
-    grid-template-columns: 1fr;
+    @apply grid grid-cols-1 h-full;
     grid-template-rows: 64px 1fr minmax(64px, max-content);
     grid-template-areas: 'nav' 'main' 'footer';
-    height: 100%;
 }
 
 /* TODO: Can we change the location of these styles? */
 .swiper-pagination-bullet {
-    background: transparent;
-    border: 1px white solid;
-    border-radius: 100%;
-    opacity: 1;
+    @apply bg-transparent border border-white rounded-full opacity-100;
 }
 
 .swiper-pagination-bullet-active {
-    background: white;
+    @apply bg-white;
 }
