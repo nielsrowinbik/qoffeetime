@@ -1,5 +1,3 @@
-import { mdiHistory } from '@mdi/js';
-import Icon from '@mdi/react';
 import Link from 'next/link';
 import { useState } from 'react';
 import type { FC } from 'react';
