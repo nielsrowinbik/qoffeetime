@@ -1,9 +1,12 @@
 import { format, isToday, isYesterday } from 'date-fns';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useRef } from 'react';
 import { BottomSheet } from 'react-spring-bottom-sheet';
 import { useWindowSize } from 'rooks';
+import type { GetServerSideProps } from 'next';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -17,6 +20,8 @@ import BrewDetails from '../../components/BrewDetails';
 import { queryArgToNumber } from '../../lib/helpers';
 
 const TimelinePage = () => {
+    const { t } = useTranslation('common');
+
     const { isReady, brews } = useBrews();
     const router = useRouter();
     const { innerHeight } = useWindowSize();
@@ -94,8 +99,9 @@ const TimelinePage = () => {
                                                 <div>
                                                     <h3>{recipe}</h3>
                                                     <p className="text-white text-opacity-60 text-sm">
-                                                        {coffee} g coffee,{' '}
-                                                        {volume} ml water
+                                                        {coffee} g {t('coffee')}
+                                                        , {volume} ml{' '}
+                                                        {t('water')}
                                                     </p>
                                                 </div>
                                                 <div>
@@ -134,4 +140,11 @@ const TimelinePage = () => {
     );
 };
 
+const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale, ['common'])),
+    },
+});
+
 export default TimelinePage;
+export { getServerSideProps };

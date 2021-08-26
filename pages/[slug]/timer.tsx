@@ -1,9 +1,11 @@
 import classNames from 'classnames';
 import template from 'lodash.template';
 import { mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import type { FC } from 'react';
+import type { GetStaticPaths, GetStaticProps } from 'next';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -261,24 +263,32 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     );
 };
 
-const getStaticPaths = async () => {
+const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     const recipies = await getRecipeFiles();
 
     return {
-        paths: recipies.map((p) => ({
-            params: {
-                slug: p.replace(/\.json/, ''),
-            },
-        })),
+        paths: locales.reduce(
+            (acc, next) => [
+                ...acc,
+                ...recipies.map((p) => ({
+                    params: {
+                        slug: p.replace(/\.json/, ''),
+                    },
+                    locale: next,
+                })),
+            ],
+            []
+        ),
         fallback: false,
     };
 };
 
-const getStaticProps = async ({ params }) => {
-    const recipe = await getRecipeBySlug(params.slug);
-
-    return { props: { ...recipe } };
-};
+const getStaticProps: GetStaticProps = async ({ locale, params }) => ({
+    props: {
+        ...(await getRecipeBySlug(params.slug as string)),
+        ...(await serverSideTranslations(locale, ['common'])),
+    },
+});
 
 export default TimerPage;
 export { getStaticPaths, getStaticProps };

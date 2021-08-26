@@ -1,5 +1,7 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import { useState } from 'react';
+import type { GetStaticProps } from 'next';
 import type { FC } from 'react';
 
 import FooterLayout from '../layouts/FooterLayout';
@@ -40,10 +42,15 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
     );
 };
 
-const getStaticProps = async () => {
+const getStaticProps: GetStaticProps = async ({ locale }) => {
     const recipies = await getAllRecipies();
 
-    return { props: { recipies } };
+    return {
+        props: {
+            recipies,
+            ...(await serverSideTranslations(locale, ['common'])),
+        },
+    };
 };
 
 export default IndexPage;

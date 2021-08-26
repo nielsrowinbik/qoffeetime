@@ -1,12 +1,12 @@
 const withPWA = require('next-pwa');
 const { withSentryConfig } = require('@sentry/nextjs');
 
+const { i18n } = require('./next-i18next.config');
+
 module.exports = withPWA(
     withSentryConfig(
         {
-            images: {
-                domains: ['via.placeholder.com'],
-            },
+            i18n,
             pwa: {
                 dest: 'public',
             },

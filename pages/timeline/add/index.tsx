@@ -1,6 +1,8 @@
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import { useState } from 'react';
 import type { FC } from 'react';
+import type { GetStaticProps } from 'next';
 
 import FooterLayout from '../../../layouts/FooterLayout';
 import MainLayout from '../../../layouts/MainLayout';
@@ -48,11 +50,12 @@ const AddToTimelineLandingPage: FC<{ recipies: Recipe[] }> = (props) => {
     );
 };
 
-const getStaticProps = async () => {
-    const recipies = await getAllRecipies();
-
-    return { props: { recipies } };
-};
+const getStaticProps: GetStaticProps = async ({ locale, params }) => ({
+    props: {
+        recipies: await getAllRecipies()),
+        ...(await serverSideTranslations(locale, ['common'])),
+    },
+});
 
 export default AddToTimelineLandingPage;
 export { getStaticProps };

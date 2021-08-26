@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { appWithTranslation } from 'next-i18next';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
 
@@ -49,4 +50,4 @@ const App = ({ Component, pageProps }) => {
     );
 };
 
-export default App;
+export default appWithTranslation(App);
