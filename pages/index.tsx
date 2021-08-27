@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -15,6 +16,8 @@ import RecipeSlider from '../components/RecipeSlider';
 import TimelineButton from '../components/TimelineButton';
 
 const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
+    const { t } = useTranslation();
+
     const { isReady, recipies } = useSortRecipiesByBrews(props.recipies);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -35,7 +38,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
             </FullHeightLayout>
             <FooterLayout>
                 <Link href={`/${slug}`} passHref>
-                    <Button>Brew {name}</Button>
+                    <Button>{t('cta.brew', { recipe: name })}</Button>
                 </Link>
             </FooterLayout>
         </>

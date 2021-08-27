@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -23,6 +24,8 @@ const RecipePage: FC<Recipe> = ({
     name,
     slug,
 }) => {
+    const { t } = useTranslation();
+
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
     const coffee = queryArgToNumber(coffeeParam);
@@ -81,8 +84,12 @@ const RecipePage: FC<Recipe> = ({
                 <section>
                     <p>
                         <strong>
-                            We recommend: {minVolume}ml,{' '}
-                            {round((defaultRatio / 1000) * minVolume)}g
+                            {t('brewing:recommendation', {
+                                water: minVolume,
+                                coffee: round(
+                                    (defaultRatio / 1000) * minVolume
+                                ),
+                            })}
                         </strong>
                     </p>
                     <p>{description}</p>
@@ -99,7 +106,7 @@ const RecipePage: FC<Recipe> = ({
                     }}
                     passHref
                 >
-                    <Button>Next</Button>
+                    <Button>{t('cta.next')}</Button>
                 </Link>
             </FooterLayout>
         </>
@@ -132,7 +139,7 @@ const getStaticProps: GetStaticProps = async ({
 }) => ({
     props: {
         ...(await getRecipeBySlug(slug as string, locale)),
-        ...(await serverSideTranslations(locale, ['common'])),
+        ...(await serverSideTranslations(locale, ['common', 'brewing'])),
     },
 });
 

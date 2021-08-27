@@ -20,10 +20,11 @@ import BrewDetails from '../../components/BrewDetails';
 import { queryArgToNumber } from '../../lib/helpers';
 
 const TimelinePage = () => {
-    const { t } = useTranslation('common');
+    const { t } = useTranslation();
 
     const { isReady, brews } = useBrews();
     const router = useRouter();
+    const { locale } = router;
     const { innerHeight } = useWindowSize();
 
     const { id: idParam } = router.query;
@@ -48,10 +49,10 @@ const TimelinePage = () => {
         (groups, brew) => {
             const date = new Date(brew.created);
             const key = isToday(date)
-                ? 'Today'
+                ? t('timeline:today')
                 : isYesterday(date)
-                ? 'Yesterday'
-                : format(date, 'MMMM d');
+                ? t('timeline:yesterday')
+                : format(date, 'MMMM d'); // TODO: Make sure date-fns also supports the right locales
 
             if (!groups[key]) {
                 groups[key] = [];
@@ -133,7 +134,7 @@ const TimelinePage = () => {
             </MainLayout>
             <FooterLayout>
                 <Link href="/timeline/add" passHref>
-                    <Button>Add a brew</Button>
+                    <Button>{t('timeline:cta.add', { recipe: 'a' })}</Button>
                 </Link>
             </FooterLayout>
         </>
@@ -142,7 +143,7 @@ const TimelinePage = () => {
 
 const getServerSideProps: GetServerSideProps = async ({ locale }) => ({
     props: {
-        ...(await serverSideTranslations(locale, ['common'])),
+        ...(await serverSideTranslations(locale, ['common', 'timeline'])),
     },
 });
 

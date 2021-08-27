@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -16,6 +17,8 @@ import BackButton from '../../../components/BackButton';
 import RecipeSlider from '../../../components/RecipeSlider';
 
 const AddToTimelineLandingPage: FC<{ recipies: Recipe[] }> = (props) => {
+    const { t } = useTranslation();
+
     const { isReady, recipies } = useSortRecipiesByBrews(props.recipies);
     const [activeIndex, setActiveIndex] = useState(0);
 
@@ -40,7 +43,7 @@ const AddToTimelineLandingPage: FC<{ recipies: Recipe[] }> = (props) => {
             </MainLayout>
             <FooterLayout>
                 <Link href={`/timeline/add/${slug}`} passHref>
-                    <Button>Add {name} brew</Button>
+                    <Button>{t('timeline:cta.add', { recipe: name })}</Button>
                 </Link>
                 {/* <GoBack>
                     <Button variant="text">Cancel</Button>
@@ -53,7 +56,7 @@ const AddToTimelineLandingPage: FC<{ recipies: Recipe[] }> = (props) => {
 const getStaticProps: GetStaticProps = async ({ locale }) => ({
     props: {
         recipies: await getAllRecipies(locale),
-        ...(await serverSideTranslations(locale, ['common'])),
+        ...(await serverSideTranslations(locale, ['common', 'timeline'])),
     },
 });
 

@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
@@ -24,6 +25,8 @@ const AddToTimelinePage: FC<Recipe> = ({
     name,
     slug,
 }) => {
+    const { t } = useTranslation();
+
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
     const coffee = queryArgToNumber(coffeeParam);
@@ -58,14 +61,14 @@ const AddToTimelinePage: FC<Recipe> = ({
                 ...(comment !== '' && { comment }),
             }),
             {
-                loading: 'Saving your brew...',
+                loading: t('timeline:loading'),
                 success: () => {
                     router.replace('/timeline');
-                    return 'Successfully saved your brew!';
+                    return t('timeline:success.toast');
                 },
                 error: (error) => {
                     console.error(error);
-                    return 'Something went wrong saving your brew';
+                    return t('timeline:error');
                 },
             }
         );
@@ -95,14 +98,16 @@ const AddToTimelinePage: FC<Recipe> = ({
                         className="bg-white bg-opacity-10 p-3 resize-none placeholder-white placeholder-opacity-80 w-full"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
-                        placeholder="How was it?"
+                        placeholder={t('timeline:comment')}
                         rows={4}
                         tabIndex={-1}
                     />
                 </section>
             </MainLayout>
             <FooterLayout>
-                <Button onClick={saveBrew}>Save {name} brew</Button>
+                <Button onClick={saveBrew}>
+                    {t('timeline:cta.save', { recipe: name })}
+                </Button>
             </FooterLayout>
         </>
     );
@@ -134,7 +139,7 @@ const getStaticProps: GetStaticProps = async ({
 }) => ({
     props: {
         ...(await getRecipeBySlug(slug as string, locale)),
-        ...(await serverSideTranslations(locale, ['common'])),
+        ...(await serverSideTranslations(locale, ['common', 'timeline'])),
     },
 });
 

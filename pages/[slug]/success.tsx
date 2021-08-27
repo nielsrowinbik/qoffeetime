@@ -1,6 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { mdiCheck } from '@mdi/js';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -20,6 +21,8 @@ import Button from '../../components/Button';
 import LargeIcon from '../../components/LargeIcon';
 
 const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
+    const { t } = useTranslation();
+
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
     const coffee = queryArgToNumber(coffeeParam);
@@ -44,14 +47,14 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                 volume,
             }),
             {
-                loading: 'Saving your brew...',
+                loading: t('timeline:loading'),
                 success: () => {
                     router.replace('/timeline');
-                    return 'Successfully saved your brew!';
+                    return t('timeline:success.toast');
                 },
                 error: (error) => {
                     console.error(error);
-                    return 'Something went wrong saving your brew';
+                    return t('timeline:error');
                 },
             }
         );
@@ -81,20 +84,24 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                 </section>
                 <section className="flex-1 flex flex-col justify-center">
                     <h1 className="text-3xl font-semibold text-center">
-                        All done, enjoy your {name}!
+                        {t('timeline:success.message', { recipe: name })}
                     </h1>
                 </section>
                 <section className="flex-1 flex flex-col justify-end">
                     <h2 className="text-center font-bold">
-                        Would you like to save your brew?
+                        {t('timeline:save.question')}
                     </h2>
                 </section>
             </MainLayout>
             <FooterLayout>
                 <>
-                    <Button onClick={() => saveBrew()}>Save</Button>
+                    <Button onClick={() => saveBrew()}>
+                        {t('timeline:save.confirm')}
+                    </Button>
                     <Link href="/" passHref replace>
-                        <Button variant="text">No thanks</Button>
+                        <Button variant="text">
+                            {t('timeline:save.deny')}
+                        </Button>
                     </Link>
                 </>
             </FooterLayout>
@@ -128,7 +135,7 @@ const getStaticProps: GetStaticProps = async ({
 }) => ({
     props: {
         ...(await getRecipeBySlug(slug as string, locale)),
-        ...(await serverSideTranslations(locale, ['common'])),
+        ...(await serverSideTranslations(locale, ['common', 'timeline'])),
     },
 });
 

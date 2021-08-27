@@ -1,0 +1,11 @@
+{
+    "actions": {
+        "start": "Start",
+        "stop": "Stop",
+        "pause": "Pause"
+    },
+    "confirm": "Do you want to cancel the timer?",
+    "recommendation": "We recommend: {{water}} ml, {{coffee}} g",
+    "remaining": "total left",
+    "weight": "current weight"
+}

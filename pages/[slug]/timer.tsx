@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import template from 'lodash.template';
 import { mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -138,7 +139,8 @@ const getCurrentStep = (
 };
 
 const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
-    const confirmMessage = 'Do you want to cancel the timer?';
+    const { t } = useTranslation();
+    const confirmMessage = t('brewing:confirm');
 
     const router = useRouter();
     const { coffee: coffeeParam, volume: volumeParam } = router.query;
@@ -184,7 +186,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                         <time className="block text-3xl font-bold">
                             {formatTime(remainingInSeconds)}
                         </time>
-                        <span className="block">total left</span>
+                        <span className="block">{t('brewing:remaining')}</span>
                     </div>
                     <div>
                         <span className="block text-3xl font-bold">
@@ -195,7 +197,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                             )}
                             &nbsp;g
                         </span>
-                        <span className="block">current weight</span>
+                        <span className="block">{t('brewing:weight')}</span>
                     </div>
                 </header>
                 <section className="mx-4 my-6">
@@ -242,18 +244,18 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                 <ButtonGroup>
                     {!isRunning && (
                         <Button icon={mdiPlayOutline} onClick={() => toggle()}>
-                            Start
+                            {t('brewing:actions.start')}
                         </Button>
                     )}
                     {isRunning && (
                         <Button icon={mdiPause} onClick={() => toggle()}>
-                            Pause
+                            {t('brewing:actions.pause')}
                         </Button>
                     )}
                     {(isRunning || elapsed > 0) && (
                         <GoBack confirm={confirmMessage}>
                             <Button icon={mdiStop} inGroup variant="dark">
-                                Stop
+                                {t('brewing:actions.stop')}
                             </Button>
                         </GoBack>
                     )}
@@ -289,7 +291,7 @@ const getStaticProps: GetStaticProps = async ({
 }) => ({
     props: {
         ...(await getRecipeBySlug(slug as string, locale)),
-        ...(await serverSideTranslations(locale, ['common'])),
+        ...(await serverSideTranslations(locale, ['common', 'brewing'])),
     },
 });
 

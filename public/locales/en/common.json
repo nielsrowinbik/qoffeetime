@@ -1,7 +1,12 @@
 {
+    "cta": {
+        "brew": "Brew {{recipe}}",
+        "cancel": "Cancel",
+        "next": "Next"
+    },
     "coffee": "coffee",
     "delete": "delete",
     "share": "share",
-    "timeline": "timeline",
+    "timeline": "Timeline",
     "water": "water"
 }

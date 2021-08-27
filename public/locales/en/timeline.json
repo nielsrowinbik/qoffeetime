@@ -1,0 +1,20 @@
+{
+    "comment": "How was it?",
+    "cta": {
+        "add": "Add {{recipe}} brew",
+        "save": "Save {{recipe}} brew"
+    },
+    "error": "Something went wrong saving your brew",
+    "loading": "Saving your brew...",
+    "success": {
+        "toast": "Successfully saved your brew!",
+        "message": "All done, enjoy your {{recipe}}!"
+    },
+    "save": {
+        "question": "Would you like to save your brew?",
+        "confirm": "Save",
+        "deny": "No thanks"
+    },
+    "today": "Today",
+    "yesterday": "Yesterday"
+}
