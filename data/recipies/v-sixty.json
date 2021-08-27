@@ -1,41 +1,68 @@
 {
     "name": "V60",
-    "tagline": "James Hoffmann's recommended technique for making coffee with the Hario V60 and any other cone-shaped brewer with a large open area.",
-    "description": "Nuanced and versatile, the Hario V60 is an elegant brewer for those who want to perfect the pour. The trick with the V60 is to pour slow, your brew may easily take 3 minutes!",
+    "tagline": {
+        "en": "James Hoffmann's recommended technique for making coffee with the Hario V60 and any other cone-shaped brewer with a large open area.",
+        "nl": "James Hoffmann's wereldberoemde techniek om koffie te maken met de Hario V60 of elke andere vergelijkbare filterhouder"
+    },
+    "description": {
+        "en": "Nuanced and versatile, the Hario V60 is an elegant brewer for those who want to perfect the pour. The trick with the V60 is to pour slow, your brew may easily take 3 minutes!",
+        "nl": "Gebalanceerd en veelzijdig: de Hario V60 is een elegante filterhouder voor de liefhebber van 'pour-over' koffie."
+    },
     "minVolume": 200,
     "maxVolume": 500,
     "defaultVolume": 360,
     "defaultRatio": 60,
     "steps": [
         {
-            "description": "Quickly pour in {{ target }} ml",
+            "description": {
+                "en": "Quickly pour in {{ target }} ml",
+                "nl": "Giet snel {{ target }} ml op"
+            },
             "duration": 5,
             "target": "{{ Math.ceil((coffee * 2) / 10) * 10 }}"
         },
         {
-            "description": "Swirl vigorously, making sure to wet all the grounds",
+            "description": {
+                "en": "Swirl vigorously, making sure to wet all the grounds",
+                "nl": "Zorg ervoor dat alle koffie nat is"
+            },
             "duration": 10
         },
         {
-            "description": "Wait and allow the coffee to bloom",
+            "description": {
+                "en": "Wait and allow the coffee to bloom",
+                "nl": "Laat de koffie bloomen"
+            },
             "duration": 15
         },
         {
-            "description": "Pour at a constant rate until you reach {{ target }} ml",
+            "description": {
+                "en": "Pour at a constant rate until you reach {{ target }} ml",
+                "nl": "Schenk met een constante snelheid tot je {{ target }} ml bereikt hebt"
+            },
             "duration": 30,
             "target": "{{ Math.ceil((volume * 0.6) / 50) * 50 }}"
         },
         {
-            "description": "Pour at a constant rate until you reach {{ target }} ml",
+            "description": {
+                "en": "Pour at a constant rate until you reach {{ target }} ml",
+                "nl": "Schenk met een constante snelheid tot je {{ target }} ml bereikt hebt"
+            },
             "duration": 30,
             "target": "{{ volume }}"
         },
         {
-            "description": "Gently stir once clockwise and once counterclockwise",
+            "description": {
+                "en": "Gently stir once clockwise and once counterclockwise",
+                "nl": "Roer voorzichtig eenmaal met de klok mee en eenmaal tegen de klok in"
+            },
             "duration": 10
         },
         {
-            "description": "Gently swirl once clockwise and once counterclockwise",
+            "description": {
+                "en": "Gently swirl once clockwise and once counterclockwise",
+                "nl": "Wals voorzichtig eenmaal met de klok mee en eenmaal tegen de klok in"
+            },
             "duration": 10
         }
     ]
