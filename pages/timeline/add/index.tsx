@@ -50,9 +50,9 @@ const AddToTimelineLandingPage: FC<{ recipies: Recipe[] }> = (props) => {
     );
 };
 
-const getStaticProps: GetStaticProps = async ({ locale, params }) => ({
+const getStaticProps: GetStaticProps = async ({ locale }) => ({
     props: {
-        recipies: await getAllRecipies()),
+        recipies: await getAllRecipies(locale),
         ...(await serverSideTranslations(locale, ['common'])),
     },
 });

@@ -122,9 +122,12 @@ const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     };
 };
 
-const getStaticProps: GetStaticProps = async ({ locale, params }) => ({
+const getStaticProps: GetStaticProps = async ({
+    locale,
+    params: { slug },
+}) => ({
     props: {
-        ...(await getRecipeBySlug(params.slug as string)),
+        ...(await getRecipeBySlug(slug as string, locale)),
         ...(await serverSideTranslations(locale, ['common'])),
     },
 });

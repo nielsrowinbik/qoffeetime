@@ -101,6 +101,12 @@ export const useSortRecipiesByBrews = (
     // Find the most recently used recipe:
     const mostRecent = recipies.find(({ name }) => name === brews[0].recipe);
 
+    // TODO: Handle the most recently logged recipe not existing anymore
+    // For now, return the original array if this is the case:
+    if (!recipies.map(({ name }) => name).includes(mostRecent?.name)) {
+        return { isReady, recipies };
+    }
+
     // Create a list of recipies, sored by usage, omitting
     // the most recently used:
     const ordered = Object.keys(counted)
@@ -114,6 +120,10 @@ export const useSortRecipiesByBrews = (
             name !== mostRecent.name &&
             !ordered.find((recipe) => recipe.name === name)
     );
+
+    // FIXME: For some reason this entire function completely flips out when there's only one
+    // possible recipe, which will never be the case, but it's super weird nonetheless and should
+    // be fixed
 
     // Create a new array, in which the first item is always the most recently
     // used recipe, which then contains the remainder of the recipies, first sorted by usage,

@@ -42,16 +42,12 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
     );
 };
 
-const getStaticProps: GetStaticProps = async ({ locale }) => {
-    const recipies = await getAllRecipies();
-
-    return {
-        props: {
-            recipies,
-            ...(await serverSideTranslations(locale, ['common'])),
-        },
-    };
-};
+const getStaticProps: GetStaticProps = async ({ locale }) => ({
+    props: {
+        recipies: await getAllRecipies(locale),
+        ...(await serverSideTranslations(locale, ['common'])),
+    },
+});
 
 export default IndexPage;
 export { getStaticProps };
