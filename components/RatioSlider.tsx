@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useBoundingclientrectRef } from 'rooks';
 
@@ -18,7 +19,7 @@ const ValueLabel = ({ bottomOffset, type, value }: ValueLabelProps) => (
     >
         <span className="text-sm capitalize">{type}</span>
         <span className="font-bold text-lg">
-            {round(value)}
+            {round(value)}&nbsp;
             {type === 'coffee' ? 'g' : 'ml'}
         </span>
     </label>
@@ -47,6 +48,8 @@ const RatioSlider = ({
     width = 164,
     ...props
 }: RatioSliderProps) => {
+    const { t } = useTranslation();
+
     const [svgRef, svgRect] = useBoundingclientrectRef();
 
     // Keep whether we're dragging in state:
@@ -147,12 +150,12 @@ const RatioSlider = ({
             <div className="relative">
                 <ValueLabel
                     bottomOffset={waterLabelOffset}
-                    type="water"
+                    type={t('water')}
                     value={value}
                 />
                 <ValueLabel
                     bottomOffset={coffeeLabelOffset}
-                    type="coffee"
+                    type={t('coffee')}
                     value={(ratio / 1000) * value}
                 />
             </div>
