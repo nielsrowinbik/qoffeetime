@@ -5,6 +5,7 @@ import React, {
     useContext,
     useEffect,
 } from 'react';
+import { useRouter } from 'next/router';
 
 import type { PropsWithChildren } from 'react';
 import type { Brew, Recipe } from './types';
@@ -88,48 +89,52 @@ export const useSortRecipiesByBrews = (
     recipies: Recipe[]
 ): { isReady: boolean; recipies: Recipe[] } => {
     const { isReady, brews } = useBrews();
+    const { locale } = useRouter();
 
     // No brews stored? Just return the original array (which is sorted alphabetically):
     if (brews.length === 0) return { isReady, recipies };
 
-    // Count the occurrance for each recipe:
+    // Count the occurrance for each recipe (not counting recipies that no longer exist):
     const counted = brews.reduce((res, { recipe }) => {
         res[recipe] = ~~res[recipe] + 1;
         return res;
     }, {});
 
-    // Find the most recently used recipe:
-    const mostRecent = recipies.find(({ name }) => name === brews[0].recipe);
+    const sorted = [...recipies].sort((a, b) => {
+        // If the first one is the most recent brew, prefer it:
+        if (a.name === brews[0].recipe) {
+            return -1;
+        }
 
-    // TODO: Handle the most recently logged recipe not existing anymore
-    // For now, return the original array if this is the case:
-    if (!recipies.map(({ name }) => name).includes(mostRecent?.name)) {
-        return { isReady, recipies };
-    }
+        // If the second one is the most recent brew, prefer it:
+        if (b.name === brews[0].recipe) {
+            return 1;
+        }
 
-    // Create a list of recipies, sored by usage, omitting
-    // the most recently used:
-    const ordered = Object.keys(counted)
-        .filter((name) => name !== mostRecent.name)
-        .sort((a, b) => counted[b] - counted[a])
-        .map((name) => recipies.find((recipe) => recipe.name === name));
+        const countA = counted[a.name];
+        const countB = counted[b.name];
 
-    // Create a list of the remaining recipe names, sorted alphabetically:
-    const remaining = recipies.filter(
-        ({ name }) =>
-            name !== mostRecent.name &&
-            !ordered.find((recipe) => recipe.name === name)
-    );
+        // Both recipies were logged, so compare their numbers:
+        if (!!countA && !!countB) {
+            return countB - countA;
+        }
 
-    // FIXME: For some reason this entire function completely flips out when there's only one
-    // possible recipe, which will never be the case, but it's super weird nonetheless and should
-    // be fixed
+        // Only the first was logged, prefer it:
+        if (!!countA && !countB) {
+            return -1;
+        }
 
-    // Create a new array, in which the first item is always the most recently
-    // used recipe, which then contains the remainder of the recipies, first sorted by usage,
-    // and sorted alphabetically if it hasn't been logged yet, and return it:
+        // Only the second was logged, prefer it:
+        if (!!countB && !countA) {
+            return 1;
+        }
+
+        // None of them were logged, so compare alphabetically
+        return a.name.localeCompare(b.name, locale);
+    });
+
     return {
         isReady,
-        recipies: [mostRecent, ...ordered, ...remaining],
+        recipies: sorted,
     };
 };
