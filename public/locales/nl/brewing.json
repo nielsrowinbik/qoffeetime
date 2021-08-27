@@ -1,0 +1,11 @@
+{
+    "actions": {
+        "start": "Starten",
+        "stop": "Stoppen",
+        "pause": "Pauzeren"
+    },
+    "confirm": "Wil je de timer annuleren?",
+    "recommendation": "Wij adviseren: {{water}} ml, {{coffee}} g",
+    "remaining": "resterend",
+    "weight": "huidig gewicht"
+}

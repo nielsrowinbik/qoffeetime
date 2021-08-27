@@ -1,0 +1,20 @@
+{
+    "comment": "Hoe was 'ie?",
+    "cta": {
+        "add": "Voeg {{recipe}} toe",
+        "save": "Sla {{recipe}} op"
+    },
+    "error": "Er is iets misgegaan bij het opslaan",
+    "loading": "Opslaan...",
+    "success": {
+        "toast": "Opgeslagen!",
+        "message": "Helemaal klaar, geniet van je {{recipe}}!"
+    },
+    "save": {
+        "question": "Wil je je koffie opslaan?",
+        "confirm": "Opslaan",
+        "deny": "Nee bedankt"
+    },
+    "today": "Vandaag",
+    "yesterday": "Gisteren"
+}

@@ -134,7 +134,7 @@ const TimelinePage = () => {
             </MainLayout>
             <FooterLayout>
                 <Link href="/timeline/add" passHref>
-                    <Button>{t('timeline:cta.add', { recipe: 'a' })}</Button>
+                    <Button>{t('timeline:cta.add')}</Button>
                 </Link>
             </FooterLayout>
         </>

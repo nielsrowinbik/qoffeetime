@@ -1,7 +1,12 @@
 {
+    "cta": {
+        "brew": "{{recipe}} bereiden",
+        "cancel": "Annuleren",
+        "next": "Volgende"
+    },
     "coffee": "koffie",
     "delete": "verwijderen",
     "share": "delen",
-    "timeline": "tijdslijn",
+    "timeline": "Tijdslijn",
     "water": "water"
 }
