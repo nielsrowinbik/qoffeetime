@@ -1,31 +1,52 @@
 {
     "name": "French Press",
-    "tagline": "James Hoffmann's recommended technique for making coffee with the French Press, one of the easiest and most forgiving brewers.",
-    "description": "For the French Press, the secret is all in the grind: choose medium, with uniformity and consistency throughout.  Very coarse grinds may clog the filter, while very fine grinds will pass through the filter, muddying the results.",
+    "tagline": {
+        "en": "James Hoffmann's recommended technique for making coffee with the French Press, one of the easiest and most forgiving brewers.",
+        "nl": "James Hoffmann's techniek om koffie te zetten met de French Press, een van 's werelds gemakkelijkste koffiemakers."
+    },
+    "description": {
+        "en": "For the French Press, the secret is all in the grind: choose medium, with uniformity and consistency throughout.  Very coarse grinds may clog the filter, while very fine grinds will pass through the filter, muddying the results.",
+        "nl": "De maling is allesbepalend voor de French Press: kies voor een uniforme medium maling. Een te grove maling kan het filter doen verstoppen, terwijl een te fijne maling door het filter heen komt."
+    },
     "minVolume": 500,
     "maxVolume": 1000,
     "defaultVolume": 500,
     "defaultRatio": 65,
     "steps": [
         {
-            "description": "Quickly pour in {{ target }} ml",
+            "description": {
+                "en": "Quickly pour in {{ target }} ml",
+                "nl": "Giet snel {{ target }} ml op"
+            },
             "duration": 10,
             "target": "{{ volume }}"
         },
         {
-            "description": "Let your brew steep",
+            "description": {
+                "en": "Let your brew steep",
+                "nl": "Laat de koffie trekken"
+            },
             "duration": 230
         },
         {
-            "description": "Stir the crust and scoop off the foam",
+            "description": {
+                "en": "Stir the crust and scoop off the foam",
+                "nl": "Roer door de korst en schep het schuim weg"
+            },
             "duration": 20
         },
         {
-            "description": "Let your brew steep",
+            "description": {
+                "en": "Let your brew steep",
+                "nl": "Laat de koffie trekken"
+            },
             "duration": 360
         },
         {
-            "description": "Put in the plunger just below the surface of the coffee and use it as a strainer",
+            "description": {
+                "en": "Put in the plunger just below the surface of the coffee and use it as a strainer",
+                "nl": "Duw het filter tot net onder het oppervlakte en giet de koffie uit"
+            },
             "duration": 15
         }
     ]
