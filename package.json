@@ -19,7 +19,7 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "dependencies": {
-        "@headlessui/react": "^1.4.0",
+        "@headlessui/react": "^1.4.1",
         "@mdi/js": "^5.9.55",
         "@mdi/react": "^1.5.0",
         "@sentry/nextjs": "^6.10.0",
