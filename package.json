@@ -39,7 +39,7 @@
         "react-spring-bottom-sheet": "^3.4.0",
         "react-webcam": "^5.2.4",
         "rooks": "^5.0.2",
-        "swiper": "^6.7.0"
+        "swiper": "^7.0.2"
     },
     "devDependencies": {
         "@types/dom-screen-wake-lock": "^1.0.0",
