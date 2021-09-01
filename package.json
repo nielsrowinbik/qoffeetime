@@ -28,7 +28,7 @@
         "dexie": "^3.0.3",
         "lodash.range": "^3.2.0",
         "lodash.template": "^4.5.0",
-        "next": "^11.1.0",
+        "next": "^11.1.2",
         "next-pwa": "^5.2.21",
         "next-seo": "^4.24.0",
         "react": "^17.0.2",
