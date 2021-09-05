@@ -4,6 +4,7 @@ const { withSentryConfig } = require('@sentry/nextjs');
 module.exports = withPWA(
     withSentryConfig(
         {
+            experimental: { esmExternals: true }
             images: {
                 domains: ['via.placeholder.com'],
             },
