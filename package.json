@@ -39,13 +39,13 @@
         "react-spring-bottom-sheet": "^3.4.0",
         "react-webcam": "^5.2.4",
         "rooks": "^5.0.2",
-        "swiper": "^6.7.0"
+        "swiper": "^7.0.3"
     },
     "devDependencies": {
         "@types/dom-screen-wake-lock": "^1.0.0",
         "@types/lodash.range": "^3.2.6",
         "@types/lodash.template": "^4.5.0",
-        "@types/node": "^16.4.10",
+        "@types/node": "^16.7.10",
         "@types/react": "^17.0.15",
         "autoprefixer": "^10.3.1",
         "postcss": "^8.3.6",
