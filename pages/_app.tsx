@@ -1,13 +1,9 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
 
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import 'react-spring-bottom-sheet/dist/style.css';
 import '../styles/globals.css';
-
-import { ProvideBrewsContext } from '../lib/brews';
 
 const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
@@ -35,16 +31,7 @@ const App = ({ Component, pageProps }) => {
                     content="width=device-width, initial-scale=1"
                 />
             </Head>
-            <ProvideBrewsContext>
-                <Component {...pageProps} />
-                <Toaster
-                    position="bottom-center"
-                    toastOptions={{
-                        className:
-                            '!text-black !shadow-md !py-4 !px-6 !text-base font-semibold',
-                    }}
-                />
-            </ProvideBrewsContext>
+            <Component {...pageProps} />
         </>
     );
 };

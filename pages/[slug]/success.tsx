@@ -2,14 +2,13 @@ import { mdiCheck } from '@mdi/js';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
 import Confetti from 'react-canvas-confetti';
+import { useLocalstorage } from 'rooks';
 import type { FC } from 'react';
 
 import NavLayout from '../../layouts/NavLayout';
 import MainLayout from '../../layouts/MainLayout';
 import FooterLayout from '../../layouts/FooterLayout';
-import { useBrews } from '../../lib/brews';
 import { queryArgToNumber } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
@@ -31,28 +30,14 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
         router.isReady && setShouldFire(true);
     }, [router.isReady]);
 
-    // Save the finished brew:
-    const { createBrew } = useBrews();
-
-    const saveBrew = () =>
-        toast.promise(
-            createBrew({
-                coffee,
-                recipe: name,
-                volume,
-            }),
-            {
-                loading: 'Saving your brew...',
-                success: () => {
-                    router.replace('/timeline');
-                    return 'Successfully saved your brew!';
-                },
-                error: (error) => {
-                    console.error(error);
-                    return 'Something went wrong saving your brew';
-                },
-            }
-        );
+    // Store the settings for this succesful brew and store this as the
+    // most recently used recipe:
+    const { set: setLatestSettings } = useLocalstorage(slug, undefined);
+    const { set: setLatest } = useLocalstorage('latest', undefined);
+    useEffect(() => {
+        setLatestSettings({ coffee, volume });
+        setLatest(slug);
+    }, [router.isReady]);
 
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
@@ -82,19 +67,11 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                         All done, enjoy your {name}!
                     </h1>
                 </section>
-                <section className="flex-1 flex flex-col justify-end">
-                    <h2 className="text-center font-bold">
-                        Would you like to save your brew?
-                    </h2>
-                </section>
             </MainLayout>
             <FooterLayout>
-                <>
-                    <Button onClick={() => saveBrew()}>Save</Button>
-                    <Link href="/" passHref replace>
-                        <Button variant="text">No thanks</Button>
-                    </Link>
-                </>
+                <Link href="/" passHref replace>
+                    <Button>Continue</Button>
+                </Link>
             </FooterLayout>
         </>
     );
