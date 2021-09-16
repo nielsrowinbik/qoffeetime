@@ -96,7 +96,7 @@ export const useTimer = (options: TimerOptions) => {
 
 export const useWakeLock = () => {
     const { request, release } = useWakeLockHook();
-    
+
     const visibilityChangeHandler = () => {
         if (!document.hidden) request();
         else release();
@@ -108,7 +108,10 @@ export const useWakeLock = () => {
 
         return () => {
             release();
-            document.removeEventListener('visibilitychange', visibilityChangeHandler);
+            document.removeEventListener(
+                'visibilitychange',
+                visibilityChangeHandler
+            );
         };
     }, []);
 };

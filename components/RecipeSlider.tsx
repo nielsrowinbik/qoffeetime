@@ -8,25 +8,32 @@ import type { Recipe } from '../lib/types';
 
 SwiperCore.use([Pagination]);
 
-type RecipeSlideProps = Recipe & {
-    href: string;
-    priority?: boolean;
+type SliderRecipe = {
+    latest?: {
+        coffee: number;
+        volume: number;
+    };
+    name: Recipe['name'];
+    slug: Recipe['slug'];
+    tagline: Recipe['tagline'];
 };
 
-const RecipeSlide = ({
-    href,
-    priority = false,
-    slug,
-    tagline,
-    ...recipe
-}: RecipeSlideProps) => {
+const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
     // Nasty hack insering a space between 'Aero' and 'Press' in order for it to render correctly.
     // Keeping it as one word will incorrectly break up the word, but it is the correct spelling, so
     // this will have to do.
     const name = recipe.name === 'AeroPress' ? 'Aero Press' : recipe.name;
 
     return (
-        <Link href={href}>
+        <Link
+            href={{
+                pathname: `/${slug}`,
+                query: {
+                    ...(!!latest && { coffee: latest.coffee }),
+                    ...(!!latest && { volume: latest.volume }),
+                },
+            }}
+        >
             <a className="w-full h-full relative block">
                 <article className="w-full h-full relative block">
                     <div className="bg-brewtime-red relative w-full h-full">
@@ -35,7 +42,7 @@ const RecipeSlide = ({
                             layout="fill"
                             objectFit="cover"
                             objectPosition="center center"
-                            priority={priority}
+                            priority
                             src={`/assets/images/${slug}.jpg`}
                         />
                         <header className="absolute h-full flex flex-col justify-end p-4">
@@ -54,14 +61,12 @@ const RecipeSlide = ({
 };
 
 type RecipeSliderProps = {
-    hrefPrefix?: string;
     onActiveIndexChange: (activeIndex: number) => void;
     pagination?: boolean;
-    recipies: Recipe[];
+    recipies: SliderRecipe[];
 };
 
 const RecipeSlider = ({
-    hrefPrefix = '',
     onActiveIndexChange,
     pagination = true,
     recipies,
@@ -79,13 +84,9 @@ const RecipeSlider = ({
             }
             pagination={pagination}
         >
-            {recipies.map((recipe, index) => (
+            {recipies.map((recipe) => (
                 <SwiperSlide key={recipe.slug}>
-                    <RecipeSlide
-                        href={`${hrefPrefix}/${recipe.slug}`}
-                        priority={index <= 1}
-                        {...recipe}
-                    />
+                    <RecipeSlide {...recipe} />
                 </SwiperSlide>
             ))}
         </Swiper>
