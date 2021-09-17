@@ -33,10 +33,10 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
                         pathname: `/${selected.slug}`,
                         query: {
                             ...(!!selected.latest && {
-                                coffee: selected.latest.coffee,
+                                output: selected.latest.output,
                             }),
                             ...(!!selected.latest && {
-                                volume: selected.latest.volume,
+                                ratio: selected.latest.ratio,
                             }),
                         },
                     }}
@@ -66,7 +66,7 @@ const byLatestFirst = (latest: string) => (a: Recipe, b: Recipe) => {
 const withSettings = (recipies: Recipe[]) =>
     recipies.map(({ slug, ...recipe }) => {
         const { value } = useLocalstorage(slug, undefined);
-        const latest = value as { coffee: number; volume: number };
+        const latest = value as { output: number; ratio: number };
 
         return {
             ...recipe,

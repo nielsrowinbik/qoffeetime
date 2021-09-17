@@ -10,8 +10,8 @@ SwiperCore.use([Pagination]);
 
 type SliderRecipe = {
     latest?: {
-        coffee: number;
-        volume: number;
+        output: number;
+        ratio: number;
     };
     name: Recipe['name'];
     slug: Recipe['slug'];
@@ -29,8 +29,8 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
             href={{
                 pathname: `/${slug}`,
                 query: {
-                    ...(!!latest && { coffee: latest.coffee }),
-                    ...(!!latest && { volume: latest.volume }),
+                    ...(!!latest && { output: latest.output }),
+                    ...(!!latest && { ratio: latest.ratio }),
                 },
             }}
         >

@@ -9,7 +9,7 @@ import type { FC } from 'react';
 import NavLayout from '../../layouts/NavLayout';
 import MainLayout from '../../layouts/MainLayout';
 import FooterLayout from '../../layouts/FooterLayout';
-import { queryArgToNumber } from '../../lib/helpers';
+import { queryArgToNumber, round } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
@@ -18,9 +18,10 @@ import LargeIcon from '../../components/LargeIcon';
 
 const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     const router = useRouter();
-    const { coffee: coffeeParam, volume: volumeParam } = router.query;
-    const coffee = queryArgToNumber(coffeeParam);
-    const volume = queryArgToNumber(volumeParam);
+    const { output: outputParam, ratio: ratioParam } = router.query;
+    const ratio = queryArgToNumber(ratioParam);
+    const output = queryArgToNumber(outputParam);
+    const volume = output; // TODO: replace this
 
     // Set up a value to fire confetti:
     const [shouldFire, setShouldFire] = useState(false);
@@ -35,7 +36,7 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     const { set: setLatestSettings } = useLocalstorage(slug, undefined);
     const { set: setLatest } = useLocalstorage('latest', undefined);
     useEffect(() => {
-        setLatestSettings({ coffee, volume });
+        setLatestSettings({ output, ratio });
         setLatest(slug);
     }, [router.isReady]);
 
