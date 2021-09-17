@@ -14,9 +14,8 @@ export type RecipeFromFile = {
     name: string;
     tagline: string;
     description: string;
-    maxVolume: number;
-    minVolume: number;
-    defaultVolume: number;
+    maxOutput: number;
+    minOutput: number;
     defaultRatio: number;
     steps: RecipeStep[];
 };
