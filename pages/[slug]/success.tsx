@@ -21,7 +21,6 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
     const { output: outputParam, ratio: ratioParam } = router.query;
     const ratio = queryArgToNumber(ratioParam);
     const output = queryArgToNumber(outputParam);
-    const volume = output; // TODO: replace this
 
     // Set up a value to fire confetti:
     const [shouldFire, setShouldFire] = useState(false);
@@ -68,6 +67,7 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                         All done, enjoy your {name}!
                     </h1>
                 </section>
+                <section className="flex-1" />
             </MainLayout>
             <FooterLayout>
                 <Link href="/" passHref replace>
