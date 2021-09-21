@@ -23,7 +23,10 @@ const FullHeightLayout = ({
     children,
     ...props
 }: FullHeightLayoutProps) => {
-    const className = classNames('overflow-hidden', props.className);
+    const className = classNames(
+        'overflow-hidden flex flex-col',
+        props.className
+    );
     const gridRow = getGridRow(align);
 
     return (
