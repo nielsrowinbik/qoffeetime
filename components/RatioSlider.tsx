@@ -344,8 +344,10 @@ const withinRange = (val: number, min: number, max: number) =>
 const toStepSize = (val: number, stepSize: number) =>
     Math.ceil(val / stepSize) * stepSize;
 
-const rangeProgressFromValue = (val: number, min: number, max: number) =>
-    withinRange((val - min) / (max - min), 0, 1);
+const rangeProgressFromValue = (val: number, min: number, max: number) => {
+    if (min === max) return 1;
+    return withinRange((val - min) / (max - min), 0, 1);
+};
 
 const rangeValueFromProgress = (progress: number, min: number, max: number) =>
     min + progress * (max - min);
