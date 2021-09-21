@@ -24,9 +24,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
     return (
         <>
             <FullHeightLayout className="pt-6">
-                {/* <div className="pt-6 h-full"> */}
                 <RecipeSlider onChange={onChange} recipies={recipies} />
-                {/* </div> */}
             </FullHeightLayout>
             <FooterLayout>
                 <Link
