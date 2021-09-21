@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import { useEffect } from 'react';
 
-import 'swiper/swiper-bundle.min.css';
-import 'swiper/components/pagination/pagination.min.css';
 import '../styles/globals.css';
 
 const updateHeight = () => {

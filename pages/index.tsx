@@ -1,6 +1,6 @@
 import { useLocalstorage } from 'rooks';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import type { FC } from 'react';
 
 import FooterLayout from '../layouts/FooterLayout';
@@ -14,18 +14,19 @@ import RecipeSlider from '../components/RecipeSlider';
 const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
     const [latest] = useLocalstorage('latest', undefined);
     const recipies = withSettings(props.recipies).sort(byLatestFirst(latest));
-    const [activeIndex, setActiveIndex] = useState(0);
-    const selected = recipies[activeIndex];
+    const [selected, setSelected] = useState(recipies[0]);
+
+    const onChange = useCallback(
+        (index: number) => setSelected(recipies[index]),
+        [setSelected]
+    );
 
     return (
         <>
-            <FullHeightLayout>
-                <div className="pt-6 h-full">
-                    <RecipeSlider
-                        onActiveIndexChange={setActiveIndex}
-                        recipies={recipies}
-                    />
-                </div>
+            <FullHeightLayout className="pt-6">
+                {/* <div className="pt-6 h-full"> */}
+                <RecipeSlider onChange={onChange} recipies={recipies} />
+                {/* </div> */}
             </FullHeightLayout>
             <FooterLayout>
                 <Link
