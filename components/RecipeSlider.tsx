@@ -69,6 +69,8 @@ type RecipeSliderProps = {
     recipies: SliderRecipe[];
 };
 
+const SLIDE_WIDTH = 90;
+
 const RecipeSlider = ({
     onChange,
     pagination = true,
@@ -107,8 +109,10 @@ const RecipeSlider = ({
                 <div
                     className="h-full grid grid-flow-col gap-3"
                     style={{
-                        gridAutoColumns: '90%',
-                        transform: `translate3d(5vw, 0px, 0px)`,
+                        gridAutoColumns: `${SLIDE_WIDTH}%`,
+                        transform: `translate3d(${
+                            (100 - SLIDE_WIDTH) / 2
+                        }vw, 0px, 0px)`,
                     }}
                 >
                     {recipies.map((recipe) => (
