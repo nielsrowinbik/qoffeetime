@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import type { FC } from 'react';
+import { useLocalstorage } from 'rooks';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -29,6 +30,11 @@ const RecipePage: FC<Recipe> = ({
     const outputWithDefault = output || minOutput;
     const ratioWithDefault = ratio || defaultRatio;
 
+    // Show the hint on the ratio slider if this recipe has adjustable settings and hasn't been used previously:
+    const hasLatest = useLocalstorage(slug)[0] !== null;
+    const hasSettings = minOutput !== maxOutput;
+    const shouldShowHint = hasSettings && !hasLatest;
+
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
 
@@ -45,6 +51,7 @@ const RecipePage: FC<Recipe> = ({
                         minOutput={minOutput}
                         output={outputWithDefault}
                         ratio={ratioWithDefault}
+                        showHint={shouldShowHint}
                     />
                 </section>
                 <section>
