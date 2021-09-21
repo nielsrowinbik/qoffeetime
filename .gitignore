@@ -8,5 +8,6 @@ public/sitemap.xml
 public/feed.xml
 public/sw*
 public/workbox*
+public/*dev*
 .vercel
 data/recipies/test.json
