@@ -76,16 +76,19 @@ const RecipeSlider = ({
 }: RecipeSliderProps) => {
     const [emblaRef, embla] = useEmblaCarousel();
 
+    // Helper function to safely get the currently selected index:
     const getSelectedIndex = useCallback(
         () => (embla ? embla.selectedScrollSnap() : 0),
         [embla]
     );
 
+    // Call `onChange` when a slide is selected:
     const onSelect = useCallback(
         () => onChange(getSelectedIndex()),
         [getSelectedIndex, onChange]
     );
 
+    // Listen to events so we can call `onChange`:
     useEffect(() => {
         if (!embla) return;
 
@@ -103,7 +106,10 @@ const RecipeSlider = ({
             <div className="overflow-hidden flex-1" ref={emblaRef}>
                 <div
                     className="h-full grid grid-flow-col gap-3"
-                    style={{ gridAutoColumns: '90%' }}
+                    style={{
+                        gridAutoColumns: '90%',
+                        transform: `translate3d(5vw, 0px, 0px)`,
+                    }}
                 >
                     {recipies.map((recipe) => (
                         <RecipeSlide key={recipe.slug} {...recipe} />
@@ -112,7 +118,7 @@ const RecipeSlider = ({
             </div>
             {pagination && (
                 <div className="mt-6 flex flex-row items-center justify-center">
-                    {recipies.map((_, index) => {
+                    {recipies.map(({ slug }, index) => {
                         const className = classNames(
                             'w-2.5 h-2.5 mr-2.5 last:mr-0 rounded-full border border-white',
                             {
@@ -120,7 +126,7 @@ const RecipeSlider = ({
                                 'bg-white': index === getSelectedIndex(),
                             }
                         );
-                        return <div className={className} />;
+                        return <div className={className} key={slug} />;
                     })}
                 </div>
             )}
