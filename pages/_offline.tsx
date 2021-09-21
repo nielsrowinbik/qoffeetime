@@ -7,7 +7,7 @@ import LargeIcon from '../components/LargeIcon';
 
 const OfflinePage = () => (
     <>
-        <FullHeightLayout className="flex flex-col px-6">
+        <FullHeightLayout className="px-6">
             <section className="flex-1" />
             <section className="flex-1 flex flex-col items-center justify-center z-10">
                 <LargeIcon icon={mdiWifiStrengthOffOutline} />
