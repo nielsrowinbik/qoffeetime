@@ -1,12 +1,11 @@
 import classNames from 'classnames';
+import { useEmblaCarousel } from 'embla-carousel/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import SwiperCore, { Pagination } from 'swiper/core';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { useCallback } from 'react';
+import { useEffect } from 'react';
 
 import type { Recipe } from '../lib/types';
-
-SwiperCore.use([Pagination]);
 
 type SliderRecipe = {
     latest?: {
@@ -19,10 +18,18 @@ type SliderRecipe = {
 };
 
 const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
-    // Nasty hack insering a space between 'Aero' and 'Press' in order for it to render correctly.
-    // Keeping it as one word will incorrectly break up the word, but it is the correct spelling, so
-    // this will have to do.
-    const name = recipe.name === 'AeroPress' ? 'Aero Press' : recipe.name;
+    // For the AeroPress recipe we'll need to specify where to break the word, or it'll
+    // show up wrong. Otherwise, just use the name the way it was specified in the recipe.
+    const name =
+        recipe.name === 'AeroPress' ? (
+            <span>
+                Aero
+                <wbr />
+                Press
+            </span>
+        ) : (
+            recipe.name
+        );
 
     return (
         <Link
@@ -34,62 +41,90 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
                 },
             }}
         >
-            <a className="w-full h-full relative block">
-                <article className="w-full h-full relative block">
-                    <div className="bg-brewtime-red relative w-full h-full">
-                        <Image
-                            className="mix-blend-darken opacity-60 rounded"
-                            layout="fill"
-                            objectFit="cover"
-                            objectPosition="center center"
-                            priority
-                            src={`/assets/images/${slug}.jpg`}
-                        />
-                        <header className="absolute h-full flex flex-col justify-end p-4">
-                            <h2 className="text-7xl font-bold w-3/4 break-words">
-                                {name}
-                            </h2>
-                            <h3 className="text-lg mt-10 break-words h-full max-h-32">
-                                {tagline}
-                            </h3>
-                        </header>
-                    </div>
-                </article>
+            <a className="relative h-full bg-brewtime-red">
+                <Image
+                    className="mix-blend-darken opacity-60 rounded"
+                    layout="fill"
+                    objectFit="cover"
+                    objectPosition="center center"
+                    priority
+                    src={`/assets/images/${slug}.jpg`}
+                />
+                <header className="absolute h-full flex flex-col justify-end p-4">
+                    <h2 className="text-7xl font-bold w-3/4 break-words">
+                        {name}
+                    </h2>
+                    <h3 className="text-lg mt-10 break-words h-full max-h-32">
+                        {tagline}
+                    </h3>
+                </header>
             </a>
         </Link>
     );
 };
 
 type RecipeSliderProps = {
-    onActiveIndexChange: (activeIndex: number) => void;
+    onChange: (index: number) => void;
     pagination?: boolean;
     recipies: SliderRecipe[];
 };
 
 const RecipeSlider = ({
-    onActiveIndexChange,
+    onChange,
     pagination = true,
     recipies,
 }: RecipeSliderProps) => {
-    const className = classNames('h-full', { 'pb-12': pagination });
+    const [emblaRef, embla] = useEmblaCarousel();
+
+    const getSelectedIndex = useCallback(
+        () => (embla ? embla.selectedScrollSnap() : 0),
+        [embla]
+    );
+
+    const onSelect = useCallback(
+        () => onChange(getSelectedIndex()),
+        [getSelectedIndex, onChange]
+    );
+
+    useEffect(() => {
+        if (!embla) return;
+
+        // Listen for select events:
+        embla.on('select', onSelect);
+
+        // Stop listening when component unmounts:
+        return () => {
+            embla.off('select', onSelect);
+        };
+    }, [embla, onSelect]);
 
     return (
-        <Swiper
-            centeredSlides
-            className={className}
-            slidesPerView={1.15}
-            spaceBetween={12}
-            onActiveIndexChange={({ activeIndex }) =>
-                onActiveIndexChange(activeIndex)
-            }
-            pagination={pagination}
-        >
-            {recipies.map((recipe) => (
-                <SwiperSlide key={recipe.slug}>
-                    <RecipeSlide {...recipe} />
-                </SwiperSlide>
-            ))}
-        </Swiper>
+        <>
+            <div className="overflow-hidden flex-1" ref={emblaRef}>
+                <div
+                    className="h-full grid grid-flow-col gap-3"
+                    style={{ gridAutoColumns: '90%' }}
+                >
+                    {recipies.map((recipe) => (
+                        <RecipeSlide key={recipe.slug} {...recipe} />
+                    ))}
+                </div>
+            </div>
+            {pagination && (
+                <div className="mt-6 flex flex-row items-center justify-center">
+                    {recipies.map((_, index) => {
+                        const className = classNames(
+                            'w-2.5 h-2.5 mr-2.5 last:mr-0 rounded-full border border-white',
+                            {
+                                'bg-transparent': index !== getSelectedIndex(),
+                                'bg-white': index === getSelectedIndex(),
+                            }
+                        );
+                        return <div className={className} />;
+                    })}
+                </div>
+            )}
+        </>
     );
 };
 

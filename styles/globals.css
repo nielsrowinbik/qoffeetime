@@ -7,12 +7,3 @@
     grid-template-rows: 64px 1fr minmax(64px, max-content);
     grid-template-areas: 'nav' 'main' 'footer';
 }
-
-/* TODO: Can we change the location of these styles? */
-.swiper-pagination-bullet {
-    @apply bg-transparent border border-white rounded-full opacity-100;
-}
-
-.swiper-pagination-bullet-active {
-    @apply bg-white;
-}
