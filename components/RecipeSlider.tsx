@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
 
+import { insertBreakAtCapital } from '../lib/helpers';
 import type { Recipe } from '../lib/types';
 
 type SliderRecipe = {
@@ -18,18 +19,8 @@ type SliderRecipe = {
 };
 
 const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
-    // For the AeroPress recipe we'll need to specify where to break the word, or it'll
-    // show up wrong. Otherwise, just use the name the way it was specified in the recipe.
-    const name =
-        recipe.name === 'AeroPress' ? (
-            <span>
-                Aero
-                <wbr />
-                Press
-            </span>
-        ) : (
-            recipe.name
-        );
+    // Insert `<wbr />` tags within words containing multiple capitals:
+    const name = insertBreakAtCapital(recipe.name);
 
     return (
         <Link
