@@ -1,3 +1,5 @@
+import { Fragment } from 'react';
+
 export const formatTime = (
     ms: number,
     padZeroMinutes: boolean = true,
@@ -27,10 +29,10 @@ export const insertBreakAtCapital = (str: string) => {
                 // and when it's not the last part (that one doesn't need breaking):
                 if (part[part.length - 1] !== ' ' && index !== split.length - 1)
                     return (
-                        <>
+                        <Fragment key={index}>
                             {part}
                             <wbr />
-                        </>
+                        </Fragment>
                     );
 
                 // Otherwise, just return the part:
