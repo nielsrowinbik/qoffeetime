@@ -16,6 +16,29 @@ export const envToBool = (val: string): boolean => {
     }
 };
 
+export const insertBreakAtCapital = (str: string) => {
+    const split = str.split(/(?=[A-Z])/);
+
+    return (
+        <>
+            {split.map((part, index) => {
+                // Only insert when the part doesn't end with a space (it'll automatically break there without a hint)
+                // and when it's not the last part (that one doesn't need breaking):
+                if (part[part.length - 1] !== ' ' && index !== split.length - 1)
+                    return (
+                        <>
+                            {part}
+                            <wbr />
+                        </>
+                    );
+
+                // Otherwise, just return the part:
+                return part;
+            })}
+        </>
+    );
+};
+
 export const queryArgToNumber = (
     arg: undefined | string | string[]
 ): number | undefined => {
