@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useWakeLock as useWakeLockHook } from 'react-screen-wake-lock';
 
 interface TimerOptions {
-    interval?: number;
-    target: number;
+    interval: number;
 }
 
 const useInterval = (callback: CallableFunction, delay: number) => {
@@ -25,8 +24,8 @@ const useInterval = (callback: CallableFunction, delay: number) => {
     }, [delay]);
 };
 
-export const useTimer = (options: TimerOptions) => {
-    const { interval = 1000, target } = options;
+export const useTimer = (target: number, options: Partial<TimerOptions>) => {
+    const { interval = 1000 } = options;
 
     // Store whether the timer is running in state:
     const [isRunning, setIsRunning] = useState(false);
