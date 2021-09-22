@@ -1,6 +1,7 @@
 export const formatTime = (
-    seconds: number,
+    ms: number,
     padZeroMinutes: boolean = true,
+    seconds = toSeconds(ms),
     h = Math.floor(seconds / 3600),
     m = Math.floor((seconds % 3600) / 60),
     s = seconds % 60,
@@ -56,3 +57,7 @@ export const queryArgToString = (
 };
 
 export const round = Math.round;
+
+export const toMilliseconds = (val: number) => val * 1000;
+
+export const toSeconds = (val: number) => round(val / 1000);
