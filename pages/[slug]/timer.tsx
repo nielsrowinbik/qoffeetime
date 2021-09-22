@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import template from 'lodash.template';
 import { mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
 import { useRouter } from 'next/router';
@@ -8,15 +7,23 @@ import type { FC } from 'react';
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
 import NavLayout from '../../layouts/NavLayout';
-import { formatTime, queryArgToNumber, round } from '../../lib/helpers';
+import {
+    formatTime,
+    queryArgToNumber,
+    round,
+    toMilliseconds,
+    toSeconds,
+} from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import { useTimer, useWakeLock } from '../../lib/timer';
 import type { Recipe, RecipeStep, ParsedRecipeStep } from '../../lib/types';
 
 import BackButton from '../../components/BackButton';
 import Button, { ButtonGroup } from '../../components/Button';
+import CurrentStepDetails from '../../components/CurrentStepDetails';
 import GoBack from '../../components/GoBack';
-import StopWatch from '../../components/StopWatch';
+import StepsList from '../../components/StepsList';
+import TimerStat from '../../components/TimerStat';
 
 const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     const confirmMessage = 'Do you want to cancel the timer?';
@@ -29,19 +36,24 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
 
     const steps = parseSteps(recipe.steps, { coffee, output });
 
-    const { elapsed, isComplete, isRunning, remaining, toggle } = useTimer({
-        interval: 10,
-        target: round(sumIncludingIndex(steps, steps.length) / 1000),
-    });
-    const remainingInSeconds = round(remaining / 1000);
-    const currentStep = getCurrentStep(steps, elapsed, isComplete);
+    const target = toSeconds(sumIncludingIndex(steps, steps.length));
+    const timer = useTimer(target, { interval: 10 });
+
+    const [currentIndex, currentStep] = getCurrentStep(
+        steps,
+        timer.elapsed,
+        timer.isComplete
+    );
+    const currentWeight = round(
+        currentStep.start + currentStep.progress * currentStep.toAdd
+    );
 
     // Keep the screen on while this page is rendered:
     useWakeLock();
 
     // Once the timer completes, show the success page:
     useEffect(() => {
-        if (isComplete) {
+        timer.isComplete &&
             router.replace({
                 pathname: `/${slug}/success`,
                 query: {
@@ -49,8 +61,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                     ratio,
                 },
             });
-        }
-    }, [isComplete]);
+    }, [timer.isComplete]);
 
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
@@ -58,81 +69,46 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     return (
         <>
             <NavLayout>
-                <BackButton confirm={isRunning && confirmMessage} />
+                <BackButton confirm={timer.isRunning && confirmMessage} />
             </NavLayout>
             <MainLayout>
-                <header className="text-center grid grid-cols-2">
-                    <div>
-                        <time className="block text-3xl font-bold">
-                            {formatTime(remainingInSeconds)}
-                        </time>
-                        <span className="block">total left</span>
-                    </div>
-                    <div>
-                        <span className="block text-3xl font-bold">
-                            {round(
-                                steps[currentStep.index].start +
-                                    currentStep.progress *
-                                        steps[currentStep.index].toAdd
-                            )}
-                            &nbsp;g
-                        </span>
-                        <span className="block">current weight</span>
-                    </div>
+                <header className="grid grid-flow-col auto-cols-fr">
+                    <TimerStat
+                        as="time"
+                        label="total left"
+                        value={formatTime(timer.remaining)}
+                    />
+                    <TimerStat
+                        label="current weight"
+                        value={`${currentWeight} g`}
+                    />
                 </header>
                 <section className="mx-4 my-6">
-                    <time className="text-7xl font-bold">
-                        {formatTime(currentStep.remaining)}
-                    </time>
-                    <p className="text-2xl font-semibold mt-2">
-                        {steps[currentStep.index].description}
-                    </p>
+                    <CurrentStepDetails
+                        description={currentStep.description}
+                        remaining={currentStep.remaining}
+                    />
                 </section>
                 <section className="overflow-auto mt-4">
-                    <ol>
-                        {steps.map(({ description, duration }, stepIndex) => {
-                            const isCurrentStep =
-                                currentStep.index === stepIndex;
-                            const className = classNames(
-                                'text-lg leading-5 text-white text-base',
-                                {
-                                    'text-opacity-60': !isCurrentStep,
-                                    'text-opacity-100': isCurrentStep,
-                                    'font-semibold': isCurrentStep,
-                                }
-                            );
-
-                            return (
-                                <li
-                                    className="flex flex-row items-center mb-3"
-                                    key={stepIndex}
-                                >
-                                    <span className="text-black text-opacity-30 font-bold flex-none mr-4">
-                                        {stepIndex + 1}
-                                    </span>
-                                    <StopWatch className="mr-4">
-                                        {formatTime(duration, false)}
-                                    </StopWatch>
-                                    <p className={className}>{description}</p>
-                                </li>
-                            );
-                        })}
-                    </ol>
+                    <StepsList currentIndex={currentIndex} steps={steps} />
                 </section>
             </MainLayout>
             <FooterLayout>
                 <ButtonGroup>
-                    {!isRunning && (
-                        <Button icon={mdiPlayOutline} onClick={() => toggle()}>
+                    {!timer.isRunning && (
+                        <Button
+                            icon={mdiPlayOutline}
+                            onClick={() => timer.toggle()}
+                        >
                             Start
                         </Button>
                     )}
-                    {isRunning && (
-                        <Button icon={mdiPause} onClick={() => toggle()}>
+                    {timer.isRunning && (
+                        <Button icon={mdiPause} onClick={() => timer.toggle()}>
                             Pause
                         </Button>
                     )}
-                    {(isRunning || elapsed > 0) && (
+                    {(timer.isRunning || timer.elapsed > 0) && (
                         <GoBack confirm={confirmMessage}>
                             <Button icon={mdiStop} inGroup variant="dark">
                                 Stop
@@ -147,23 +123,12 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
 
 // Compute the current step:
 const getCurrentStep = (
-    steps: RecipeStep[] | ParsedRecipeStep[],
-    elapsed: number,
-    isComplete: boolean
-) => {
-    // If the timer is complete, return the last step as being the current and
-    // return a remaining time within that step of 0:
-    if (isComplete)
-        return {
-            duration: steps[steps.length - 1].duration,
-            index: steps.length - 1,
-            progress: 0,
-            remaining: 0,
-        };
-
+    steps: ParsedRecipeStep[],
+    elapsed: number
+): [number, ParsedRecipeStep & { remaining: number; progress: number }] => {
     // Find the index of the current step:
     const foundIndex = steps.findIndex(
-        (_, i: number, steps) => elapsed < sumIncludingIndex(steps, i)
+        (_, i: number, steps) => elapsed <= sumIncludingIndex(steps, i)
     );
 
     // Compute remaining milliseconds in the current step:
@@ -182,22 +147,21 @@ const getCurrentStep = (
     // index to mark the next step as being the current one. We then also need
     // to set the remaining seconds in the current step to be the entire duration
     // of that step, unless it is the last step.
-    const remaining =
-        indexOffset > 0 ? steps[index].duration * 1000 : foundRemaining;
-
-    // Store the current step's duration:
-    const duration = steps[index].duration;
+    const duration = toMilliseconds(steps[index].duration);
+    const remaining = indexOffset > 0 ? duration : foundRemaining;
 
     // Compute the current step's progress:
-    const progress = (duration * 1000 - remaining) / (duration * 1000);
+    const progress = (duration - remaining) / duration;
 
     // Return the index and the remaining seconds:
-    return {
-        duration,
+    return [
         index,
-        progress,
-        remaining: round(remaining / 1000),
-    };
+        {
+            ...steps[index],
+            remaining,
+            progress,
+        },
+    ];
 };
 
 const getStaticPaths = async () => {
@@ -279,7 +243,10 @@ const sumIncludingIndex = (
 ) =>
     steps
         .slice(0, Math.min(index + 1, steps.length))
-        .reduce((total: number, { duration }) => total + duration, 0) * 1000;
+        .reduce(
+            (total: number, { duration }) => total + toMilliseconds(duration),
+            0
+        );
 
 export default TimerPage;
 export { getStaticPaths, getStaticProps };
