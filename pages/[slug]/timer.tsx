@@ -39,11 +39,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     const target = toSeconds(sumIncludingIndex(steps, steps.length));
     const timer = useTimer(target, { interval: 10 });
 
-    const [currentIndex, currentStep] = getCurrentStep(
-        steps,
-        timer.elapsed,
-        timer.isComplete
-    );
+    const [currentIndex, currentStep] = getCurrentStep(steps, timer.elapsed);
     const currentWeight = round(
         currentStep.start + currentStep.progress * currentStep.toAdd
     );
