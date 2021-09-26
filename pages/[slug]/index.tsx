@@ -14,6 +14,9 @@ import type { Recipe } from '../../lib/types';
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
 import RatioSlider from '../../components/RatioSlider';
+import RatioSliderHint from '../../components/RatioSliderHint';
+
+const SLIDER_HEIGHT = 320;
 
 const RecipePage: FC<Recipe> = ({
     defaultRatio,
@@ -32,19 +35,16 @@ const RecipePage: FC<Recipe> = ({
     const ratioWithDefault = ratio || defaultRatio;
 
     // Show the hint on the ratio slider if it hasn't been seen before and this recipe has adjustable settings:
-    const [seenRatioSliderHint, setSeenRatioSliderHint] = useLocalstorage(
+    const [seenHint, setSeenHint] = useLocalstorage(
         'seenRatioSliderHint',
         false
     );
     const hasSettings = minOutput !== maxOutput;
-    const shouldShowHint = hasSettings && !seenRatioSliderHint;
+    const shouldShowHint = hasSettings && !seenHint;
 
-    // Update local storage upon page leave to indicate that we've seen the hint, but only if this recipe
+    // Update local storage on hint dismiss to indicate that we've seen the hint, but only if this recipe
     // has adjustable settings:
-    useEffect(
-        () => () => hasSettings && setSeenRatioSliderHint(true),
-        [hasSettings]
-    );
+    const onDismiss = () => setSeenHint(true);
 
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
@@ -58,11 +58,16 @@ const RecipePage: FC<Recipe> = ({
                 <h1 className="text-5xl font-bold">{name}</h1>
                 <section>
                     <RatioSlider
+                        height={SLIDER_HEIGHT}
                         maxOutput={maxOutput}
                         minOutput={minOutput}
                         output={outputWithDefault}
                         ratio={ratioWithDefault}
-                        showHint={shouldShowHint}
+                    />
+                    <RatioSliderHint
+                        height={SLIDER_HEIGHT}
+                        isOpen={shouldShowHint}
+                        onDismiss={onDismiss}
                     />
                 </section>
                 <section>
