@@ -1,7 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import { useEffect } from 'react';
 import { useLocalstorage } from 'rooks';
+import type { FC } from 'react';
 
 import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
@@ -30,10 +31,20 @@ const RecipePage: FC<Recipe> = ({
     const outputWithDefault = output || minOutput;
     const ratioWithDefault = ratio || defaultRatio;
 
-    // Show the hint on the ratio slider if this recipe has adjustable settings and hasn't been used previously:
-    const hasLatest = useLocalstorage(slug)[0] !== null;
+    // Show the hint on the ratio slider if it hasn't been seen before and this recipe has adjustable settings:
+    const [seenRatioSliderHint, setSeenRatioSliderHint] = useLocalstorage(
+        'seenRatioSliderHint',
+        false
+    );
     const hasSettings = minOutput !== maxOutput;
-    const shouldShowHint = hasSettings && !hasLatest;
+    const shouldShowHint = hasSettings && !seenRatioSliderHint;
+
+    // Update local storage upon page leave to indicate that we've seen the hint, but only if this recipe
+    // has adjustable settings:
+    useEffect(
+        () => () => hasSettings && setSeenRatioSliderHint(true),
+        [hasSettings]
+    );
 
     // Don't render anything until we've parsed query parameters:
     if (!router.isReady) return null;
