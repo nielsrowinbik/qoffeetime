@@ -1,6 +1,3 @@
-import { mdiHelpCircleOutline } from '@mdi/js';
-import Icon from '@mdi/react';
-import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useBoundingclientrectRef } from 'rooks';
@@ -286,28 +283,6 @@ const RatioSlider = ({
         [onChange]
     );
 
-    // Keep whether we should show the hint in state:
-    const [showHint, setShowHint] = useState(props.showHint || false);
-
-    // Callback to hide the hint on click:
-    const toggleHint = useCallback(
-        () => setShowHint((showHint) => !showHint),
-        []
-    );
-
-    // Construct the hint shape:
-    const hintClassName = classNames(
-        'fixed inset-0 z-10 bg-black bg-opacity-80',
-        { hidden: !showHint }
-    );
-    const hintDividerPath = [
-        'M',
-        5,
-        height * (1 / 16),
-        'V',
-        height * (15 / 16),
-    ];
-
     return (
         <>
             <svg
@@ -371,49 +346,6 @@ const RatioSlider = ({
                     </tspan>
                 </text>
             </svg>
-            <button
-                className="fixed p-5"
-                onClick={toggleHint}
-                style={{
-                    top: svgRect?.top,
-                    right: 0,
-                }}
-            >
-                <Icon path={mdiHelpCircleOutline} size="16px" />
-            </button>
-            <div className={hintClassName} onClick={toggleHint}>
-                <div
-                    className="fixed flex flex-row justify-center"
-                    style={{
-                        height: svgRect?.height,
-                        left: 0,
-                        top: svgRect?.top,
-                        right: 0,
-                    }}
-                >
-                    <p className="flex-1 mx-3 my-14 self-start">
-                        Change how much ground coffee you'll use (thus changing
-                        the <strong>ratio</strong> of your brew) by swiping on
-                        the left.
-                    </p>
-                    <svg
-                        height={height}
-                        viewBox={`0 0 10 ${height}`}
-                        width={10}
-                    >
-                        <path
-                            d={hintDividerPath.join(' ')}
-                            stroke="white"
-                            strokeWidth={3}
-                            strokeDasharray={height / 20}
-                        />
-                    </svg>
-                    <p className="flex-1 mx-3 my-14 self-end">
-                        Specify how much coffee you'll brew in total (
-                        <strong>output</strong>) by swiping on the right.
-                    </p>
-                </div>
-            </div>
         </>
     );
 };
