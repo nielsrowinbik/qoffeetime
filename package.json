@@ -37,7 +37,7 @@
         "react-hot-toast": "^2.1.0",
         "react-screen-wake-lock": "^1.1.10",
         "react-spring-bottom-sheet": "^3.4.0",
-        "react-webcam": "^5.2.4",
+        "react-webcam": "^6.0.0",
         "rooks": "^5.0.2",
         "swiper": "^6.7.0"
     },
