@@ -22,7 +22,7 @@
         "@headlessui/react": "^1.4.0",
         "@mdi/js": "^5.9.55",
         "@mdi/react": "^1.5.0",
-        "@sentry/nextjs": "^6.10.0",
+        "@sentry/nextjs": "^6.13.2",
         "classnames": "^2.2.6",
         "date-fns": "^2.22.1",
         "dexie": "^3.0.3",
