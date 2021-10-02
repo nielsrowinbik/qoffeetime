@@ -1,8 +1,8 @@
 import classNames from 'classnames';
 import { useEffect, useRef } from 'react';
 
-import { formatTime, toMilliseconds } from '../lib/helpers';
-import type { RecipeStep } from '../lib/types';
+import { formatTime } from '../lib/helpers';
+import type { ParsedRecipeStep } from '../lib/types';
 
 import StopWatch from './StopWatch';
 
@@ -41,7 +41,7 @@ const StepsListItem = ({
                 {number}
             </span>
             <StopWatch className="mr-4">
-                {formatTime(toMilliseconds(duration), false)}
+                {formatTime(duration, false)}
             </StopWatch>
             <p className={className}>{description}</p>
         </li>
@@ -50,7 +50,7 @@ const StepsListItem = ({
 
 type StepsListProps = {
     currentIndex: number;
-    steps: RecipeStep[];
+    steps: ParsedRecipeStep[];
 };
 
 const StepsList = ({ currentIndex, steps }: StepsListProps) => {

@@ -1,8 +1,6 @@
-import { formatTime } from '../lib/helpers';
-
 type CurrentStepDetailsProps = {
     description: string;
-    remaining: number;
+    remaining: string;
 };
 
 const CurrentStepDetails = ({
@@ -10,7 +8,7 @@ const CurrentStepDetails = ({
     remaining,
 }: CurrentStepDetailsProps) => (
     <div>
-        <time className="text-7xl font-bold">{formatTime(remaining)}</time>
+        <time className="text-7xl font-bold">{remaining}</time>
         <p className="text-2xl font-semibold mt-2">{description}</p>
     </div>
 );
