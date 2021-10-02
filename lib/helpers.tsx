@@ -1,3 +1,4 @@
+import template from 'lodash.template';
 import { Fragment } from 'react';
 
 export const formatTime = (
@@ -58,8 +59,12 @@ export const queryArgToString = (
     return arg[0];
 };
 
-export const round = Math.round;
+export const round = (val: number, decimals: number = 0): number =>
+    +val.toFixed(decimals);
 
 export const toMilliseconds = (val: number) => val * 1000;
 
 export const toSeconds = (val: number) => round(val / 1000);
+
+export const useTemplate = (string: string, data: Record<string, any>) =>
+    template(string, { interpolate: /{{([\s\S]+?)}}/g })(data);

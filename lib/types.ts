@@ -4,10 +4,10 @@ export type RecipeStep = {
     target?: string;
 };
 
-export type ParsedRecipeStep = RecipeStep & {
-    start: number;
+export type ParsedRecipeStep = {
+    description: string;
+    duration: number;
     target: number;
-    toAdd: number;
 };
 
 export type RecipeFromFile = {

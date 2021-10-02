@@ -20,7 +20,7 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
             'font-semibold w-full py-3 inline-flex justify-center align-center disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed relative overflow-hidden outline-none',
             {
                 'rounded-lg': !inGroup,
-                'first:rounded-l-lg first:rounded-r-none last:rounded-r-lg last:rounded-l-none only:rounded-lg':
+                'first:rounded-l-lg first:rounded-r-none last:rounded-r-lg last:rounded-l-none only:rounded-lg rounded-none':
                     inGroup,
                 'bg-white text-black': variant === 'light',
                 'bg-black text-white': variant === 'dark',
