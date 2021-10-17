@@ -9,7 +9,7 @@ import type { FC } from 'react';
 import NavLayout from '../../layouts/NavLayout';
 import MainLayout from '../../layouts/MainLayout';
 import FooterLayout from '../../layouts/FooterLayout';
-import { queryArgToNumber, round } from '../../lib/helpers';
+import { queryArgToNumber, vibrate } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
@@ -59,7 +59,10 @@ const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
                 <section className="flex-1 flex flex-col items-center justify-center z-10">
                     <LargeIcon
                         icon={mdiCheck}
-                        onClick={() => setShouldFire(true)}
+                        onClick={() => {
+                            vibrate(50);
+                            setShouldFire(true);
+                        }}
                     />
                 </section>
                 <section className="flex-1 flex flex-col justify-center">
