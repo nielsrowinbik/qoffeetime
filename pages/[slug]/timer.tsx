@@ -29,6 +29,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     const {
         current,
         isComplete,
+        isRunning,
         remainingCurrent,
         remainingTotal,
         start,
@@ -58,7 +59,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     return (
         <>
             <NavLayout>
-                <BackButton confirm={confirmMessage} />
+                <BackButton confirm={isRunning && confirmMessage} />
             </NavLayout>
             <MainLayout>
                 <header className="grid grid-flow-col auto-cols-fr">
@@ -81,13 +82,21 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
             </MainLayout>
             <FooterLayout>
                 <ButtonGroup>
-                    <Button icon={mdiPlayOutline} onClick={() => start()}>
+                    <Button
+                        hidden={isRunning}
+                        icon={mdiPlayOutline}
+                        onClick={() => start()}
+                    >
                         Start
                     </Button>
-                    <Button icon={mdiPause} onClick={() => stop()}>
+                    <Button
+                        hidden={!isRunning}
+                        icon={mdiPause}
+                        onClick={() => stop()}
+                    >
                         Pause
                     </Button>
-                    <GoBack confirm={confirmMessage}>
+                    <GoBack confirm={isRunning && confirmMessage}>
                         <Button icon={mdiStop} inGroup variant="dark">
                             Stop
                         </Button>
