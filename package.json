@@ -24,7 +24,6 @@
         "@sentry/nextjs": "^6.10.0",
         "classnames": "^2.2.6",
         "embla-carousel": "^4.5.3",
-        "lodash.range": "^3.2.0",
         "lodash.template": "^4.5.0",
         "next": "^11.1.2",
         "next-pwa": "^5.2.21",
@@ -38,7 +37,6 @@
     },
     "devDependencies": {
         "@types/dom-screen-wake-lock": "^1.0.0",
-        "@types/lodash.range": "^3.2.6",
         "@types/lodash.template": "^4.5.0",
         "@types/node": "^16.7.10",
         "@types/react": "^17.0.15",
