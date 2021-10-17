@@ -9,12 +9,12 @@ type TickFunction = (elapsed: number, delta: number) => any;
 export const useAnimationFrame = (onFrame: TickFunction) => {
     const elapsed = useRef(0);
     const frame = useRef<number>(null);
-    const init = useRef(performance.now());
-    const last = useRef(performance.now());
+    const init = useRef(Date.now());
+    const last = useRef(Date.now());
 
     const animate = () => {
         // console.log("do something, because we're running");
-        const now = performance.now();
+        const now = Date.now();
         const delta = now - last.current;
         elapsed.current += delta;
 
@@ -27,8 +27,8 @@ export const useAnimationFrame = (onFrame: TickFunction) => {
 
     const start = () => {
         if (!frame.current) {
-            init.current = performance.now();
-            last.current = performance.now();
+            init.current = Date.now();
+            last.current = Date.now();
             frame.current = requestAnimationFrame(animate);
         }
     };
@@ -151,12 +151,6 @@ const parseSteps = (
             },
         ];
     }, []);
-
-type AnyStep = {
-    description: string;
-    duration: number;
-    target?: number | string;
-};
 
 // FIXME: Steps shouldn't *have* to be parsed when calling this, but I don't know
 // how to not force this with TypeScript
