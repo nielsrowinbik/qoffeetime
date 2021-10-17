@@ -11,12 +11,15 @@ export const useAnimationFrame = (onFrame: TickFunction) => {
     const frame = useRef<number>(null);
     const init = useRef(Date.now());
     const last = useRef(Date.now());
+    const [isRunning, setRunning] = useState(false);
 
     const animate = () => {
-        // console.log("do something, because we're running");
         const now = Date.now();
         const delta = now - last.current;
         elapsed.current += delta;
+
+        // Set the running state:
+        setRunning(true);
 
         // Call user defined `onFrame` function:
         onFrame(elapsed.current, delta);
@@ -36,9 +39,11 @@ export const useAnimationFrame = (onFrame: TickFunction) => {
     const stop = () => {
         cancelAnimationFrame(frame.current);
         frame.current = null;
+        setRunning(false);
     };
 
     return {
+        isRunning,
         start,
         stop,
     };
