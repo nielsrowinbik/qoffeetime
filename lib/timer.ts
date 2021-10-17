@@ -1,7 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useWakeLock as useWakeLockHook } from 'react-screen-wake-lock';
 
-import { formatTime, round, toMilliseconds, useTemplate } from './helpers';
+import {
+    formatTime,
+    round,
+    toMilliseconds,
+    useTemplate,
+    vibrate,
+} from './helpers';
 import type { ParsedRecipeStep, RecipeStep } from './types';
 
 type TickFunction = (elapsed: number, delta: number) => any;
@@ -116,12 +122,25 @@ export const useBrewTimer = (
     );
     const animation = useAnimationFrame(onFrame);
 
+    // Mark the completion of the timer:
     useEffect(() => {
         if (weight === steps[steps.length - 1].target) {
             setComplete(true);
             animation.stop();
         }
     }, [animation, steps]);
+
+    // Softly vibrate whenever we move on to the next step:
+    useEffect(() => {
+        if (current !== 0) {
+            // Vibrate longer if the step that just ended was longer than a minute:
+            if (steps[Math.max(current - 1, 0)].duration > 60000) {
+                vibrate(500);
+            } else {
+                vibrate(50);
+            }
+        }
+    }, [current]);
 
     return {
         ...animation,

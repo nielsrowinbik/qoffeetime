@@ -68,3 +68,11 @@ export const toSeconds = (val: number) => round(val / 1000);
 
 export const useTemplate = (string: string, data: Record<string, any>) =>
     template(string, { interpolate: /{{([\s\S]+?)}}/g })(data);
+
+export const vibrate = (...pattern: number[]) => {
+    if ('vibrate' in navigator) {
+        navigator.vibrate(pattern);
+    } else {
+        // Do nothing.
+    }
+};
