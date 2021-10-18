@@ -80,7 +80,10 @@ export const useBrewTimer = (
     const [weight, setWeight] = useState(0);
 
     const onFrame = useCallback<TickFunction>(
-        (elapsed) => {
+        (animationElapsed) => {
+            // Cap the elapsed value at the total duration of the timer:
+            const elapsed = Math.min(animationElapsed, total);
+
             // Update the total remaining time:
             const remainingTotal = Math.max(total - elapsed, 0);
             setRemainingTotal(formatTime(remainingTotal));
@@ -94,7 +97,7 @@ export const useBrewTimer = (
             // Compute the remaining time within the current step:
             const totalIncludingCurrent = sumUntil(steps, current);
             const remainingCurrent = Math.max(
-                Math.abs(elapsed - totalIncludingCurrent),
+                totalIncludingCurrent - elapsed,
                 0
             );
 
@@ -103,13 +106,22 @@ export const useBrewTimer = (
             if (remainingCurrent < 500 && current !== last) {
                 setCurrent(current + 1);
                 setRemainingCurrent(formatTime(steps[next].duration));
-            } else {
+            }
+            // If there's no more time left and this is the final step,
+            // mark the timer as complete:
+            else if (remainingCurrent === 0 && current === last) {
+                setComplete(true);
+                animation.stop();
+                return;
+            }
+            // Otherwise, just update the values as normal:
+            else {
                 setCurrent(current);
                 setRemainingCurrent(formatTime(remainingCurrent));
             }
 
             // Compute the progress of the current step:
-            // Not that here, we ignore our intervention from aboe so that
+            // Note that here, we ignore our intervention from above so that
             // the weight doesn't jump as we artifically start the next step.
             const progressCurrent = Math.max(
                 1 - remainingCurrent / steps[current].duration,
@@ -126,14 +138,6 @@ export const useBrewTimer = (
         [steps, total]
     );
     const animation = useAnimationFrame(onFrame);
-
-    // Mark the completion of the timer:
-    useEffect(() => {
-        if (weight === steps[steps.length - 1].target) {
-            setComplete(true);
-            animation.stop();
-        }
-    }, [animation, steps]);
 
     // Softly vibrate whenever we move on to the next step:
     useEffect(() => {
@@ -159,7 +163,7 @@ export const useBrewTimer = (
 };
 
 const findCurrent = (steps: ParsedRecipeStep[], elapsed: number): number =>
-    steps.findIndex((_, i: number) => elapsed <= sumUntil(steps, i));
+    steps.findIndex((_, i) => elapsed <= sumUntil(steps, i));
 
 const parseSteps = (
     steps: RecipeStep[],
