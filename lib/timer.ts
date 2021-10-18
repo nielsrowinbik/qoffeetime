@@ -48,6 +48,11 @@ export const useAnimationFrame = (onFrame: TickFunction) => {
         setRunning(false);
     };
 
+    // Stop the animation when the component unmounts:
+    useEffect(() => {
+        return stop;
+    }, []);
+
     return {
         isRunning,
         start,
