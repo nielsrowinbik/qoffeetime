@@ -42,9 +42,7 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
                     src={`/assets/images/${slug}.jpg`}
                 />
                 <header className="absolute h-full flex flex-col justify-end p-4">
-                    <h2 className="text-7xl font-bold w-3/4 break-words">
-                        {name}
-                    </h2>
+                    <h2 className="text-7xl font-bold w-3/4">{name}</h2>
                     <h3 className="text-lg mt-10 break-words h-full max-h-32">
                         {tagline}
                     </h3>
