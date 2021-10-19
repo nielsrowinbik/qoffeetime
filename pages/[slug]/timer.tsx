@@ -29,6 +29,7 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
     const {
         current,
         isComplete,
+        isReset,
         isRunning,
         remainingCurrent,
         remainingTotal,
@@ -97,7 +98,12 @@ const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
                         Pause
                     </Button>
                     <GoBack confirm={isRunning && confirmMessage}>
-                        <Button icon={mdiStop} inGroup variant="dark">
+                        <Button
+                            hidden={isReset}
+                            icon={mdiStop}
+                            inGroup
+                            variant="dark"
+                        >
                             Stop
                         </Button>
                     </GoBack>

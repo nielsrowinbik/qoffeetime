@@ -18,6 +18,7 @@ export const useAnimationFrame = (onFrame: TickFunction) => {
     const init = useRef(Date.now());
     const last = useRef(Date.now());
     const [isRunning, setRunning] = useState(false);
+    const [isReset, setReset] = useState(true);
 
     const animate = () => {
         const now = Date.now();
@@ -25,7 +26,14 @@ export const useAnimationFrame = (onFrame: TickFunction) => {
         elapsed.current += delta;
 
         // Set the running state:
-        setRunning(true);
+        if (!isRunning) {
+            setRunning(true);
+        }
+
+        // Set the reset state:
+        if (elapsed.current > 0 && !!isReset) {
+            setReset(false);
+        }
 
         // Call user defined `onFrame` function:
         onFrame(elapsed.current, delta);
@@ -54,6 +62,7 @@ export const useAnimationFrame = (onFrame: TickFunction) => {
     }, []);
 
     return {
+        isReset,
         isRunning,
         start,
         stop,
