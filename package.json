@@ -21,7 +21,6 @@
     "dependencies": {
         "@mdi/js": "^5.9.55",
         "@mdi/react": "^1.5.0",
-        "@sentry/nextjs": "^6.13.2",
         "classnames": "^2.2.6",
         "embla-carousel": "^4.5.3",
         "lodash.template": "^4.5.0",
