@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useLocalstorage } from 'rooks';
 import type { FC } from 'react';
 
@@ -6,7 +7,6 @@ import FooterLayout from '../../layouts/FooterLayout';
 import MainLayout from '../../layouts/MainLayout';
 import NavLayout from '../../layouts/NavLayout';
 import { queryArgToNumber } from '../../lib/helpers';
-import { useRouter } from '../../lib/router';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
