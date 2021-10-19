@@ -86,17 +86,10 @@ const RecipePage: FC<Recipe> = ({
                 {ratioWithDefault !== defaultRatio && (
                     <Button
                         onClick={() =>
-                            router.replace(
-                                {
-                                    pathname: window.location.pathname,
-                                    query: {
-                                        output: outputWithDefault,
+                            router.setQuery({
+                                output: output,
                                         ratio: defaultRatio,
-                                    },
-                                },
-                                undefined,
-                                { shallow: true }
-                            )
+                            })
                         }
                         variant="text"
                     >

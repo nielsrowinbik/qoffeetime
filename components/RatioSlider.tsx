@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useBoundingclientrectRef } from 'rooks';
 
 import { round } from '../lib/helpers';
+import { useRouter } from '../lib/router';
 
 type RatioSliderProps = {
     borderRadius?: number;
@@ -227,17 +227,7 @@ const RatioSlider = ({
 
     // Callback to update external values:
     const onChange = useCallback(() => {
-        router.replace(
-            {
-                pathname: window.location.pathname,
-                query: {
-                    output,
-                    ratio,
-                },
-            },
-            undefined,
-            { shallow: true }
-        );
+        router.setQuery({ output, ratio });
     }, [ratio, output]);
 
     // Handle dragging start:
