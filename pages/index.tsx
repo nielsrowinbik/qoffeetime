@@ -1,6 +1,6 @@
 import { useLocalstorage } from 'rooks';
 import Link from 'next/link';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 
 import FooterLayout from '../layouts/FooterLayout';
@@ -13,7 +13,7 @@ import RecipeSlider from '../components/RecipeSlider';
 
 const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
     const [latest] = useLocalstorage('latest', undefined);
-    const recipies = withSettings(props.recipies).sort(byLatestFirst(latest));
+    const [recipies, setRecipies] = useState(props.recipies);
     const [selected, setSelected] = useState(recipies[0]);
 
     const onChange = useCallback(
@@ -21,26 +21,19 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
         [setSelected]
     );
 
+    // Sort lastly used recipe first upon first render,
+    // preventing a client-server mismatch upon hydration:
+    useEffect(() => {
+        setRecipies(recipies.sort(byLatestFirst(latest)));
+    }, []);
+
     return (
         <>
             <FullHeightLayout className="pt-6">
                 <RecipeSlider onChange={onChange} recipies={recipies} />
             </FullHeightLayout>
             <FooterLayout>
-                <Link
-                    href={{
-                        pathname: `/${selected.slug}`,
-                        query: {
-                            ...(!!selected.latest && {
-                                output: selected.latest.output,
-                            }),
-                            ...(!!selected.latest && {
-                                ratio: selected.latest.ratio,
-                            }),
-                        },
-                    }}
-                    passHref
-                >
+                <Link href={`/${selected.slug}`} passHref>
                     <Button>Brew {selected.name}</Button>
                 </Link>
             </FooterLayout>
@@ -61,18 +54,6 @@ const byLatestFirst = (latest: string) => (a: Recipe, b: Recipe) => {
     }
     return a.name.localeCompare(b.name);
 };
-
-const withSettings = (recipies: Recipe[]) =>
-    recipies.map(({ slug, ...recipe }) => {
-        const { value } = useLocalstorage(slug, undefined);
-        const latest = value as { output: number; ratio: number };
-
-        return {
-            ...recipe,
-            latest,
-            slug,
-        };
-    });
 
 export default IndexPage;
 export { getStaticProps };
