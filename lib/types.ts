@@ -13,7 +13,6 @@ export type ParsedRecipeStep = {
 export type RecipeFromFile = {
     name: string;
     tagline: string;
-    description: string;
     maxOutput: number;
     minOutput: number;
     defaultRatio: number;

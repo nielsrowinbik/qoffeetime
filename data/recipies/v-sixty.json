@@ -1,7 +1,6 @@
 {
     "name": "V60",
     "tagline": "James Hoffmann's recommended technique for making coffee with the Hario V60 and any other cone-shaped brewer with a large open area.",
-    "description": "Nuanced and versatile, the Hario V60 is an elegant brewer for those who want to perfect the pour. The trick with the V60 is to pour slow, your brew may easily take 3 minutes!",
     "minOutput": 200,
     "maxOutput": 500,
     "defaultRatio": 60,
