@@ -2,11 +2,15 @@ import '../styles/globals.css';
 
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import dynamic from 'next/dynamic';
 import { DefaultSeo } from 'next-seo';
 
 import app from '../package.json';
-
 const appName = `${app.name[0].toUpperCase()}${app.name.slice(1)}`;
+
+const ApplePWAPrompt = dynamic(() => import('../components/ApplePWAPrompt'), {
+    ssr: false,
+});
 
 const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
@@ -30,6 +34,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                 defaultTitle={appName}
                 titleTemplate={`%s – ${appName}`}
             />
+            <ApplePWAPrompt />
             <Component {...pageProps} />
         </>
     );
