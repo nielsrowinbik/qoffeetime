@@ -101,11 +101,14 @@ const TimerSuccessPage: FC<Recipe> = ({
                     </span>
                     ?
                 </p>
-                <Link href="https://www.buymeacoffee.com/nielsbik">
-                    <a className="inline-block w-full py-3 opacity-80">
-                        <BuyMeACoffee className="w-2/6 mx-auto" />
-                    </a>
-                </Link>
+                <a
+                    className="inline-block w-full py-3 opacity-80"
+                    href="https://www.buymeacoffee.com/nielsbik"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    <BuyMeACoffee className="w-2/6 mx-auto" />
+                </a>
                 <Link href="/" passHref replace>
                     <Button>Continue</Button>
                 </Link>
