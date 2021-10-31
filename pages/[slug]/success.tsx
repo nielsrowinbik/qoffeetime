@@ -1,4 +1,5 @@
 import { mdiCheck } from '@mdi/js';
+import { NextSeo as Head } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -19,13 +20,12 @@ import LargeIcon from '../../components/LargeIcon';
 
 import app from '../../package.json';
 
-// TODO: Fill the <head> with relevant tags
-
 const TimerSuccessPage: FC<Recipe> = ({
     defaultRatio,
     minOutput,
     name,
     slug,
+    tagline,
 }) => {
     const router = useRouter();
     const { output: outputParam, ratio: ratioParam } = router.query;
@@ -65,6 +65,7 @@ const TimerSuccessPage: FC<Recipe> = ({
 
     return (
         <>
+            <Head description={tagline} title={name} />
             <NavLayout />
             <MainLayout>
                 <Confetti

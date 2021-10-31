@@ -1,9 +1,9 @@
 version: "3.7"
 
 services:
-  brewtime:
+  qoffeetime:
     command: npm run dev
-    container_name: brewtime
+    container_name: qoffeetime
     environment:
       PATH: ./node_modules/.bin:$PATH
     expose:
