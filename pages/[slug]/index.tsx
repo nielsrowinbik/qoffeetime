@@ -19,11 +19,11 @@ const SLIDER_HEIGHT = 320;
 
 const RecipePage: FC<Recipe> = ({
     defaultRatio,
-    description,
     maxOutput,
     minOutput,
     name,
     slug,
+    // tips,
 }) => {
     const router = useRouter();
     const { output: outputParam, ratio: ratioParam } = router.query;
@@ -78,16 +78,16 @@ const RecipePage: FC<Recipe> = ({
                         onDismiss={onDismiss}
                     />
                 </section>
-                <section>
+                <section className="prose">
+                    <h4>Recommended ratio: {defaultRatio}&nbsp;g/l</h4>
                     <p>
-                        <strong>We recommend: {defaultRatio}&nbsp;g/l</strong>{' '}
-                        {ratio !== defaultRatio && (
-                            <span className="opacity-40">
-                                (current: {parsedRatio}&nbsp;g/l)
-                            </span>
-                        )}
+                        Increasing the ratio will use more coffee and produce a
+                        stronger cup. Your current ratio setting is{' '}
+                        {parsedRatio}
+                        &nbsp;g/l.
                     </p>
-                    <p>{description}</p>
+                    {/* <h4>{name} tip of the day</h4>
+                    <p>{tips[random(0, tips.length)]}</p> */}
                 </section>
             </MainLayout>
             <FooterLayout>
