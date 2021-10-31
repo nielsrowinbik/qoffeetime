@@ -13,8 +13,13 @@ import { queryArgToNumber, vibrate } from '../../lib/helpers';
 import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
 import type { Recipe } from '../../lib/types';
 
+import BuyMeACoffee from '../../components/BuyMeACoffee';
 import Button from '../../components/Button';
 import LargeIcon from '../../components/LargeIcon';
+
+import app from '../../package.json';
+
+// TODO: Fill the <head> with relevant tags
 
 const TimerSuccessPage: FC<Recipe> = ({
     defaultRatio,
@@ -49,7 +54,6 @@ const TimerSuccessPage: FC<Recipe> = ({
 
     // Store the settings for this succesful brew and store this as the
     // most recently used recipe:
-    const { set: setLatestSettings } = useLocalstorage(slug, undefined);
     const { set: setLatest } = useLocalstorage('latest', undefined);
     useEffect(() => {
         setLatestSettings({ output, ratio });
@@ -90,6 +94,18 @@ const TimerSuccessPage: FC<Recipe> = ({
                 <section className="flex-1" />
             </MainLayout>
             <FooterLayout>
+                <p className="text-center text-xs opacity-80">
+                    Enjoying{' '}
+                    <span className="inline-block first-letter:uppercase">
+                        {app.name}
+                    </span>
+                    ?
+                </p>
+                <Link href="https://www.buymeacoffee.com/nielsbik">
+                    <a className="inline-block w-full py-3 opacity-80">
+                        <BuyMeACoffee className="w-2/6 mx-auto" />
+                    </a>
+                </Link>
                 <Link href="/" passHref replace>
                     <Button>Continue</Button>
                 </Link>
