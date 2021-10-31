@@ -25,6 +25,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
     // preventing a client-server mismatch upon hydration:
     useEffect(() => {
         setRecipies(recipies.sort(byLatestFirst(latest)));
+        setSelected(recipies[0]);
     }, []);
 
     return (
