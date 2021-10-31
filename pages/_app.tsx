@@ -1,13 +1,14 @@
+import '../styles/globals.css';
+
 import Head from 'next/head';
 import { useEffect } from 'react';
-
-import '../styles/globals.css';
+import type { AppProps } from 'next/app';
 
 const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
 };
 
-const App = ({ Component, pageProps }) => {
+const App = ({ Component, pageProps }: AppProps) => {
     useEffect(() => {
         // Update the height of the app:
         updateHeight();
@@ -19,19 +20,7 @@ const App = ({ Component, pageProps }) => {
         return () => window.removeEventListener('resize', updateHeight);
     }, []);
 
-    return (
-        <>
-            <Head>
-                <title>Create the perfect cup of coffee</title>
-                <link rel="manifest" href="/site.webmanifest" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1"
-                />
-            </Head>
-            <Component {...pageProps} />
-        </>
-    );
+    return <Component {...pageProps} />;
 };
 
 export default App;
