@@ -34,7 +34,7 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
         >
             <a className="relative h-full bg-brewtime-red">
                 <Image
-                    className="mix-blend-darken opacity-60 rounded"
+                    className="mix-blend-multiply opacity-60 rounded"
                     layout="fill"
                     objectFit="cover"
                     objectPosition="center center"
@@ -42,7 +42,7 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
                     src={`/assets/images/${slug}.jpg`}
                 />
                 <header className="absolute h-full flex flex-col justify-end p-4">
-                    <h2 className="text-7xl font-bold w-3/4">{name}</h2>
+                    <h2 className="text-7xl font-bold w-5/6">{name}</h2>
                     <h3 className="text-lg mt-10 break-words h-full max-h-32">
                         {tagline}
                     </h3>
