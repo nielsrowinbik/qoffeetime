@@ -32,7 +32,7 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
                 },
             }}
         >
-            <a className="relative h-full bg-brewtime-red">
+            <a className="relative h-full bg-brand">
                 <Image
                     className="mix-blend-multiply opacity-60 rounded"
                     layout="fill"
@@ -113,10 +113,10 @@ const RecipeSlider = ({
                 <div className="mt-6 flex flex-row items-center justify-center">
                     {recipies.map(({ slug }, index) => {
                         const className = classNames(
-                            'w-2.5 h-2.5 mr-2.5 last:mr-0 rounded-full border border-white',
+                            'w-2.5 h-2.5 mr-2.5 last:mr-0 rounded-full border border-current',
                             {
                                 'bg-transparent': index !== getSelectedIndex(),
-                                'bg-white': index === getSelectedIndex(),
+                                'bg-current': index === getSelectedIndex(),
                             }
                         );
                         return <div className={className} key={slug} />;
