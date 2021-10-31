@@ -82,8 +82,7 @@ const RecipePage: FC<Recipe> = ({
                     <h4>Recommended ratio: {defaultRatio}&nbsp;g/l</h4>
                     <p>
                         Increasing the ratio will use more coffee and produce a
-                        stronger cup. Your current ratio setting is{' '}
-                        {parsedRatio}
+                        stronger cup. Your current ratio setting is {ratio}
                         &nbsp;g/l.
                     </p>
                     {/* <h4>{name} tip of the day</h4>
