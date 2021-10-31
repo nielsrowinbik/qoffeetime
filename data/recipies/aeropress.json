@@ -1,7 +1,6 @@
 {
     "name": "AeroPress",
-    "tagline": "James Hoffmann's Ultimate AeroPress recipe - the AeroPress recipe everyone has been waiting for!",
-    "description": "Forget about the AeroPress mysconceptions such as rinsing your paper filter and preheating your AeroPress, and just brew an awesome cup using this recipe. Don't press down to hard, be gentle!",
+    "tagline": "James Hoffmann's recommended technique for making coffee with the AeroPress, one of the world’s most iconic coffee-brewing methods.",
     "minOutput": 200,
     "maxOutput": 200,
     "defaultRatio": 55,

@@ -1,7 +1,6 @@
 {
     "name": "French Press",
-    "tagline": "James Hoffmann's recommended technique for making coffee with the French Press, one of the easiest and most forgiving brewers.",
-    "description": "For the French Press, the secret is all in the grind: choose medium, with uniformity and consistency throughout.  Very coarse grinds may clog the filter, while very fine grinds will pass through the filter, muddying the results.",
+    "tagline": "James Hoffmann's recommended technique for making coffee with the French Press, one of the world’s oldest and most popular brewing devices.",
     "minOutput": 500,
     "maxOutput": 1000,
     "defaultRatio": 65,
