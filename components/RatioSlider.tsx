@@ -307,14 +307,18 @@ const RatioSlider = ({
                 </defs>
                 <g clipPath="url(#clipPath)" name="shape">
                     <path
+                        className="fill-current text-black text-opacity-20"
                         d={backgroundPath.join(' ')}
-                        fill="#E80036"
                         name="bg"
                     />
-                    <path d={outputPath.join(' ')} fill="white" name="output" />
                     <path
+                        className="fill-current text-white"
+                        d={outputPath.join(' ')}
+                        name="output"
+                    />
+                    <path
+                        className="fill-current text-coffee"
                         d={coffeePath.join(' ')}
-                        fill="#8a0020"
                         name="coffee"
                     />
                 </g>
