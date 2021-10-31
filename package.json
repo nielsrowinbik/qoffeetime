@@ -1,7 +1,7 @@
 {
-    "name": "brewtime",
+    "name": "qoffeetime",
     "description": "Create the perfect cup of coffee",
-    "version": "0.0.0",
+    "version": "1.0.0",
     "author": {
         "name": "Niels Bik",
         "email": "hey@nielsbik.nl",
@@ -10,7 +10,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/nielsrowinbik/brewtime.git"
+        "url": "git+https://github.com/nielsrowinbik/qoffeetime.git"
     },
     "scripts": {
         "dev": "next dev",
@@ -27,6 +27,7 @@
         "lodash.template": "^4.5.0",
         "next": "^12.0.1",
         "next-pwa": "^5.4.0",
+        "next-seo": "^4.28.1",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
         "react-canvas-confetti": "^1.2.0",

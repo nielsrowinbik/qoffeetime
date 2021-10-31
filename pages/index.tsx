@@ -1,4 +1,5 @@
 import { useLocalstorage } from 'rooks';
+import { NextSeo as Head } from 'next-seo';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
@@ -30,6 +31,7 @@ const IndexPage: FC<{ recipies: Recipe[] }> = (props) => {
 
     return (
         <>
+            <Head />
             <FullHeightLayout className="pt-6">
                 <RecipeSlider onChange={onChange} recipies={recipies} />
             </FullHeightLayout>

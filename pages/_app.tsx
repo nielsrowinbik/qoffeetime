@@ -1,8 +1,12 @@
 import '../styles/globals.css';
 
-import Head from 'next/head';
 import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import { DefaultSeo } from 'next-seo';
+
+import app from '../package.json';
+
+const appName = `${app.name[0].toUpperCase()}${app.name.slice(1)}`;
 
 const updateHeight = () => {
     document.body.style.height = `${window.innerHeight}px`;
@@ -20,7 +24,15 @@ const App = ({ Component, pageProps }: AppProps) => {
         return () => window.removeEventListener('resize', updateHeight);
     }, []);
 
-    return <Component {...pageProps} />;
+    return (
+        <>
+            <DefaultSeo
+                defaultTitle={appName}
+                titleTemplate={`%s – ${appName}`}
+            />
+            <Component {...pageProps} />
+        </>
+    );
 };
 
 export default App;

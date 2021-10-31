@@ -1,4 +1,5 @@
 import { mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
+import { NextSeo as Head } from 'next-seo';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useLocalstorage } from 'rooks';
@@ -24,6 +25,7 @@ const TimerPage: FC<Recipe> = ({
     minOutput,
     name,
     slug,
+    tagline,
     ...recipe
 }) => {
     const confirmMessage = 'Do you want to cancel the timer?';
@@ -78,6 +80,7 @@ const TimerPage: FC<Recipe> = ({
 
     return (
         <>
+            <Head description={tagline} title={name} />
             <NavLayout>
                 <BackButton confirm={isRunning && confirmMessage} />
             </NavLayout>

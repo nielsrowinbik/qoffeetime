@@ -1,3 +1,4 @@
+import { NextSeo as Head } from 'next-seo';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useLocalstorage } from 'rooks';
@@ -23,6 +24,7 @@ const RecipePage: FC<Recipe> = ({
     minOutput,
     name,
     slug,
+    tagline,
     // tips,
 }) => {
     const router = useRouter();
@@ -59,6 +61,7 @@ const RecipePage: FC<Recipe> = ({
 
     return (
         <>
+            <Head description={tagline} title={name} />
             <NavLayout>
                 <BackButton />
             </NavLayout>
