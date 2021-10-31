@@ -18,6 +18,7 @@ export type RecipeFromFile = {
     minOutput: number;
     defaultRatio: number;
     steps: RecipeStep[];
+    // tips: string[];
 };
 
 export type Recipe = RecipeFromFile & {
