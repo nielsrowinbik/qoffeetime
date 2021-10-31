@@ -16,11 +16,28 @@ import type { Recipe } from '../../lib/types';
 import Button from '../../components/Button';
 import LargeIcon from '../../components/LargeIcon';
 
-const TimerSuccessPage: FC<Recipe> = ({ name, slug }) => {
+const TimerSuccessPage: FC<Recipe> = ({
+    defaultRatio,
+    minOutput,
+    name,
+    slug,
+}) => {
     const router = useRouter();
     const { output: outputParam, ratio: ratioParam } = router.query;
-    const ratio = queryArgToNumber(ratioParam);
-    const output = queryArgToNumber(outputParam);
+
+    // Parse ratio and output value from URL query parameters:
+    const parsedRatio = queryArgToNumber(ratioParam);
+    const parsedOutput = queryArgToNumber(outputParam);
+
+    // Fetch previously used settings from localstorage:
+    const [previousSettings, setLatestSettings] = useLocalstorage(slug);
+    const previousOutput = previousSettings?.output;
+    const previousRatio = previousSettings?.ratio;
+
+    // Combine parsed and loaded values into final value, and add defaults
+    // taken from the recipe's settings:
+    const output = parsedOutput || previousOutput || minOutput;
+    const ratio = parsedRatio || previousRatio || defaultRatio;
 
     // Set up a value to fire confetti:
     const [shouldFire, setShouldFire] = useState(false);
