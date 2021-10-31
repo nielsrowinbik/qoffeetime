@@ -6,6 +6,7 @@ import { round } from '../lib/helpers';
 
 type RatioSliderProps = {
     borderRadius?: number;
+    className?: string;
     height?: number;
     maxOutput: number;
     maxRatio?: number;
@@ -27,6 +28,7 @@ const OUTPUT_STEP = 10;
 
 const RatioSlider = ({
     borderRadius = 64,
+    className,
     height = 320,
     maxOutput,
     maxRatio = 100,
@@ -286,6 +288,7 @@ const RatioSlider = ({
     return (
         <>
             <svg
+                className={className}
                 height={height}
                 width="100%"
                 viewBox={`0 0 ${width} ${height}`}
