@@ -5,6 +5,8 @@ import FooterLayout from '../layouts/FooterLayout';
 
 import LargeIcon from '../components/LargeIcon';
 
+import app from '../package.json';
+
 const OfflinePage = () => (
     <>
         <FullHeightLayout className="px-6">
@@ -18,7 +20,7 @@ const OfflinePage = () => (
                 </h1>
             </section>
             <section className="flex-1">
-                Normally, Brewtime works when you're offline, something must
+                Normally, {app.name} works when you're offline, something must
                 have gone wrong. Please go online an open the app again.
             </section>
         </FullHeightLayout>
