@@ -1,6 +1,7 @@
 import { mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { useLocalstorage } from 'rooks';
 import type { FC } from 'react';
 
 import FooterLayout from '../../layouts/FooterLayout';
@@ -18,13 +19,31 @@ import GoBack from '../../components/GoBack';
 import StepsList from '../../components/StepsList';
 import TimerStat from '../../components/TimerStat';
 
-const TimerPage: FC<Recipe> = ({ name, slug, ...recipe }) => {
+const TimerPage: FC<Recipe> = ({
+    defaultRatio,
+    minOutput,
+    name,
+    slug,
+    ...recipe
+}) => {
     const confirmMessage = 'Do you want to cancel the timer?';
 
     const router = useRouter();
     const { output: outputParam, ratio: ratioParam } = router.query;
-    const ratio = queryArgToNumber(ratioParam);
-    const output = queryArgToNumber(outputParam);
+
+    // Parse ratio and output value from URL query parameters:
+    const parsedRatio = queryArgToNumber(ratioParam);
+    const parsedOutput = queryArgToNumber(outputParam);
+
+    // Fetch previously used settings from localstorage:
+    const [previousSettings] = useLocalstorage(slug);
+    const previousOutput = previousSettings?.output;
+    const previousRatio = previousSettings?.ratio;
+
+    // Combine parsed and loaded values into final value, and add defaults
+    // taken from the recipe's settings:
+    const output = parsedOutput || previousOutput || minOutput;
+    const ratio = parsedRatio || previousRatio || defaultRatio;
 
     const {
         current,
