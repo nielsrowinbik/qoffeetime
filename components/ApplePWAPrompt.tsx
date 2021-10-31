@@ -41,10 +41,13 @@ const ApplePWAPrompt = () => {
             'iPod',
         ].includes(navigator.platform) ||
         (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
+    const isInStandaloneMode = () =>
+        window.navigator['standalone'] === true ||
+        window.matchMedia('(display-mode: standalone)').matches;
     const onClose = () => setSeenPrompt(true);
 
     return (
-        <Portal isOpen={!seenPrompt && isIOS}>
+        <Portal isOpen={!seenPrompt && !isInStandaloneMode && isIOS}>
             <>
                 <aside className="fixed bottom-0 left-0 right-0 z-20 p-2">
                     <div className=" rounded-lg dark:bg-black dark:bg-opacity-60 dark:text-white bg-white bg-opacity-75 text-black bg-clip-padding backdrop-filter backdrop-blur-3xl">
