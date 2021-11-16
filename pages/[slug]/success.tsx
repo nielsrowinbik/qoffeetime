@@ -103,7 +103,7 @@ const TimerSuccessPage: FC<Recipe> = ({
                     ?
                 </p>
                 <a
-                    className="inline-block w-full py-3 opacity-80"
+                    className="inline-block w-full py-3 opacity-90"
                     href="https://www.buymeacoffee.com/nielsbik"
                     rel="noopener noreferrer"
                     target="_blank"
