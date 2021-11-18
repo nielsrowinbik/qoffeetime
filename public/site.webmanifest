@@ -48,8 +48,38 @@
             "type": "image/png"
         }
     ],
+    "shortcuts": [
+        {
+            "name": "Brew AeroPress",
+            "short_name": "AeroPress",
+            "description": "Brew a cup of coffee using the AeroPress",
+            "url": "/aeropress",
+            "icons": [
+                { "src": "/assets/icons/aeropress.png", "sizes": "256x256" }
+            ]
+        },
+        {
+            "name": "Brew French Press",
+            "short_name": "French Press",
+            "description": "Brew a cup of coffee using the French Press",
+            "url": "/french-press",
+            "icons": [
+                { "src": "/assets/icons/french-press.png", "sizes": "256x256" }
+            ]
+        },
+        {
+            "name": "Brew V60",
+            "short_name": "V60",
+            "description": "Brew a cup of coffee using the V60",
+            "url": "/v-sixty",
+            "icons": [
+                { "src": "/assets/icons/v-sixty.png", "sizes": "256x256" }
+            ]
+        }
+    ],
     "theme_color": "#ff1744",
     "background_color": "#ff1744",
     "start_url": "/",
-    "display": "standalone"
+    "display": "standalone",
+    "orientation": "portrait"
 }
