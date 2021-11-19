@@ -53,21 +53,21 @@
             "name": "AeroPress",
             "url": "/aeropress",
             "icons": [
-                { "src": "/assets/icons/aeropress.png", "sizes": "256x256" }
+                { "src": "/assets/icons/aeropress.png", "sizes": "320x320" }
             ]
         },
         {
             "name": "French Press",
             "url": "/french-press",
             "icons": [
-                { "src": "/assets/icons/french-press.png", "sizes": "256x256" }
+                { "src": "/assets/icons/french-press.png", "sizes": "320x320" }
             ]
         },
         {
             "name": "V60",
             "url": "/v-sixty",
             "icons": [
-                { "src": "/assets/icons/v-sixty.png", "sizes": "256x256" }
+                { "src": "/assets/icons/v-sixty.png", "sizes": "320x320" }
             ]
         }
     ],
