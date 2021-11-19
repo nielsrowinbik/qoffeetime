@@ -81,13 +81,7 @@
             "url": "/aeropress",
             "icons": [
                 {
-                    "purpose": "any",
                     "src": "/assets/icons/aeropress.png",
-                    "sizes": "320x320"
-                },
-                {
-                    "purpose": "maskable",
-                    "src": "/assets/icons/aeropress-maskable.png",
                     "sizes": "192x192"
                 }
             ]
@@ -97,13 +91,7 @@
             "url": "/french-press",
             "icons": [
                 {
-                    "purpose": "any",
                     "src": "/assets/icons/french-press.png",
-                    "sizes": "320x320"
-                },
-                {
-                    "purpose": "maskable",
-                    "src": "/assets/icons/french-press-maskable.png",
                     "sizes": "192x192"
                 }
             ]
@@ -113,13 +101,7 @@
             "url": "/v-sixty",
             "icons": [
                 {
-                    "purpose": "any",
                     "src": "/assets/icons/v-sixty.png",
-                    "sizes": "320x320"
-                },
-                {
-                    "purpose": "maskable",
-                    "src": "/assets/icons/v-sixty-maskable.png",
                     "sizes": "192x192"
                 }
             ]
