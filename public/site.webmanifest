@@ -39,7 +39,7 @@
             "url": "/aeropress/timer",
             "icons": [
                 {
-                    "src": "/assets/favicon/shortcut-aeropress-192x192.png",
+                    "src": "/assets/favicon/shortcut-aeropress-192x192.png?v=2",
                     "sizes": "192x192"
                 }
             ]
@@ -51,7 +51,7 @@
             "url": "/french-press/timer",
             "icons": [
                 {
-                    "src": "/assets/favicon/shortcut-french-press-192x192.png",
+                    "src": "/assets/favicon/shortcut-french-press-192x192.png?v=2",
                     "sizes": "192x192"
                 }
             ]
@@ -63,7 +63,7 @@
             "url": "/v-sixty/timer",
             "icons": [
                 {
-                    "src": "/assets/favicon/shortcut-v60-192x192.png",
+                    "src": "/assets/favicon/shortcut-v60-192x192.png?v=2",
                     "sizes": "192x192"
                 }
             ]
