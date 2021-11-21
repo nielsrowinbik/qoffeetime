@@ -81,7 +81,7 @@
             "url": "/aeropress",
             "icons": [
                 {
-                    "src": "/assets/icons/aeropress.png",
+                    "src": "/assets/icons/shortcut-decks-192x192.png",
                     "sizes": "192x192"
                 }
             ]
@@ -91,7 +91,7 @@
             "url": "/french-press",
             "icons": [
                 {
-                    "src": "/assets/icons/french-press.png",
+                    "src": "/assets/icons/shortcut-decks-192x192.png",
                     "sizes": "192x192"
                 }
             ]
@@ -101,7 +101,7 @@
             "url": "/v-sixty",
             "icons": [
                 {
-                    "src": "/assets/icons/v-sixty.png",
+                    "src": "/assets/icons/shortcut-decks-192x192.png",
                     "sizes": "192x192"
                 }
             ]
