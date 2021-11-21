@@ -4,82 +4,85 @@ const Document = () => (
     <Html lang="en" style={{ touchAction: 'none' }}>
         <Head>
             <meta charSet="utf-8" />
-            <link
-                rel="apple-touch-icon"
-                sizes="57x57"
-                href="/apple-touch-icon-57x57.png?v=2"
-            />
-            <link
-                rel="apple-touch-icon"
-                sizes="60x60"
-                href="/apple-touch-icon-60x60.png?v=2"
-            />
-            <link
-                rel="apple-touch-icon"
-                sizes="72x72"
-                href="/apple-touch-icon-72x72.png?v=2"
-            />
-            <link
-                rel="apple-touch-icon"
-                sizes="76x76"
-                href="/apple-touch-icon-76x76.png?v=2"
-            />
-            <link
-                rel="apple-touch-icon"
-                sizes="114x114"
-                href="/apple-touch-icon-114x114.png?v=2"
-            />
-            <link
-                rel="apple-touch-icon"
-                sizes="120x120"
-                href="/apple-touch-icon-120x120.png?v=2"
-            />
-            <link
-                rel="apple-touch-icon"
-                sizes="144x144"
-                href="/apple-touch-icon-144x144.png?v=2"
-            />
-            <link
-                rel="apple-touch-icon"
-                sizes="152x152"
-                href="/apple-touch-icon-152x152.png?v=2"
-            />
+
+            {/* Favicon: */}
             <link
                 rel="apple-touch-icon"
                 sizes="180x180"
-                href="/apple-touch-icon-180x180.png?v=2"
+                href="/assets/favicon/apple-touch-icon.png"
             />
             <link
                 rel="icon"
                 type="image/png"
                 sizes="32x32"
-                href="/favicon-32x32.png?v=2"
-            />
-            <link
-                rel="icon"
-                type="image/png"
-                sizes="192x192"
-                href="/android-chrome-192x192.png?v=2"
+                href="/assets/favicon/favicon-32x32.png"
             />
             <link
                 rel="icon"
                 type="image/png"
                 sizes="16x16"
-                href="/favicon-16x16.png?v=2"
+                href="/assets/favicon/favicon-16x16.png"
             />
-            <link rel="manifest" href="/site.webmanifest?v=2" />
-            <link
-                rel="mask-icon"
-                href="/safari-pinned-tab.svg?v=2"
-                color="#ff1744"
-            />
-            <link rel="shortcut icon" href="/favicon.ico?v=2" />
-            <meta name="msapplication-TileColor" content="#ff1744" />
+            <link rel="shortcut icon" href="/assets/favicon/favicon.ico" />
             <meta
-                name="msapplication-TileImage"
-                content="/mstile-144x144.png?v=2"
+                name="msapplication-config"
+                content="/assets/favicon/browserconfig.xml"
             />
+
+            <meta name="format-detection" content="telephone=no" />
+            <meta name="msapplication-tap-highlight" content="no" />
+
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+            <meta name="apple-mobile-web-app-title" content="DeckDeckGo" />
+
             <meta name="theme-color" content="#ff1744" />
+            <meta
+                name="apple-mobile-web-app-status-bar-style"
+                content="black-translucent"
+            />
+            <meta name="msapplication-TileColor" content="#ff1744" />
+
+            <meta http-equiv="x-ua-compatible" content="IE=Edge" />
+
+            {/* Splash screens: */}
+            <link
+                rel="apple-touch-startup-image"
+                href="/assets/splash/launch-640x1136.png"
+                media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            />
+            <link
+                rel="apple-touch-startup-image"
+                href="/assets/splash/launch-750x1334.png"
+                media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
+            />
+            <link
+                rel="apple-touch-startup-image"
+                href="/assets/splash/launch-1242x2208.png"
+                media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+            />
+            <link
+                rel="apple-touch-startup-image"
+                href="/assets/splash/launch-1125x2436.png"
+                media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
+            />
+            <link
+                rel="apple-touch-startup-image"
+                href="/assets/splash/launch-1536x2048.png"
+                media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+            />
+            <link
+                rel="apple-touch-startup-image"
+                href="/assets/splash/launch-1668x2224.png"
+                media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+            />
+            <link
+                rel="apple-touch-startup-image"
+                href="/assets/splash/launch-2048x2732.png"
+                media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"
+            />
+
+            {/* Manifest: */}
+            <link rel="manifest" href="/site.webmanifest" />
         </Head>
         <body className="min-h-screen overscroll-none bg-brand text-white">
             <Main />
