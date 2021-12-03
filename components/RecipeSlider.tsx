@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { useEmblaCarousel } from 'embla-carousel/react';
+import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback } from 'react';
@@ -65,7 +65,7 @@ const RecipeSlider = ({
     pagination = true,
     recipies,
 }: RecipeSliderProps) => {
-    const [emblaRef, embla] = useEmblaCarousel();
+    const [emblaRef, embla] = useEmblaCarousel({ skipSnaps: true });
 
     // Helper function to safely get the currently selected index:
     const getSelectedIndex = useCallback(
