@@ -65,14 +65,14 @@ const ApplePWAPrompt = () => {
                         </p>
                         <ol className="p-4 border-t text-gray-500">
                             <li className="flex items-center mb-4">
-                                <AppleShareIcon className="text-blue-600 w-6 h-6 flex-grow-0 flex-shrink-0 mr-3" />
+                                <AppleShareIcon className="text-blue-600 w-6 h-6 grow-0 shrink-0 mr-3" />
                                 <span className="leading-5 text-sm">
                                     Press the 'Share' button on the menu bar
                                     below.
                                 </span>
                             </li>
                             <li className="flex items-center">
-                                <AppleAddIcon className="text-gray-600 w-6 h-6 flex-grow-0 flex-shrink-0 mr-3" />
+                                <AppleAddIcon className="text-gray-600 w-6 h-6 grow-0 shrink-0 mr-3" />
                                 <span className="leading-5 text-sm">
                                     Press 'Add to Home Screen'.
                                 </span>
