@@ -12,9 +12,9 @@ $ cd qoffeetime
 ### With Docker:
 
 ```bash
-$ docker-compose run --rm qoffeetime npm ci # Only on first run to install dependencies
-$ docker-compose up # To start development server
-$ docker-compose exec qoffeetime sh # Run this to run commands within the container
+$ docker compose run --rm qoffeetime npm ci # Only on first run to install dependencies
+$ docker compose up # To start development server
+$ docker compose exec qoffeetime sh # Run this to run commands within the container
 ```
 
 ### Without Docker:
