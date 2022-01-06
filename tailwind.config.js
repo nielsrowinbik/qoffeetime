@@ -1,20 +1,19 @@
 module.exports = {
-    darkMode: 'media',
-    mode: 'jit',
+    content: [
+        './pages/**/*.tsx',
+        './components/**/*.tsx',
+        './layouts/**/*.tsx',
+    ],
     plugins: [
         require('tailwindcss-only-child'),
         require('@tailwindcss/typography'),
     ],
-    purge: ['./pages/**/*.tsx', './components/**/*.tsx', './layouts/**/*.tsx'],
     theme: {
         extend: {
             colors: {
-                // Red theme:
                 brand: '#ff1744',
                 coffee: '#8a0020',
-                // Green theme:
-                // brand: emerald['800'],
-                // coffee: '#4e342e',
+                current: 'currentColor',
             },
             typography: {
                 DEFAULT: {
@@ -34,8 +33,5 @@ module.exports = {
                 },
             },
         },
-    },
-    variants: {
-        borderRadius: ['responsive', 'only'],
     },
 };
