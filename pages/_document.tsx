@@ -42,7 +42,7 @@ const Document = () => (
             />
             <meta name="msapplication-TileColor" content="#ff1744" />
 
-            <meta http-equiv="x-ua-compatible" content="IE=Edge" />
+            <meta httpEquiv="x-ua-compatible" content="IE=Edge" />
 
             {/* Splash screens: */}
             <link
