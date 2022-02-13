@@ -332,7 +332,7 @@ const RatioSlider = ({
                     <tspan
                         className="font-bold text-lg"
                         {...outputLabelPosition}
-                        dy="1.4rem"
+                        dy="23"
                     >
                         {output}&nbsp;ml
                     </tspan>
@@ -347,7 +347,7 @@ const RatioSlider = ({
                     <tspan
                         className="font-bold text-lg"
                         {...coffeeLabelPosition}
-                        dy="1.4rem"
+                        dy="23"
                     >
                         {coffeeValue}&nbsp;g
                     </tspan>
