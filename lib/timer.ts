@@ -179,8 +179,12 @@ const parseSteps = (
     targetVars: Record<string, any>
 ): ParsedRecipeStep[] =>
     steps.reduce((res, step, i) => {
-        const target = parseInt(useTemplate(step.target, targetVars));
-        const description = useTemplate(step.description, { target });
+        const previousTarget = res[Math.max(i - 1, 0)]?.target || 0;
+        const target = parseInt(
+            useTemplate(step.target, { ...targetVars, previousTarget })
+        );
+        const toAdd = !!target ? target - previousTarget : 0;
+        const description = useTemplate(step.description, { target, toAdd });
         const duration = toMilliseconds(step.duration);
 
         return [
@@ -189,7 +193,7 @@ const parseSteps = (
                 ...step,
                 description,
                 duration,
-                target: !!target ? target : res[Math.max(i - 1, 0)]?.target,
+                target: target || previousTarget,
             },
         ];
     }, []);
