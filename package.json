@@ -30,7 +30,7 @@
         "react": "^17.0.2",
         "react-canvas-confetti": "^1.3.0",
         "react-dom": "^17.0.2",
-        "react-screen-wake-lock": "^1.1.10",
+        "react-screen-wake-lock": "^2.0.0",
         "rooks": "^5.11.0"
     },
     "devDependencies": {
