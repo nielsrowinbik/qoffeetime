@@ -20,7 +20,7 @@
     },
     "dependencies": {
         "@mdi/js": "^6.6.96",
-        "@mdi/react": "^1.6.0",
+        "@mdi/react": "^1.6.1",
         "classnames": "^2.3.1",
         "embla-carousel-react": "^7.0.2",
         "lodash.template": "^4.5.0",
