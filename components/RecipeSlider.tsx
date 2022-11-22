@@ -31,7 +31,7 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
                 },
             }}
         >
-            <a className="relative h-full bg-brand">
+            <div className="h-full bg-brand relative">
                 <Image
                     alt={recipe.name}
                     className="mix-blend-multiply opacity-60 rounded"
@@ -47,7 +47,7 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
                         {tagline}
                     </h3>
                 </header>
-            </a>
+            </div>
         </Link>
     );
 };

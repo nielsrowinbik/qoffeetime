@@ -1,24 +1,23 @@
-import { mdiPlayOutline, mdiPause, mdiStop } from '@mdi/js';
-import { NextSeo as Head } from 'next-seo';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import { useLocalstorage } from 'rooks';
-import type { FC } from 'react';
-
-import FooterLayout from '../../layouts/FooterLayout';
-import MainLayout from '../../layouts/MainLayout';
-import NavLayout from '../../layouts/NavLayout';
-import { queryArgToNumber } from '../../lib/helpers';
-import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
+import Button, { ButtonGroup } from '../../components/Button';
+import { getRecipeBySlug, getRecipeFiles } from '../../lib/recipies';
+import { mdiPause, mdiPlayOutline, mdiStop } from '@mdi/js';
 import { useBrewTimer, useWakeLock } from '../../lib/timer';
-import type { Recipe } from '../../lib/types';
 
 import BackButton from '../../components/BackButton';
-import Button, { ButtonGroup } from '../../components/Button';
 import CurrentStepDetails from '../../components/CurrentStepDetails';
+import type { FC } from 'react';
+import FooterLayout from '../../layouts/FooterLayout';
 import GoBack from '../../components/GoBack';
+import { NextSeo as Head } from 'next-seo';
+import MainLayout from '../../layouts/MainLayout';
+import NavLayout from '../../layouts/NavLayout';
+import type { Recipe } from '../../lib/types';
 import StepsList from '../../components/StepsList';
 import TimerStat from '../../components/TimerStat';
+import { queryArgToNumber } from '../../lib/helpers';
+import { useEffect } from 'react';
+import { useLocalstorage } from 'rooks';
+import { useRouter } from 'next/router';
 
 const TimerPage: FC<Recipe> = ({
     defaultRatio,
@@ -108,6 +107,7 @@ const TimerPage: FC<Recipe> = ({
                     <Button
                         hidden={isRunning}
                         icon={mdiPlayOutline}
+                        inGroup={!isReset}
                         onClick={() => start()}
                     >
                         Start
@@ -115,6 +115,7 @@ const TimerPage: FC<Recipe> = ({
                     <Button
                         hidden={!isRunning}
                         icon={mdiPause}
+                        inGroup={!isReset}
                         onClick={() => stop()}
                     >
                         Pause

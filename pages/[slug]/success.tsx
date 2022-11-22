@@ -1,24 +1,22 @@
-import { mdiCheck } from '@mdi/js';
-import { NextSeo as Head } from 'next-seo';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Confetti from 'react-canvas-confetti';
-import { useLocalstorage } from 'rooks';
-import type { FC } from 'react';
-
-import NavLayout from '../../layouts/NavLayout';
-import MainLayout from '../../layouts/MainLayout';
-import FooterLayout from '../../layouts/FooterLayout';
+import { getRecipeBySlug, getRecipeFiles } from '../../lib/recipies';
 import { queryArgToNumber, vibrate } from '../../lib/helpers';
-import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
-import type { Recipe } from '../../lib/types';
+import { useEffect, useState } from 'react';
 
-import BuyMeACoffee from '../../components/BuyMeACoffee';
 import Button from '../../components/Button';
+import BuyMeACoffee from '../../components/BuyMeACoffee';
+import Confetti from 'react-canvas-confetti';
+import type { FC } from 'react';
+import FooterLayout from '../../layouts/FooterLayout';
+import { NextSeo as Head } from 'next-seo';
 import LargeIcon from '../../components/LargeIcon';
-
+import Link from 'next/link';
+import MainLayout from '../../layouts/MainLayout';
+import NavLayout from '../../layouts/NavLayout';
+import type { Recipe } from '../../lib/types';
 import app from '../../package.json';
+import { mdiCheck } from '@mdi/js';
+import { useLocalstorage } from 'rooks';
+import { useRouter } from 'next/router';
 
 const TimerSuccessPage: FC<Recipe> = ({
     defaultRatio,
@@ -110,7 +108,7 @@ const TimerSuccessPage: FC<Recipe> = ({
                 >
                     <BuyMeACoffee className="w-2/6 mx-auto" />
                 </a>
-                <Link href="/" passHref replace>
+                <Link href="/" replace>
                     <Button>Continue</Button>
                 </Link>
             </FooterLayout>

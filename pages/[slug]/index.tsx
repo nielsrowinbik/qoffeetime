@@ -1,20 +1,19 @@
-import { NextSeo as Head } from 'next-seo';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useLocalstorage } from 'rooks';
-import type { FC } from 'react';
-
-import FooterLayout from '../../layouts/FooterLayout';
-import MainLayout from '../../layouts/MainLayout';
-import NavLayout from '../../layouts/NavLayout';
-import { queryArgToNumber } from '../../lib/helpers';
-import { getRecipeFiles, getRecipeBySlug } from '../../lib/recipies';
-import type { Recipe } from '../../lib/types';
+import { getRecipeBySlug, getRecipeFiles } from '../../lib/recipies';
 
 import BackButton from '../../components/BackButton';
 import Button from '../../components/Button';
+import type { FC } from 'react';
+import FooterLayout from '../../layouts/FooterLayout';
+import { NextSeo as Head } from 'next-seo';
+import Link from 'next/link';
+import MainLayout from '../../layouts/MainLayout';
+import NavLayout from '../../layouts/NavLayout';
 import RatioSlider from '../../components/RatioSlider';
 import RatioSliderHint from '../../components/RatioSliderHint';
+import type { Recipe } from '../../lib/types';
+import { queryArgToNumber } from '../../lib/helpers';
+import { useLocalstorage } from 'rooks';
+import { useRouter } from 'next/router';
 
 const SLIDER_HEIGHT = 320;
 
@@ -121,7 +120,6 @@ const RecipePage: FC<Recipe> = ({
                             ratio: ratio,
                         },
                     }}
-                    passHref
                 >
                     <Button>Next</Button>
                 </Link>
