@@ -1,7 +1,8 @@
-import cn from 'classnames';
-import { Children, cloneElement, forwardRef, isValidElement } from 'react';
-import type { HTMLProps, PropsWithChildren, ReactElement } from 'react';
+import type { HTMLProps, PropsWithChildren } from 'react';
+
 import Icon from '@mdi/react';
+import cn from 'classnames';
+import { forwardRef } from 'react';
 
 type ButtonProps = PropsWithChildren<
     HTMLProps<HTMLAnchorElement> &
@@ -57,13 +58,7 @@ const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(
 type ButtonGroupProps = PropsWithChildren<{}>;
 
 const ButtonGroup = ({ children }: ButtonGroupProps) => (
-    <div className="flex flex-row">
-        {Children.map(children, (child) => {
-            if (isValidElement(child))
-                return cloneElement(child, { inGroup: true });
-            return child;
-        })}
-    </div>
+    <div className="flex flex-row">{children}</div>
 );
 
 export default Button;
