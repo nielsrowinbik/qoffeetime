@@ -1,12 +1,11 @@
-import classNames from 'classnames';
-import useEmblaCarousel from 'embla-carousel-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Recipe } from '../lib/types';
+import classNames from 'classnames';
+import { insertBreakAtCapital } from '../lib/helpers';
 import { useCallback } from 'react';
 import { useEffect } from 'react';
-
-import { insertBreakAtCapital } from '../lib/helpers';
-import type { Recipe } from '../lib/types';
+import useEmblaCarousel from 'embla-carousel-react';
 
 type SliderRecipe = {
     latest?: {
@@ -34,6 +33,7 @@ const RecipeSlide = ({ latest, slug, tagline, ...recipe }: SliderRecipe) => {
         >
             <a className="relative h-full bg-brand">
                 <Image
+                    alt={recipe.name}
                     className="mix-blend-multiply opacity-60 rounded"
                     layout="fill"
                     objectFit="cover"
