@@ -1,6 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useWakeLock as useWakeLockHook } from 'react-screen-wake-lock';
-
+import type { ParsedRecipeStep, RecipeStep } from './types';
 import {
     formatTime,
     round,
@@ -8,7 +6,9 @@ import {
     useTemplate,
     vibrate,
 } from './helpers';
-import type { ParsedRecipeStep, RecipeStep } from './types';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import { useWakeLock as useWakeLockHook } from './wakelock';
 
 type TickFunction = (elapsed: number, delta: number) => any;
 
