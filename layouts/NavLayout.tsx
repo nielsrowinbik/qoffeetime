@@ -1,21 +1,21 @@
-import classNames from 'classnames';
-import type { PropsWithChildren } from 'react';
+import classNames from "classnames";
+import type { PropsWithChildren } from "react";
 
 type NavLayoutProps = PropsWithChildren<{
-    className?: string;
+  className?: string;
 }>;
 
 const NavLayout = ({ children, ...props }: NavLayoutProps) => {
-    const className = classNames(
-        'flex flex-row items-center px-2',
-        props.className
-    );
+  const className = classNames(
+    "flex flex-row items-center px-2",
+    props.className
+  );
 
-    return (
-        <nav className={className} style={{ gridArea: 'nav' }}>
-            {children}
-        </nav>
-    );
+  return (
+    <nav className={className} style={{ gridArea: "nav" }}>
+      {children}
+    </nav>
+  );
 };
 
 export default NavLayout;

@@ -1,0 +1,27 @@
+{
+  "name": "AeroPress",
+  "tagline": "James Hoffmann's recommended technique for making coffee with the AeroPress, one of the world’s most iconic coffee-brewing methods.",
+  "image": "/assets/images/aeropress.jpg",
+  "minOutput": 200,
+  "maxOutput": 200,
+  "defaultRatio": 55,
+  "steps": [
+    {
+      "description": "Pour in {{ target }} ml, wetting all the grounds",
+      "duration": 5,
+      "target": "{{ output }}"
+    },
+    {
+      "description": "Place the piston piece into the top, about 1cm in, and wait",
+      "duration": 125
+    },
+    {
+      "description": "Holding the brewer and piston, gently swirl, and wait",
+      "duration": 30
+    },
+    {
+      "description": "Press down gently until the brewer is empty",
+      "duration": 20
+    }
+  ]
+}

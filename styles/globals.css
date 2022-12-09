@@ -2,9 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-#__next,
-.app {
-    @apply grid grid-cols-1 h-full;
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  #__next,
+  .app {
+    @apply grid h-full grid-cols-1;
     grid-template-rows: 64px 1fr minmax(64px, max-content);
-    grid-template-areas: 'nav' 'main' 'footer';
+    grid-template-areas: "nav" "main" "footer";
+  }
 }
