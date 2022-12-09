@@ -1,72 +1,72 @@
 {
-    "name": "Qoffeetime",
-    "short_name": "Qoffeetime",
-    "display": "standalone",
-    "theme_color": "#ff1744",
-    "background_color": "#ff1744",
-    "scope": "/",
-    "start_url": "/",
-    "orientation": "portrait",
-    "icons": [
+  "name": "Qoffeetime",
+  "short_name": "Qoffeetime",
+  "display": "standalone",
+  "theme_color": "#ff1744",
+  "background_color": "#ff1744",
+  "scope": "/",
+  "start_url": "/",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/assets/favicon/icon-default-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/favicon/icon-default-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "/assets/favicon/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "src": "/assets/favicon/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "AeroPress",
+      "short_name": "AeroPress",
+      "description": "Brew a cup of coffee using your previously used AeroPress settings",
+      "url": "/aeropress/timer",
+      "icons": [
         {
-            "src": "/assets/favicon/icon-default-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "src": "/assets/favicon/icon-default-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
-        },
-        {
-            "purpose": "maskable",
-            "src": "/assets/favicon/android-chrome-192x192.png",
-            "sizes": "192x192",
-            "type": "image/png"
-        },
-        {
-            "purpose": "maskable",
-            "src": "/assets/favicon/android-chrome-512x512.png",
-            "sizes": "512x512",
-            "type": "image/png"
+          "src": "/assets/favicon/shortcut-aeropress-192x192.png?v=4",
+          "sizes": "192x192"
         }
-    ],
-    "shortcuts": [
+      ]
+    },
+    {
+      "name": "French Press",
+      "short_name": "French Press",
+      "description": "Brew a cup of coffee using your previously used French Press settings",
+      "url": "/french-press/timer",
+      "icons": [
         {
-            "name": "AeroPress",
-            "short_name": "AeroPress",
-            "description": "Brew a cup of coffee using your previously used AeroPress settings",
-            "url": "/aeropress/timer",
-            "icons": [
-                {
-                    "src": "/assets/favicon/shortcut-aeropress-192x192.png?v=4",
-                    "sizes": "192x192"
-                }
-            ]
-        },
-        {
-            "name": "French Press",
-            "short_name": "French Press",
-            "description": "Brew a cup of coffee using your previously used French Press settings",
-            "url": "/french-press/timer",
-            "icons": [
-                {
-                    "src": "/assets/favicon/shortcut-french-press-192x192.png?v=4",
-                    "sizes": "192x192"
-                }
-            ]
-        },
-        {
-            "name": "V60",
-            "short_name": "V60",
-            "description": "Brew a cup of coffee using your previously used V60 settings",
-            "url": "/v-sixty/timer",
-            "icons": [
-                {
-                    "src": "/assets/favicon/shortcut-v60-192x192.png?v=4",
-                    "sizes": "192x192"
-                }
-            ]
+          "src": "/assets/favicon/shortcut-french-press-192x192.png?v=4",
+          "sizes": "192x192"
         }
-    ]
+      ]
+    },
+    {
+      "name": "V60",
+      "short_name": "V60",
+      "description": "Brew a cup of coffee using your previously used V60 settings",
+      "url": "/v-sixty/timer",
+      "icons": [
+        {
+          "src": "/assets/favicon/shortcut-v60-192x192.png?v=4",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
 }

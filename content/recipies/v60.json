@@ -1,0 +1,64 @@
+{
+  "name": "V60",
+  "tagline": "James Hoffmann's recommended technique for making a single cup of coffee with the Hario V60.",
+  "image": "/assets/images/v-sixty.jpg",
+  "minOutput": 200,
+  "maxOutput": 350,
+  "defaultRatio": 60,
+  "steps": [
+    {
+      "description": "Quickly pour in {{ target }} ml",
+      "duration": 5,
+      "target": "{{ 0.2 * output }}"
+    },
+    {
+      "description": "Gently swirl to wet all the grounds",
+      "duration": 10
+    },
+    {
+      "description": "Wait and allow the coffee to bloom",
+      "duration": 30
+    },
+    {
+      "description": "Pour until you reach {{ target }} ml",
+      "duration": 15,
+      "target": "{{ 0.2 * output * 2 }}"
+    },
+    {
+      "description": "Pause",
+      "duration": 10
+    },
+    {
+      "description": "Pour until you reach {{ target }} ml",
+      "duration": 10,
+      "target": "{{ 0.2 * output * 3 }}"
+    },
+    {
+      "description": "Pause",
+      "duration": 10
+    },
+    {
+      "description": "Pour until you reach {{ target }} ml",
+      "duration": 10,
+      "target": "{{ 0.2 * output * 4 }}"
+    },
+    {
+      "description": "Pause",
+      "duration": 10
+    },
+    {
+      "description": "Pour until you reach {{ target }} ml",
+      "duration": 10,
+      "target": "{{ output }}"
+    },
+    {
+      "description": "Give your brew another gentle swirl",
+      "duration": 10
+    }
+  ],
+  "tips": [
+    "You should aim for a total brew time of approximately 3 minutes when brewing 250 ml of coffee.",
+    "If your brew draws down quicker or tastes too acidic, use a finer grind setting.",
+    "If your brew draws down slower or tastes too bitter, use a coarser grind setting."
+  ]
+}
