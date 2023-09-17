@@ -1,0 +1,31 @@
+{
+    "name": "Pour-over",
+    "tagline": "Lance Hendrick's recommended technique for making delicious pour-over coffee.",
+    "minOutput": 200,
+    "maxOutput": 500,
+    "defaultRatio": 60,
+    "steps": [
+        {
+            "description": "Pour in {{ target }} ml at a constant rate of 7 gr/s",
+            "duration": 10,
+            "target": "{{ Math.ceil((coffee * 3) / 10) * 10 }}"
+        },
+        {
+            "description": "Agitate the grounds with a spoon and bloom",
+            "duration": 90
+        },
+        {
+            "description": "Pour at a constant rate of 7 gr/s until you reach {{ target }} ml",
+            "duration": 40,
+            "target": "{{ output }}"
+        },
+        {
+            "description": "If draining slowly, swirl. If draining quickly, agitate",
+            "duration": 60
+        },
+        {
+            "description": "If not done by now, agitate less or grind coarser",
+            "duration": 10
+        },
+    ]
+}
